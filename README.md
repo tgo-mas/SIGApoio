@@ -12,7 +12,7 @@ Professor: Taciano Silva (Github: [TacianoSilva](https://github.com/tacianosilva
 | ------ | ------ | ----- |
 |Anderson| [AndersonAzeved](https://github.com/AndersonAzeved) |andersonsilva14.2017@gmail.com|
 |Cleomar| [Cleomar-Junior](https://github.com/Cleomar-Junior) |cl\_jr@outlook.com|
-|Ericleison| [Ericleisonn](https://github.com/https://github.com/) |ericleisonrn@gmail.com|
+|Ericleison| [Ericleisonn](https://github.com/Ericleisonn) |ericleisonrn@gmail.com|
 |Marlon| [MarlonHD](https://github.com/MarlonHD) |marlonsilva840@gmail.com|
 |Rafael| [garciaRafa](https://github.com/garciaRafa) |garciarafael.2298@gmail.com|
 |Thomas| [tgo-mas](https://github.com/tgo-mas) |talmeidasf@gmail.com|
@@ -20,4 +20,5 @@ Professor: Taciano Silva (Github: [TacianoSilva](https://github.com/tacianosilva
 ## Documentação
 
 [Documento de Visão](./docs/doc-visao.md)
+
 [Documento de User Stories](./docs/doc-userstories.md) 
