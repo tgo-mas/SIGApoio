@@ -51,3 +51,8 @@ Entidades são categorizadas como: **Entidade forte**, **entidade fraca** ou **e
 |Chefia|             |Solicita|
 |Bolsista|           |Empresta|
 |Recurso|            |Acompanha|
+
+
+
+
+[Referências (Lucidchart)](https://www.lucidchart.com/pages/pt/o-que-e-diagrama-entidade-relacionamento)
