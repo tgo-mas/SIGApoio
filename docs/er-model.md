@@ -36,7 +36,7 @@ Algo que pode ser definido e que pode ter dados armazenados sobre ele — como u
 Outros exemplos: Clientes que fizeram compras no mês passado, carros atualmente registrados na Flórida. Um termo relacionado é **‘instância’**, em que a pessoa ou carro específico (seguindo o exemplo) seria uma instância do conjunto de entidade. É importante diferenciar **o tipo de entidade com o conjunto de entidade.**
 
 ## Categorias de entidades: 
-Categorias de entidades: entidades são categorizadas como: Entidade forte, entidade fraca ou entidade associativa.
+Entidades são categorizadas como: **Entidade forte**, **entidade fraca** ou **entidade associativa.**
 
  Uma entidade forte pode ser definida unicamente pelos seus próprios atributos, enquanto uma entidade fraca não pode. Uma entidade associativa junta entidades (ou elementos) dentro de um conjunto de entidades. 
 
