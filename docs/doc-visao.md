@@ -57,7 +57,7 @@ RF15 - Exibir Estoque|Descrição: Exibe o estoque de itens que há disponível,
 RF16 - Visualizar Recurso|Descrição: Detalha um determinado recurso do estoque. |Ator: Servidor/Bolsista
 RF17 - Registrar Saída|Descrição: O indivíduo, informa o nome do servidor ou bolsista e o pedido de itens. |Ator: Servidor/Bolsista
 RF18 - Registrar Entrada|Descrição: O indivíduo devolve os itens pegos. |Ator: Servidor/Bolsista
-RF19 - Cadastrar Sala|Descrição: A sala tem os atributos bloco e número. |Ator: Servidor
+RF19 - Cadastrar Sala|Descrição: A sala tem os atributos bloco e número. Criar uma sala também cria uma bolsa com itens predefinidos e editáveis. |Ator: Servidor
 RF20 - Alterar Sala|Descrição: Pode alterar o bloco e número. |Ator: Servidor
 RF21 - Excluir Sala|Descrição: Pode remover uma sala do sistema. |Ator: Servidor
 RF22 - Listar Salas|Descrição: Exibe em lista todas as salas cadastradas indicando quais estão reservadas e disponíveis.|Ator: Servidor/Bolsista
@@ -74,6 +74,14 @@ RF32 - Listar solicitação de horário| Descrição: Efetua a listagem de todas
 RF33 - Detalhar solicitação de horário| Descrição: Exibe as informações de uma solicitação, como hora e data, horários solicitados, pessoa que solicitou.| Ator: Chefia
 RF34 - Excluir solicitação de horário| Descrição: Realiza a exclusão de uma solicitação.| Ator: Chefia
 RF35 - Aprovar solicitação de horário| Descrição: Efetua o deferimento ou indeferimento do horário solicitado.| Ator: Servidor
+RF36 - Alterar bolsa|Descrição: Permite alterar a lista de itens da bolsa referente. |Ator: Servidor/Bolsista|
+RF37 - Listar bolsas|Descrição: Visualizar brevemente cada bolsa, seu status e itens. |Ator: Servidor/Bolsista|
+RF38 - Detalhar bolsa|Descrição: Permite visualizar os detalhes da bolsa escolhida, e sua lista de itens, bem como exercer ações sobre a lista. |Ator: Servidor/Bolsista|
+RF39 - Adicionar item de bolsa |Descrição: Adiciona um determinado item ao kit de uma bolsa.| Ator: Servidor/Bolsista
+RF40 - Listar itens de bolsa |Descrição: Lista os itens do kit de uma bolsa.| Ator: Servidor/Bolsista
+RF41 - Remover item de bolsa |Descrição: Remove um determinado item do kit de uma bolsa.| Ator: Servidor/Bolsista
+RF42 - Registrar saída de bolsa |Descrição: Registra a saída (empréstimo) de uma bolsa (bolsista, docente, horário de saída, horário de devolução).| Ator: Servidor/Bolsista
+
 
 ### Modelo Conceitual
 
