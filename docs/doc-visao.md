@@ -50,11 +50,11 @@ RF08 - Listar Bolsista|Descrição: Mostrar todos os bolsistas cadastrados no si
 RF09 - Visualizar Bolsista|Descrição: Mostrar detalhadamente os atributos do bolsista selecionado. |Ator: Servidor/Bolsista
 RF10 - Excluir Bolsista|Descrição: Remover um bolsista selecionado do sistema. |Ator: Servidor
 RF11 - Visualizar histórico|Descrição: Exibir o histórico dos empréstimos e reservas, aplicando filtragens e ordenações se necessário.|Ator: Servidor/Bolsista
-RF12 - Incluir Item|Descrição: O item pode ser uma bolsinha de sala de aula, caixa de som, adaptador HDMI, notebook, projetor, dentre outros.|Ator: Servidor
-RF13 - Alterar Item|Descrição: Atualiza as informações de determinado item que há no estoque. |Ator: Servidor
-RF14 - Excluir Item|Descrição: Exclui um item ou mais itens do cadastro do sistema. |Ator: Servidor
+RF12 - Incluir Recurso|Descrição: Realiza o cadastro de Adaptador HDMI, Notebook, Projetor e Caixa de Som.|Ator: Servidor
+RF13 - Alterar Recurso|Descrição: Atualiza as informações de determinado recurso que há no estoque. |Ator: Servidor
+RF14 - Excluir Recurso|Descrição: Exclui um recurso ou mais recursos do cadastro do sistema. |Ator: Servidor
 RF15 - Exibir Estoque|Descrição: Exibe o estoque de itens que há disponível, podendo filtrar para itens que não estão disponíveis.|Ator: Servidor/Bolsista
-RF16 - Visualizar Item|Descrição: Detalha um determinado item do estoque. |Ator: Servidor/Bolsista
+RF16 - Visualizar Recurso|Descrição: Detalha um determinado recurso do estoque. |Ator: Servidor/Bolsista
 RF17 - Registrar Saída|Descrição: O indivíduo, informa o nome do servidor ou bolsista e o pedido de itens. |Ator: Servidor/Bolsista
 RF18 - Registrar Entrada|Descrição: O indivíduo devolve os itens pegos. |Ator: Servidor/Bolsista
 RF19 - Cadastrar Sala|Descrição: A sala tem os atributos bloco e número. |Ator: Servidor
@@ -64,8 +64,8 @@ RF22 - Listar Salas|Descrição: Exibe em lista todas as salas cadastradas indic
 RF23 - Visualizar Sala|Descrição: Exibe o horário de reserva de uma sala.|Ator: Servidor/Bolsista
 RF24 - Cadastrar Reserva de Sala|Descrição: Efetua a reserva de uma sala caso esteja disponível |Ator: Servidor
 RF25 - Excluir Reserva de Sala|Descrição: Remoção da sala da lista de reservas |Ator: Servidor
-RF26 - Cadastrar Reserva de Item|Descrição: Efetua a reserva de um item caso esteja disponível |Ator: Servidor/Bolsista
-RF27 - Excluir Reserva de Item |Descrição: Faz a exclusão de uma reserva|Ator: Servidor/Bolsista
+RF26 - Cadastrar Reserva de Recurso|Descrição: Efetua a reserva de um recurso caso esteja disponível |Ator: Servidor/Bolsista
+RF27 - Excluir Reserva de Recurso |Descrição: Faz a exclusão de uma reserva|Ator: Servidor/Bolsista
 RF28 - Relatório de reserva de salas no mês|Descrição: Exibe um relatório de todas as salas e suas reservas. |Ator: Servidor/Bolsista
 RF29 - Relatório de reserva de itens no mês|Descrição: Exibe um relatório de determinados itens e suas reservas. |Ator: Servidor/Bolsista|
 RF30 - Adicionar solicitação de horário| Descrição: Pode realizar a solicitação de horário.| Ator: Chefia
@@ -99,7 +99,7 @@ Data | Risco | Prioridade | Responsável | Status | Providência/Solução |
 ------ | ------ | ------ | ------ | ------ | ------ |
 29/02/2024 | Não aprendizado das ferramentas utilizadas pelos componentes do grupo | Alta | Todos | Vigente | Reforçar estudos sobre as ferramentas e aulas com a integrante que conhece a ferramenta |
 |04/12/2023|Não aprendizado da ferramenta pelos servidores e bolsistas do setor|Alta|Servidor|Vigente|Reforçar estudos sobre a ferramenta e workshops para melhor uso desta.|
-|04/12/2023|Não devolução integral pelo requerente do item emprestado.|Alta|Servidor/ Bolsista|Vigente|Vincular contato do requerente para envio de lembrete do prazo de devolução.|
+|04/12/2023|Não devolução integral pelo requerente do recurso emprestado.|Alta|Servidor/ Bolsista|Vigente|Vincular contato do requerente para envio de lembrete do prazo de devolução.|
 |04/12/2023|Falta de salas disponíveis para reserva no horário requisitado pelo servidor no horário da reserva..|Baixa|Servidor/ Bolsista|Vigente|Estímulo pelo servidor à reserva de salas ou horários não requisitados.
 |05/12/2023|Falta de conectividade à Internet no Campus.|Média|Todos|Vigente|Registro em papel das ocorrências, atualizando o banco de dados posteriormente.|
 
