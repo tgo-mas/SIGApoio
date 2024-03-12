@@ -85,7 +85,7 @@ RF42 - Registrar saída de bolsa |Descrição: Registra a saída (empréstimo) d
 
 ### Modelo Conceitual
 
-Construiremos o Modelo Conceitual usando Mermaid.JS.
+[Modelo Entidade-Relacionamento do SIGApoio](./er-model.md)
 
 #### Descrição das Entidades
 
