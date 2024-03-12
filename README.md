@@ -22,3 +22,5 @@ Professor: Taciano Silva (Github: [TacianoSilva](https://github.com/tacianosilva
 [Documento de Visão](./docs/doc-visao.md)
 
 [Documento de User Stories](./docs/doc-userstories.md) 
+
+[Plano de Iterações](./docs/plano-iteracoes.md)
