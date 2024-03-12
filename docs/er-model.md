@@ -1,27 +1,7 @@
 # Modelo ER (Entidade Relacionamento v0.1)
 
 
-flowchart TD
-{
-    Usuario["Usuário"] --> Docente["Docente"] & Servidor["Servidor"] & Bolsista["Bolsista"] & Chefia["Chefia"]
-    Docente -- Abre --> Chamado["Chamado"]
-    Servidor -- Aprova --> Reserva_de_salas["Reserva de Salas"]
 
-
-    Reserva_de_salas -- reserva --> Sala["Sala"]
-    Sala --> |acompanha| Bolsa[Bolsa fa:fa-car]
-    
-    Bolsista --> |empresta| Chave --> Possui
-    Possui --> autorizacao[fa:fa-car Autorização]
-
-    Chefia --> |solicita| Reserva_de_salas 
-
-    Usuario --> |reserva| Recurso
-    Recurso --> Notebook
-    Recurso --> Caixadesom["Caixa de som"]
-    Recurso --> Projetor
-    Recurso --> 
-    
 ## Componentes e funcionalidades de um diagrama ER
 Diagramas ER são compostos de entidades, relacionamentos e atributos. Eles também descrevem a cardinalidade, que define as relações em termos de números. 
 
@@ -40,6 +20,29 @@ Entidades são categorizadas como: **Entidade forte**, **entidade fraca** ou **e
 
  Uma entidade forte pode ser definida unicamente pelos seus próprios atributos, enquanto uma entidade fraca não pode. Uma entidade associativa junta entidades (ou elementos) dentro de um conjunto de entidades. 
 
+```mermaid
+erDiagram
+Usuario ||--|{ Docente: Tipo
+Usuario ||--|{ Servidor: Tipo
+Usuario ||--|{ Bolsista: Tipo
+Usuario ||--|{ Chefia: Tipo
+
+Docente ||--|{ Chamado : Abre
+Servidor ||--|{ Reserva_de_Salas: Aprova 
+Reserva_de_Salas ||--|{ Sala : Reserva
+Sala ||--||  Bolsa--- :Acompanha
+Bolsista ||--|| Chave :Empresta
+Chave ||--|{ Autorizado-- :Possui
+Chefia  ||--|{Reserva_de_Salas: Solicita
+
+Usuario ||--|{ Recurso : Reserva
+Recurso }|--|{ Bolsista : Empresta 
+%% Muitos para muitos? 
+Recurso ||--|| Adaptador : Pode ser
+Recurso ||--|| Caixa_de_som: Pode ser
+Recurso ||--|| Projetor : Pode ser
+Recurso ||--|| Notebook : Pode ser 
+```
 
 
 ## Listando entidades do projeto
