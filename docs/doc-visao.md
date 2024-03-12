@@ -81,7 +81,8 @@ RF39 - Adicionar item de bolsa |Descrição: Adiciona um determinado item ao kit
 RF40 - Listar itens de bolsa |Descrição: Lista os itens do kit de uma bolsa.| Ator: Servidor/Bolsista
 RF41 - Remover item de bolsa |Descrição: Remove um determinado item do kit de uma bolsa.| Ator: Servidor/Bolsista
 RF42 - Registrar saída de bolsa |Descrição: Registra a saída (empréstimo) de uma bolsa (bolsista, docente, horário de saída, horário de devolução).| Ator: Servidor/Bolsista
-
+RFIGNORE - teste babado babadeiro trovao PUUMMM|Descrição: E o rato| Ator: Alguem
+mudei de novoo
 
 ### Modelo Conceitual
 
