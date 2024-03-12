@@ -68,6 +68,12 @@ RF26 - Cadastrar Reserva de Item|Descrição: Efetua a reserva de um item caso e
 RF27 - Excluir Reserva de Item |Descrição: Faz a exclusão de uma reserva|Ator: Servidor/Bolsista
 RF28 - Relatório de reserva de salas no mês|Descrição: Exibe um relatório de todas as salas e suas reservas. |Ator: Servidor/Bolsista
 RF29 - Relatório de reserva de itens no mês|Descrição: Exibe um relatório de determinados itens e suas reservas. |Ator: Servidor/Bolsista|
+RF30 - Adicionar solicitação de horário| Descrição: Pode realizar a solicitação de horário.| Ator: Chefia
+RF31 - Editar solicitação de horário| Descrição: Realiza a edição de solicitação em aberto.| Ator: Chefia
+RF32 - Listar solicitação de horário| Descrição: Efetua a listagem de todas as solicitações cadastradas, filtrando por pendentes, canceladas, concluídas.| Ator: Chefia
+RF33 - Detalhar solicitação de horário| Descrição: Exibe as informações de uma solicitação, como hora e data, horários solicitados, pessoa que solicitou.| Ator: Chefia
+RF34 - Excluir solicitação de horário| Descrição: Realiza a exclusão de uma solicitação.| Ator: Chefia
+RF35 - Aprovar solicitação de horário| Descrição: Efetua o deferimento ou indeferimento do horário solicitado.| Ator: Servidor
 
 ### Modelo Conceitual
 
