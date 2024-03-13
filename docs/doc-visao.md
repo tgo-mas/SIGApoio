@@ -93,6 +93,10 @@ RF51 - Incluir saída de chave|Descirção: Registra uma saída de chave, altera
 RF52 - Editar saída de chave|Descirção: Permite corrigir uma saída de chave com algum erro. |Ator: Servidor/Bolsista
 RF53 - Listar saída de chave|Descirção: Exibe uma lista das chaves que já foram pegas. |Ator: Servidor/Bolsista
 RF54 - Excluir saída de chave|Descirção: Registra uma devolução de chave, alterando seu status. |Ator: Servidor/Bolsista
+RF55 - Cadastro de usuário |Descrição: O sistema deve permitir que novos usuários se cadastrem fornecendo as seguintes informações: matrícula, nome, e-mail, senha e tipo de perfil. |Ator: Chefia/Servidor/Bolsista/Docente
+RF56 - Login de usuário |Descrição: Os usuários devem ser capazes de fazer login no sistema usando suas credenciais. |Ator: Chefia/Servidor/Bolsista/Docente
+RF57 - Logout de usuário |Descrição: O sistema deve fornecer uma funcionalidade para que os usuários façam logout de suas contas. |Ator: Chefia/Servidor/Bolsista/Docente
+RF58 - Remoção de conta de usuário |Descrição: Os usuários devem ter a opção de remover suas contas do sistema. |Ator: Chefia/Servidor/Bolsista/Docente
 
 ### Modelo Conceitual
 
@@ -109,6 +113,7 @@ RNF02 - Deve ser multiplataforma. | Deve funcionar no Linux, Windows e Android
 RNF03 - Deve ser feito o log de ações dos usuários. | As ações dos usuários serão registradas.
 RNF04 - Deve ser responsivo. | Responder corretamente a diferentes tamanhos de tela.
 RNF05 - Deve manter o histórico de registros em Banco de Dados. | Será usado o SGBD PostgreSQL para armazenar os dados.
+RNF06 - Deve ter diferentes níveis de permissões para cada perfil. | Cada perfil de usuário terá acesso apenas às funcionalidades e dados relevantes às suas responsabilidades e autorizações.
 
 ## Riscos
 
