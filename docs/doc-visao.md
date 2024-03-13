@@ -81,11 +81,22 @@ RF39 - Adicionar item de bolsa |Descrição: Adiciona um determinado item ao kit
 RF40 - Listar itens de bolsa |Descrição: Lista os itens do kit de uma bolsa.| Ator: Servidor/Bolsista
 RF41 - Remover item de bolsa |Descrição: Remove um determinado item do kit de uma bolsa.| Ator: Servidor/Bolsista
 RF42 - Registrar saída de bolsa |Descrição: Registra a saída (empréstimo) de uma bolsa (bolsista, docente, horário de saída, horário de devolução).| Ator: Servidor/Bolsista
-RF43 - Cadastro de usuário |Descrição: O sistema deve permitir que novos usuários se cadastrem fornecendo as seguintes informações: matrícula, nome, e-mail, senha e tipo de perfil. |Ator: Chefia/Servidor/Bolsista/Docente
-RF44 - Login de usuário |Descrição: Os usuários devem ser capazes de fazer login no sistema usando suas credenciais. |Ator: Chefia/Servidor/Bolsista/Docente
-RF45 - Logout de usuário |Descrição: O sistema deve fornecer uma funcionalidade para que os usuários façam logout de suas contas. |Ator: Chefia/Servidor/Bolsista/Docente
-RF46 - Remoção de conta de usuário |Descrição: Os usuários devem ter a opção de remover suas contas do sistema. |Ator: Chefia/Servidor/Bolsista/Docente
-
+RF43 - Adicionar chave|Descrição: A chave possui seu número associado a sua sala correspondente, status e uma lista de pessoas autorizadas a pegarem a mesma. |Ator: Servidor/Bolsista
+RF44 - Alterar chave|Descrição: Permite a correção de alguma informação referente a chave. |Ator: Servidor/Bolsista
+RF45 - Listar chaves|Descrição: Exibe a lista de todas as chaves cadastradas e seus respectivos status. |Ator: Servidor/Bolsista
+RF46 - Excluir chave|Descrição: Exclui uma chave |Ator: Servidor/Bolsista
+RF47 - Adicionar autorizado|Descrição: Adicionar um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF48 - Editar autorizado|Descrição: Editar Lista de usuários autorizados a pegar uma chave. |Ator: Servidr/Bolsista
+RF49 - Listar autorizados|Descrição: Listar usuários autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF50 - Excluir autorizado|Descirção: Excluir um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF51 - Incluir saída de chave|Descirção: Registra uma saída de chave, alterando o status da mesma. |Ator: Servidor/Bolsista
+RF52 - Editar saída de chave|Descirção: Permite corrigir uma saída de chave com algum erro. |Ator: Servidor/Bolsista
+RF53 - Listar saída de chave|Descirção: Exibe uma lista das chaves que já foram pegas. |Ator: Servidor/Bolsista
+RF54 - Excluir saída de chave|Descirção: Registra uma devolução de chave, alterando seu status. |Ator: Servidor/Bolsista
+RF55 - Cadastro de usuário |Descrição: O sistema deve permitir que novos usuários se cadastrem fornecendo as seguintes informações: matrícula, nome, e-mail, senha e tipo de perfil. |Ator: Chefia/Servidor/Bolsista/Docente
+RF56 - Login de usuário |Descrição: Os usuários devem ser capazes de fazer login no sistema usando suas credenciais. |Ator: Chefia/Servidor/Bolsista/Docente
+RF57 - Logout de usuário |Descrição: O sistema deve fornecer uma funcionalidade para que os usuários façam logout de suas contas. |Ator: Chefia/Servidor/Bolsista/Docente
+RF58 - Remoção de conta de usuário |Descrição: Os usuários devem ter a opção de remover suas contas do sistema. |Ator: Chefia/Servidor/Bolsista/Docente
 
 ### Modelo Conceitual
 
