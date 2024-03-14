@@ -66,11 +66,21 @@ RF24 - Alterar Sala|Descrição: Pode alterar o bloco e número. |Ator: Servidor
 RF25 - Excluir Sala|Descrição: Pode remover uma sala do sistema. |Ator: Servidor
 RF26 - Listar Salas|Descrição: Exibe em lista todas as salas cadastradas indicando quais estão reservadas e disponíveis.|Ator: Servidor/Bolsista
 RF27 - Visualizar Sala|Descrição: Exibe o horário de reserva de uma sala.|Ator: Servidor/Bolsista
-RF28 - Cadastrar Reserva de Sala|Descrição: Efetua a reserva de uma sala caso esteja disponível |Ator: Servidor
-RF29 - Excluir Reserva de Sala|Descrição: Remoção da sala da lista de reservas |Ator: Servidor
+RF23 - Cadastrar Laboratório|Descrição: O Laboratório tem os atributos bloco e número. Criar um Laboratório também cria uma chave com lista de autorizados editável. |Ator: Servidor
+RF24 - Alterar Laboratório|Descrição: Pode alterar o bloco e número. |Ator: Servidor
+RF25 - Excluir Laboratório|Descrição: Pode remover um Laboratório do sistema. |Ator: Servidor
+RF26 - Listar Laboratórios|Descrição: Exibe em lista todos os Laboratórios cadastrados indicando quais estão reservados e/ou disponíveis.|Ator: Servidor/Bolsista
+RF27 - Visualizar Laboratório|Descrição: Exibe os horários de reserva de um Laboratório.|Ator: Servidor/Bolsista
+RF23 - Cadastrar Auditório|Descrição: O Auditório tem os atributos nome e ID. Criar um Auditório também cria uma chave com lista de autorizados editável. |Ator: Servidor
+RF24 - Alterar Auditório|Descrição: Pode alterar o nome. |Ator: Servidor
+RF25 - Excluir Auditório|Descrição: Pode remover um Auditório do sistema. |Ator: Servidor
+RF26 - Listar Auditórios|Descrição: Exibe em lista todos os Auditórios cadastrados indicando quais estão reservados e/ou disponíveis.|Ator: Servidor/Bolsista
+RF27 - Visualizar Auditório|Descrição: Exibe os horários de reserva de um Auditório.|Ator: Servidor/Bolsista
+RF28 - Cadastrar Reserva de local|Descrição: Efetua a reserva de um local caso esteja disponível |Ator: Servidor
+RF29 - Excluir Reserva de local|Descrição: Remoção do local da lista de reservas |Ator: Servidor
 RF30 - Cadastrar Reserva de Recurso|Descrição: Efetua a reserva de um recurso caso esteja disponível |Ator: Servidor/Bolsista
 RF31 - Excluir Reserva de Recurso |Descrição: Faz a exclusão de uma reserva|Ator: Servidor/Bolsista
-RF32 - Relatório de reserva de salas no mês|Descrição: Exibe um relatório de todas as salas e suas reservas. |Ator: Servidor/Bolsista
+RF32 - Relatório de reserva de locais no mês|Descrição: Exibe um relatório de todas os locais e suas reservas. |Ator: Servidor/Bolsista
 RF33 - Relatório de reserva de itens no mês|Descrição: Exibe um relatório de determinados itens e suas reservas. |Ator: Servidor/Bolsista|
 RF34 - Adicionar solicitação de horário| Descrição: Pode realizar a solicitação de horário.| Ator: Chefia
 RF35 - Editar solicitação de horário| Descrição: Realiza a edição de solicitação em aberto.| Ator: Chefia
