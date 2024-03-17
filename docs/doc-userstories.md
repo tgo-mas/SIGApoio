@@ -1,7 +1,6 @@
-
 # Documento Lista de User Stories
 
-Documento construído a partido do **Modelo BSI - Doc 004 - Lista de User Stories** que pode ser encontrado no
+Documento construído a partido do *Modelo BSI - Doc 004 - Lista de User Stories* que pode ser encontrado no
 link: https://docs.google.com/document/d/1Ns2J9KTpLgNOpCZjXJXw_RSCSijTJhUx4zgFhYecEJg/edit?usp=sharing
 
 ## Descrição
@@ -22,9 +21,9 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve manter um cadastro de servidor que tem acesso ao sistema via login e senha. Um servidor tem os atributos matrícula, nome, endereço, email, telefone e senha. A matrícula será o login e ele pode registrar-se diretamente no sistema. Ele pode realizar alterações de endereço, e-mail e telefone, além de poder visualizar todos os servidores cadastrados. |
+| *Descrição* | O sistema deve manter um cadastro de servidor que tem acesso ao sistema via login e senha. Um servidor tem os atributos matrícula, nome, endereço, email, telefone e senha. A matrícula será o login e ele pode registrar-se diretamente no sistema. Ele pode realizar alterações de endereço, e-mail e telefone, além de poder visualizar todos os servidores cadastrados. |
 
-| **Requisitos envolvidos** | **Descrição**                                                  |
+| *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
 | RF01          | Incluir Servidor |
 | RF02          | Alterar Servidor  |
@@ -34,24 +33,24 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
-| **Prioridade**            | Essencial                           | 
-| **Estimativa**            | 10h                                 | 
-| **Tempo Gasto (real):**   |                                     | 
-| **Tamanho Funcional**     | 13 PF                               | 
-| **Analista**              | Ericleison                          | 
-| **Desenvolvedor**         | Thomas                              | 
-| **Revisor**               | Marlon                              | 
-| **Testador**              | Rafael                              | 
+| *Prioridade*            | Essencial                           | 
+| *Estimativa*            | 10h                                 | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 13 PF                               | 
+| *Analista*              | Ericleison                          | 
+| *Desenvolvedor*         | Thomas                              | 
+| *Revisor*               | Marlon                              | 
+| *Testador*              | Rafael                              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
-| **Código**  | **Descrição** |
-| **TA01.01** | O servidor informa, na tela Registrar, todos os dados para registrar-se corretamente, ao clicar em **Salvar** ele é encaminhado para a tela principal do sistema e notificado com uma mensagem de sucesso. Mensagem: *Cadastro realizado com sucesso*. |
-| **TA01.02** | O servidor informa, na tela Registrar, os dados para registrar-se incorretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de erro. Mensagem: *Cadastro não realizado, o campo “xxxx” não foi informado corretamente.* |
-| **TA01.03** | O servidor informa, na tela Login, os dados para logar corretamente, ao clicar em **Entrar** ele é encaminhado para a tela principal do sistema. É exibida a Mensagem: *Login realizado com sucesso.* |
-| **TA01.04** | O servidor informa, na tela Login, os dados para logar incorretamente, ao clicar em **Entrar** ele é notificado com uma mensagem de erro. Mensagem: *Login e/ou senha incorreta*. |
-| **TA01.05** | O servidor navega até a área de configurações do perfil, e clica em **Excluir conta.** Ele deve então digitar sua senha para confirmar a decisão, recebendo uma mensagem de confirmação. Mensagem: *Conta removida com sucesso.* |
+| *Código*  | *Descrição* |
+| *TA01.01* | O servidor informa, na tela Registrar, todos os dados para registrar-se corretamente, ao clicar em *Salvar* ele é encaminhado para a tela principal do sistema e notificado com uma mensagem de sucesso. Mensagem: Cadastro realizado com sucesso. |
+| *TA01.02* | O servidor informa, na tela Registrar, os dados para registrar-se incorretamente, ao clicar em *Salvar* ele é notificado com uma mensagem de erro. Mensagem: Cadastro não realizado, o campo “xxxx” não foi informado corretamente. |
+| *TA01.03* | O servidor informa, na tela Login, os dados para logar corretamente, ao clicar em *Entrar* ele é encaminhado para a tela principal do sistema. É exibida a Mensagem: Login realizado com sucesso. |
+| *TA01.04* | O servidor informa, na tela Login, os dados para logar incorretamente, ao clicar em *Entrar* ele é notificado com uma mensagem de erro. Mensagem: Login e/ou senha incorreta. |
+| *TA01.05* | O servidor navega até a área de configurações do perfil, e clica em *Excluir conta.* Ele deve então digitar sua senha para confirmar a decisão, recebendo uma mensagem de confirmação. Mensagem: Conta removida com sucesso. |
 
 | Protótipo de telas |
 | ------------------ |
@@ -61,9 +60,9 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve manter um cadastro de bolsista que tem acesso ao sistema via login e senha. Um bolsista tem os atributos matricula, nome, endereço, email, telefone e escala. O email será</p><p>o login e ele deve ser registrado no sistema por um servidor. O bolsista pode alterar o email, endereço e telefone, além de poder visualizar os demais bolsistas cadastrados. |
+| *Descrição* | O sistema deve manter um cadastro de bolsista que tem acesso ao sistema via login e senha. Um bolsista tem os atributos matricula, nome, endereço, email, telefone e escala. O email será</p><p>o login e ele deve ser registrado no sistema por um servidor. O bolsista pode alterar o email, endereço e telefone, além de poder visualizar os demais bolsistas cadastrados. |
 
-| **Requisitos envolvidos** | **Descrição**                                                  |
+| *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
 | RF06          | Incluir Bolsista    |
 | RF07          | Alterar Bolsista    |
@@ -73,32 +72,32 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
-| **Prioridade**            | Essencial                           | 
-| **Estimativa**            | 5h                                  | 
-| **Tempo Gasto (real):**   |                                     | 
-| **Tamanho Funcional**     | 12 PF                               | 
-| **Analista**              | Thomas                              | 
-| **Desenvolvedor**         | Ericleison                          | 
-| **Revisor**               | Cleomar                             | 
-| **Testador**              | Rafael                              | 
+| *Prioridade*            | Essencial                           | 
+| *Estimativa*            | 5h                                  | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 12 PF                               | 
+| *Analista*              | Thomas                              | 
+| *Desenvolvedor*         | Ericleison                          | 
+| *Revisor*               | Cleomar                             | 
+| *Testador*              | Rafael                              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
-| **Código**  | **Descrição** |
-| **TA02.01** | O servidor informa, na tela Registrar, todos os dados para registrar um bolsista corretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de sucesso. Mensagem: *Cadastro realizado com sucesso.* |
-| **TA02.02** | O servidor informa, na tela Registrar, os dados para registrar um bolsista incorretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de erro. Mensagem: *Cadastro não realizado, o campo “xxxx” não foi informado corretamente.* |
-| **TA02.03** | O bolsista informa, na tela Login, os dados para logar corretamente, ao clicar em **Entrar** ele é encaminhado para a tela principal do sistema. É exibida a Mensagem: Login realizado com sucesso. |
-| **TA02.04** | O bolsista informa, na tela Login, os dados para logar incorretamente, ao clicar em **Entrar** ele é notificado com uma mensagem de erro. Mensagem: *Login e/ou senha incorreta*. |
-| **TA02.05** | O servidor navega até a área de configurações do perfil do bolsista, e clica em **Excluir conta.** Ele deve então digitar sua senha para confirmar a decisão, recebendo uma mensagem de confirmação. Mensagem: *Conta removida com sucesso.* |
+| *Código*  | *Descrição* |
+| *TA02.01* | O servidor informa, na tela Registrar, todos os dados para registrar um bolsista corretamente, ao clicar em *Salvar* ele é notificado com uma mensagem de sucesso. Mensagem: Cadastro realizado com sucesso. |
+| *TA02.02* | O servidor informa, na tela Registrar, os dados para registrar um bolsista incorretamente, ao clicar em *Salvar* ele é notificado com uma mensagem de erro. Mensagem: Cadastro não realizado, o campo “xxxx” não foi informado corretamente. |
+| *TA02.03* | O bolsista informa, na tela Login, os dados para logar corretamente, ao clicar em *Entrar* ele é encaminhado para a tela principal do sistema. É exibida a Mensagem: Login realizado com sucesso. |
+| *TA02.04* | O bolsista informa, na tela Login, os dados para logar incorretamente, ao clicar em *Entrar* ele é notificado com uma mensagem de erro. Mensagem: Login e/ou senha incorreta. |
+| *TA02.05* | O servidor navega até a área de configurações do perfil do bolsista, e clica em *Excluir conta.* Ele deve então digitar sua senha para confirmar a decisão, recebendo uma mensagem de confirmação. Mensagem: Conta removida com sucesso. |
 
 ### User Story US03 - Manter salas
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve manter um cadastro de salas por usuário. Uma sala pode ter várias reservas e tem os atributos identificação, e reservas. Cada sala possui um histórico de reservas, que poderá ser acessado pelos servidores e bolsistas. |
+| *Descrição* | O sistema deve manter um cadastro de salas por usuário. Uma sala pode ter várias reservas e tem os atributos identificação, e reservas. Cada sala possui um histórico de reservas, que poderá ser acessado pelos servidores e bolsistas. |
 
-| **Requisitos envolvidos** | **Descrição**                                                  |
+| *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
 | RF19          | Cadastrar Sala |
 | RF20          | Alterar Sala  |
@@ -108,90 +107,92 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
-| **Prioridade**            | Importante                          | 
-| **Estimativa**            | 8h                                  | 
-| **Tempo Gasto (real):**   |                                     | 
-| **Tamanho Funcional**     | 10 PF                               | 
-| **Analista**              | Marlon                              | 
-| **Desenvolvedor**         | Anderson                            | 
-| **Revisor**               | Cleomar                             | 
-| **Testador**              | Rafael                              | 
+| *Prioridade*            | Importante                          | 
+| *Estimativa*            | 8h                                  | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 10 PF                               | 
+| *Analista*              | Marlon                              | 
+| *Desenvolvedor*         | Anderson                            | 
+| *Revisor*               | Cleomar                             | 
+| *Testador*              | Rafael                              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
-| **Código**  | **Descrição** |
-| **TA03.01** | O usuário preenche a identificação da sala no formulário de cadastro de Sala e depois clica em **Salvar**. O sistema exibe a mensage: *Sala {id} cadastrada com sucesso*. |
-| **TA03.02** | Tentar cadastrar com erro, exibir uma das mensagens de erro: MSG001: *O campo {id} é obrigatório.* MSG002: *A sala {id} já existe.* |
-| **TA03.03** | O usuário preenche as novas informações da sala no formulário para Editar Sala, e clica em **Salvar**. Mensagem: *Sala alterada com sucesso.* |
-| **TA03.04** | O usuário tenta excluir a sala desejada, e obtém sucesso. Mensagem:  *Sala excluída com sucesso.*. Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
-| **TA03.05** | Pesquisar com sucesso. Exibição com sucesso ou exibição vazia (Mensagem: *Nenhum resultado encontrado.*). Testar exibição com paginação. |
+| *Código*  | *Descrição* |
+| *TA03.01* | O usuário preenche a identificação da sala no formulário de cadastro de Sala e depois clica em *Salvar. O sistema exibe a mensage: *Sala {id} cadastrada com sucesso. |
+| *TA03.02* | Tentar cadastrar com erro, exibir uma das mensagens de erro: MSG001: O campo {id} é obrigatório. MSG002: A sala {id} já existe. |
+| *TA03.03* | O usuário preenche as novas informações da sala no formulário para Editar Sala, e clica em *Salvar. Mensagem: *Sala alterada com sucesso. |
+| *TA03.04* | O usuário tenta excluir a sala desejada, e obtém sucesso. Mensagem:  Sala excluída com sucesso.. Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
+| *TA03.05* | Pesquisar com sucesso. Exibição com sucesso ou exibição vazia (Mensagem: Nenhum resultado encontrado.). Testar exibição com paginação. |
 
-### User Story US04 - Manter Itens
+### User Story US04 - Manter Recurso
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve manter um cadastro de itens disponíveis para empréstimo no Apoio Pedagógico. Um item pode ter os atributos nome, categoria e prazo máximo. Haverá uma tela de estoque para listar os itens disponíveis. |
+| *Descrição* | O sistema deve manter um cadastro de recursos disponíveis para empréstimo no Apoio Pedagógico. Um recurso pode ter os atributos *(DEFINIR NA DAILY)*. Haverá uma tela de estoque para listar os recursos disponíveis. Os tipos de recursos são adaptador HDMI, projetor, notebook e caixa de som. Bem como, uma tela que mostra os recursos disponíveis e os reservados. |
 
-| **Requisitos envolvidos** | **Descrição**                                                  |
+| *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
-| RF12          | Incluir Item   |
-| RF13          | Alterar Item   |
-| RF14          | Excluir Item   |
-| RF15          | Exibir Estoque |
-| RF16          | Visualizar Item |
+| RF16          | Incluir Recurso    |
+| RF17          | Alterar Recurso    |
+| RF18          | Excluir Recurso    |
+| RF19          | Exibir Recurso     |
+| RF20          | Visualizar Recurso | 
+| RF21          | Registrar Saída    |
+| RF22          | Registrar Entrada  |
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
-| **Prioridade**            | Importante                          | 
-| **Estimativa**            | 8h                                  | 
-| **Tempo Gasto (real):**   |                                     | 
-| **Tamanho Funcional**     | 10 PF                               | 
-| **Analista**              | Ericleison                          | 
-| **Desenvolvedor**         | Thomas                              | 
-| **Revisor**               | Cleomar                             | 
-| **Testador**              | Rafael                              | 
+| *Prioridade*            | Importante                          | 
+| *Estimativa*            | 8h                                  | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 10 PF                               | 
+| *Analista*              | Anderson                            | 
+| *Desenvolvedor*         | *(DEFINIR NA DAILY)*              | 
+| *Revisor*               | *(DEFINIR NA DAILY)*              | 
+| *Testador*              | *(DEFINIR NA DAILY)*              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
-| **Código**  | **Descrição** |
-| **TA04.01** | O usuário preenche a identificação, categoria e prazo máximo do item no formulário de cadastro de Item e depois clica em **Salvar**. O sistema exibe a mensagem: *Item {nome} cadastrado com sucesso.* |
-| **TA04.02** | Tentar cadastrar com erro, exibir uma das mensagens de erro: MSG001: *O campo {id} é obrigatório.* MSG002: *O item {id} já existe.* |
-| **TA04.03** | O usuário preenche as novas informações do item no formulário para Editar Item, e clica em **Salvar**. Mensagem: *Item alterada com sucesso.* |
-| **TA04.04** | O usuário tenta excluir o item desejado, e obtém sucesso. Mensagem:  *Item excluído com sucesso.*. Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
-| **TA04.05** | Pesquisar com sucesso. Exibição com sucesso e exibição vazio. Testar exibição com paginação. |
-| **TA04.06** | Tentar emprestar um item já emprestado, recebe mensagem de erro: *O item escolhido já está emprestado no momento.* |
+| *Código*  | *Descrição* |
+| *TA04.01* | O usuário preenche *(DEFINIR NA DAILY)* do recurso no formulário de cadastro do Recurso e depois clica em *Salvar. O sistema exibe a mensagem: *Recurso {nome} cadastrado com sucesso. |
+| *TA04.02* | Tentar cadastrar com erro, exibir uma das mensagens de erro: MSG001: O campo {id} é obrigatório. MSG002: O item {id} já existe. |
+| *TA04.03* | O usuário preenche as novas informações do recurso no formulário para Editar Recurso, e clica em *Salvar. Mensagem: *Item alterada com sucesso. |
+| *TA04.04* | O usuário tenta excluir o item desejado, e obtém sucesso. Mensagem:  Item excluído com sucesso.. Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
+| *TA04.05* | Pesquisar com sucesso. Exibição com sucesso e exibição vazio. Testar exibição com paginação. |
+| *TA04.06* | Tentar emprestar um item já emprestado, recebe mensagem de erro: O item escolhido já está emprestado no momento. |
 
 ### User Story US05 - Manter reservas de salas
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve manter um cadastro de reservas para cada sala. Uma reserva deve ter os atributos responsável, sala e período de permanência(horário de início e fim). Cada sala possui um histórico de reservas, que poderá ser acessado pelos servidores e bolsistas. |
+| *Descrição* | O sistema deve manter um cadastro de reservas para cada sala. Uma reserva deve ter os atributos responsável, sala e período de permanência(horário de início e fim). Cada sala possui um histórico de reservas, que poderá ser acessado pelos servidores e bolsistas. |
 
-| **Requisitos envolvidos** | **Descrição**                                                  |
+| *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
 | RF24          | Cadastrar Reserva de Sala |
 | RF25          | Excluir Reserva de Sala  |
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
-| **Prioridade**            | Essencial                           | 
-| **Estimativa**            | 14h                                 | 
-| **Tempo Gasto (real):**   |                                     | 
-| **Tamanho Funcional**     | 14 PF                               | 
-| **Analista**              | Marlon                              | 
-| **Desenvolvedor**         | Thomas                              | 
-| **Revisor**               | Cleomar                             | 
-| **Testador**              | Rafael                              | 
+| *Prioridade*            | Essencial                           | 
+| *Estimativa*            | 14h                                 | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 14 PF                               | 
+| *Analista*              | Marlon                              | 
+| *Desenvolvedor*         | Thomas                              | 
+| *Revisor*               | Cleomar                             | 
+| *Testador*              | Rafael                              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
-| **Código**  | **Descrição** |
-| **TA05.01** | O usuário preenche o nome do responsável, a sala e o período de permanência na sala e depois clica em **Salvar**. O sistema exibe a mensagem: *Sala reservada com sucesso.* |
-| **TA05.02** | Tentar reservar com erro, exibir a mensagem de erro: MSG001: O campo {nome} é obrigatório. MSG002: A sala {id\_sala} está reservada no período escolhido. |
-| **TA05.03** | O usuário seleciona a reserva que deseja excluir e clica no botão **Excluir reserva**. Mensagem: *Reserva excluída com sucesso.* |
+| *Código*  | *Descrição* |
+| *TA05.01* | O usuário preenche o nome do responsável, a sala e o período de permanência na sala e depois clica em *Salvar. O sistema exibe a mensagem: *Sala reservada com sucesso. |
+| *TA05.02* | Tentar reservar com erro, exibir a mensagem de erro: MSG001: O campo {nome} é obrigatório. MSG002: A sala {id\_sala} está reservada no período escolhido. |
+| *TA05.03* | O usuário seleciona a reserva que deseja excluir e clica no botão *Excluir reserva. Mensagem: *Reserva excluída com sucesso. |
 
 | Protótipo de telas |
 | ------------------ |
@@ -201,31 +202,31 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve manter um cadastro de reservas para cada item. Uma reserva pode ter os atributos responsável e item. Cada item possui um histórico de reservas, que poderá ser acessado pelos servidores e bolsistas. |
+| *Descrição* | O sistema deve manter um cadastro de reservas para cada item. Uma reserva pode ter os atributos responsável e item. Cada item possui um histórico de reservas, que poderá ser acessado pelos servidores e bolsistas. |
 
-| **Requisitos envolvidos** | **Descrição**                                                  |
+| *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
 | RF26          | Cadastrar Reserva de Item |
 | RF27          | Excluir Reserva de Item |
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
-| **Prioridade**            | Importante                          | 
-| **Estimativa**            | 10h                                 | 
-| **Tempo Gasto (real):**   |                                     | 
-| **Tamanho Funcional**     | 10 PF                               | 
-| **Analista**              | Marlon                              | 
-| **Desenvolvedor**         | Ericleison                          | 
-| **Revisor**               | Cleomar                             | 
-| **Testador**              | Rafael                              | 
+| *Prioridade*            | Importante                          | 
+| *Estimativa*            | 10h                                 | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 10 PF                               | 
+| *Analista*              | Marlon                              | 
+| *Desenvolvedor*         | Ericleison                          | 
+| *Revisor*               | Cleomar                             | 
+| *Testador*              | Rafael                              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
-| **Código**  | **Descrição** |
-| **TA06.01** | O usuário preenche o nome do responsável, o item e depois clica em **Salvar**. O sistema exibe a mensagem: *Reserva cadastrada com sucesso.* |
-| **TA06.02** | Tentar reservar com erro, exibir a mensagem de erro: MSG001: *O campo {responsável} é obrigatório.* MSG002: *O item {id\_item} está reservado no período escolhido para {responsável}.* |
-| **TA06.03** | O usuário seleciona a reserva que deseja excluir e clica no botão **Excluir reserva**. Mensagem: *Reserva excluída com sucesso.* |
+| *Código*  | *Descrição* |
+| *TA06.01* | O usuário preenche o nome do responsável, o item e depois clica em *Salvar. O sistema exibe a mensagem: *Reserva cadastrada com sucesso. |
+| *TA06.02* | Tentar reservar com erro, exibir a mensagem de erro: MSG001: O campo {responsável} é obrigatório. MSG002: O item {id\_item} está reservado no período escolhido para {responsável}. |
+| *TA06.03* | O usuário seleciona a reserva que deseja excluir e clica no botão *Excluir reserva. Mensagem: *Reserva excluída com sucesso. |
 
 | Protótipo de telas |
 | ------------------ |
@@ -235,56 +236,56 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve realizar relatórios mensais de salas. Um relatório de sala, exibe um relatório de todas as salas e suas reservas mensalmente. Os relatórios podem ser vistos pelos servidores e bolsistas. |
+| *Descrição* | O sistema deve realizar relatórios mensais de salas. Um relatório de sala, exibe um relatório de todas as salas e suas reservas mensalmente. Os relatórios podem ser vistos pelos servidores e bolsistas. |
 
-| **Requisitos envolvidos** | **Descrição**                                                  |
+| *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
 | RF28          | Relatório de reserva de salas no mês |
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
-| **Prioridade**            | Importante                          | 
-| **Estimativa**            | 4h                                  | 
-| **Tempo Gasto (real):**   |                                     | 
-| **Tamanho Funcional**     | 6 PF                                | 
-| **Analista**              | Marlon                              | 
-| **Desenvolvedor**         | Ericleison                          | 
-| **Revisor**               | Anderson                            | 
-| **Testador**              | Rafael                              | 
+| *Prioridade*            | Importante                          | 
+| *Estimativa*            | 4h                                  | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 6 PF                                | 
+| *Analista*              | Marlon                              | 
+| *Desenvolvedor*         | Ericleison                          | 
+| *Revisor*               | Anderson                            | 
+| *Testador*              | Rafael                              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
-| **Código**  | **Descrição** |
-| **TA07.01** | O usuário informa a sala e o mês e depois clica em **Exibir relatório**. O sistema exibe a mensagem: *Relatório gerado com sucesso.* Em seguida o relatório é processado e exibido. |
-| **TA07.02** | Tentar gerar relatório com erro, exibir a mensagem de erro: MSG001: *O campo {sala} é obrigatório.* MSG002: *O campo {mês} é obrigatório.* |
-| **TA07.03** | O usuário informa uma sala que nunca foi reservada anteriormente. O sistema exibe um relatório em branco e uma mensagem informando: *A sala não foi reservada ainda.* |
+| *Código*  | *Descrição* |
+| *TA07.01* | O usuário informa a sala e o mês e depois clica em *Exibir relatório. O sistema exibe a mensagem: *Relatório gerado com sucesso. Em seguida o relatório é processado e exibido. |
+| *TA07.02* | Tentar gerar relatório com erro, exibir a mensagem de erro: MSG001: O campo {sala} é obrigatório. MSG002: O campo {mês} é obrigatório. |
+| *TA07.03* | O usuário informa uma sala que nunca foi reservada anteriormente. O sistema exibe um relatório em branco e uma mensagem informando: A sala não foi reservada ainda. |
 
 ### User Story US08 - Manter relatório de itens
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve realizar relatórios mensais de itens. Um relatório de itens, exibe um relatório de determinados itens e suas reservas. Os relatórios podem ser vistos pelos servidores e bolsistas. |
+| *Descrição* | O sistema deve realizar relatórios mensais de itens. Um relatório de itens, exibe um relatório de determinados itens e suas reservas. Os relatórios podem ser vistos pelos servidores e bolsistas. |
 
-| **Requisitos envolvidos** | **Descrição**                                                  |
+| *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
 | RF29          | Relatório de reserva de itens no mês |
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
-| **Prioridade**            | Importante                          | 
-| **Estimativa**            | 4h                                  | 
-| **Tempo Gasto (real):**   |                                     | 
-| **Tamanho Funcional**     | 6 PF                                | 
-| **Analista**              | Marlon                              | 
-| **Desenvolvedor**         | Ericleison                          | 
-| **Revisor**               | Cleomar                             | 
-| **Testador**              | Rafael                              | 
+| *Prioridade*            | Importante                          | 
+| *Estimativa*            | 4h                                  | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 6 PF                                | 
+| *Analista*              | Marlon                              | 
+| *Desenvolvedor*         | Ericleison                          | 
+| *Revisor*               | Cleomar                             | 
+| *Testador*              | Rafael                              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
-| **Código**  | **Descrição** |
-| **TA08.01** | O usuário informa o item e o mês e depois clica em **Exibir relatório**. O sistema exibe a mensagem: *Relatório gerado com sucesso.* Em seguida o relatório é processado e exibido. |
-| **TA08.02** | Tentar gerar relatório com erro, exibir a mensagem de erro: MSG001: *O campo {item} é obrigatório.* MSG002: *O campo {mês} é obrigatório.* |
-| **TA08.03** | O usuário informa um item que nunca foi reservado anteriormente. O sistema exibe um relatório em branco e uma mensagem informando: *O item não foi emprestado ainda.* |
+| *Código*  | *Descrição* |
+| *TA08.01* | O usuário informa o item e o mês e depois clica em *Exibir relatório. O sistema exibe a mensagem: *Relatório gerado com sucesso. Em seguida o relatório é processado e exibido. |
+| *TA08.02* | Tentar gerar relatório com erro, exibir a mensagem de erro: MSG001: O campo {item} é obrigatório. MSG002: O campo {mês} é obrigatório. |
+| *TA08.03* | O usuário informa um item que nunca foi reservado anteriormente. O sistema exibe um relatório em branco e uma mensagem informando: O item não foi emprestado ainda. |
