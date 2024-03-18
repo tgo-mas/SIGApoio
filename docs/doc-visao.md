@@ -34,6 +34,8 @@ Perfil                                 | Descrição   |
 Administrador | Este usuário realiza os cadastros base e pode realizar qualquer função.
 Servidor | Este usuário utiliza o sistema para cadastrar novos usuários (bolsistas e outros servidores), gerenciamento do estoque do sistema, reservas de salas cadastradas (assim como cadastrá-las e controle do fluxo de entrada e saída de itens.)
 Bolsista | O bolsista tem um acesso mais limitado ao sistema, utilizando apenas para realizar gerenciamento de estoque, juntamente com entrada e saída de itens, podendo também efetuar reservas de salas caso seja requerido por um servidor. Caso a reserva seja de algum auditório ou anfiteatro, o papel do bolsista é apenas verificar se está disponível no horário em que foi determinado, caso esteja, é repassado para o servidor do setor, e ele por sua vez, efetuará a reserva no sistema.
+Chefia  | Este usuário é o Coordenador de curso ou chefe de departamento.Ele pode solicitar horários do semestre
+Docente | Este usuário tem permissão para visualizar os horários e as reservas de salas. Além disso, ele pode abrir chamados e solicitar a reserva de itens antecipadamente.
 
 ## Lista de Requisitos Funcionais
 
@@ -107,6 +109,10 @@ RF55 - Incluir saída de chave|Descirção: Registra uma saída de chave, altera
 RF56 - Editar saída de chave|Descirção: Permite corrigir uma saída de chave com algum erro. |Ator: Servidor/Bolsista
 RF57 - Listar saída de chave|Descirção: Exibe uma lista das chaves que já foram pegas. |Ator: Servidor/Bolsista
 RF58 - Excluir saída de chave|Descirção: Registra uma devolução de chave, alterando seu status. |Ator: Servidor/Bolsista
+RF 59 - Visualizar horários| Descrição: Permite que o docente visualize os horários disponíveis das salas de aula.| Ator: Docente.
+RF 60 - Abrir chamado| Descrição: Permite abrir um chamado no sistema para relatar problemas relacionados à infraestrutura, equipamentos ou outros assuntos pertinentes.| Ator: Docente.
+RF 61 - Solicitar reserva de itens| Descrição: Solicita a reserva antecipada de itens específicos, como equipamentos de laboratório, materiais didáticos ou outros recursos.| Ator: Docente.
+RF 62 - Solicitar horários do semestre| Descrição: Permite solicitar os horários do semestre ao sistema para planejamento acadêmico.| Ator:Chefia.
 
 
 ### Modelo Conceitual
