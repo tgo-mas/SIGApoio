@@ -130,7 +130,7 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| *Descrição* | O sistema deve manter um cadastro de recursos disponíveis para empréstimo no Apoio Pedagógico. Um recurso pode ter os atributos nome e codigo. Haverá uma tela de estoque para listar os recursos disponíveis. Os tipos de recursos são adaptador HDMI, projetor, notebook e caixa de som. Bem como, uma tela que mostra os recursos disponíveis e os reservados. |
+| *Descrição* | O sistema deve manter um cadastro de recursos disponíveis para empréstimo no Apoio Pedagógico. Um recurso pode ter os atributos codigo, status, funcionando e tipo. Haverá uma tela de estoque para listar os recursos disponíveis. Os tipos de recursos são adaptador HDMI, projetor, notebook, caixa de som e mouse. Bem como, uma tela que mostra os recursos disponíveis e os reservados. |
 
 | *Requisitos envolvidos* | *Descrição*                                                  |
 | ------------- | :------------------------------------------------------------- |
@@ -149,18 +149,18 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 | *Tempo Gasto (real):*   |                                     | 
 | *Tamanho Funcional*     | 10 PF                               | 
 | *Analista*              | Anderson                            | 
-| *Desenvolvedor*         |               | 
-| *Revisor*               |               | 
-| *Testador*              |               | 
+| *Desenvolvedor*         | Marlon              | 
+| *Revisor*               | Ericleison              | 
+| *Testador*              | Cleomar              | 
 
 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
 | *Código*  | *Descrição* |
-| *TA04.01* | O usuário preenche nome e código do recurso no formulário de cadastro do Recurso e depois clica em *Salvar. O sistema exibe a mensagem: *Recurso {nome} cadastrado com sucesso. |
-| *TA04.02* | Tentar cadastrar com erro, exibir uma das mensagens de erro: MSG001: O campo {codigo} é obrigatório. MSG002: O item {codigo} já existe. |
-| *TA04.03* | O usuário preenche o novo nome do recurso no formulário para Editar Recurso, e clica em *Salvar. Mensagem: *Recurso alterada com sucesso. |
-| *TA04.04* | O usuário tenta excluir o recurso desejado, e obtém sucesso. Mensagem:  Item excluído com sucesso.. Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
+| *TA04.01* | O usuário preenche tipo e código do recurso no formulário de cadastro do Recurso e depois clica em *Salvar. O sistema exibe a mensagem: *Recurso {tipo + codigo} cadastrado com sucesso. |
+| *TA04.02* | Tentar cadastrar com erro, exibir uma das mensagens de erro: MSG001: O campo {codigo} é obrigatório. MSG002: O recurso {codigo} já existe. |
+| *TA04.03* | O usuário preenche o novo status do funcionamento do recurso no formulário para Editar Recurso, e clica em *Salvar. Mensagem: *Recurso alterada com sucesso. |
+| *TA04.04* | O usuário tenta excluir o recurso desejado, e obtém sucesso. Mensagem:  Recurso excluído com sucesso.. Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
 | *TA04.05* | Pesquisar com sucesso. Exibição com sucesso e exibição vazio. Testar exibição com paginação. |
 | *TA04.06* | Ao realizar uma devolução, aparece a seguinte mensagem: Devolução realizada com sucesso. |
 | *TA04.07* | Emprestar um recurso, aparece a mensagem: Empréstimo do recurso com sucesso. |
