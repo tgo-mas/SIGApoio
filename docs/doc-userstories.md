@@ -1,8 +1,11 @@
 
 # Documento Lista de User Stories
 
-Documento construído a partido do **Modelo BSI - Doc 004 - Lista de User Stories** que pode ser encontrado no
-link: https://docs.google.com/document/d/1Ns2J9KTpLgNOpCZjXJXw_RSCSijTJhUx4zgFhYecEJg/edit?usp=sharing
+Documento construído a partir do **Modelo BSI - Doc 004 - Lista de User Stories** que pode ser encontrado no
+link: 
+
+[Link para o documento](https://docs.google.com/document/d/1Ns2J9KTpLgNOpCZjXJXw_RSCSijTJhUx4zgFhYecEJg/edit?usp=sharing)
+
 
 ## Descrição
 
@@ -15,6 +18,7 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 | 22/06/2020 | 0.0.1   | Template e descrição do documento  | Taciano |
 | 05/12/2023 | 1.0.0   | Documento completo com o detalhamento de todos os User Stories | Anderson, Cleomar, Ericleison, Marlon, Rafael, Thomas |
 | 01/03/2023 | 2.0.0   | Adaptação do documento so modelo proposto para a disciplina ESII | Thomas |
+|14/03/2024 |2.0.1     | Alteração de user stories (Manter Servidor ) | Ericleison 
 
 
 
@@ -22,7 +26,7 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve manter um cadastro de servidor que tem acesso ao sistema via login e senha. Um servidor tem os atributos matrícula, nome, endereço, email, telefone e senha. A matrícula será o login e ele pode registrar-se diretamente no sistema. Ele pode realizar alterações de endereço, e-mail e telefone, além de poder visualizar todos os servidores cadastrados. |
+| **Descrição** | O sistema deve manter um cadastro de servidor que tem acesso ao sistema via login e senha. Um servidor tem os atributos matrícula, nome, endereço, email, telefone e senha. A matrícula será o login e ele pode registrar-se diretamente no sistema. Ele pode realizar alterações de endereço, e-mail e telefone, senha, além de poder visualizar todos os outros servidores cadastrados no próprio sistema. |
 
 | **Requisitos envolvidos** | **Descrição**                                                  |
 | ------------- | :------------------------------------------------------------- |
@@ -47,15 +51,17 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
 | **Código**  | **Descrição** |
-| **TA01.01** | O servidor informa, na tela Registrar, todos os dados para registrar-se corretamente, ao clicar em **Salvar** ele é encaminhado para a tela principal do sistema e notificado com uma mensagem de sucesso. Mensagem: *Cadastro realizado com sucesso*. |
-| **TA01.02** | O servidor informa, na tela Registrar, os dados para registrar-se incorretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de erro. Mensagem: *Cadastro não realizado, o campo “xxxx” não foi informado corretamente.* |
-| **TA01.03** | O servidor informa, na tela Login, os dados para logar corretamente, ao clicar em **Entrar** ele é encaminhado para a tela principal do sistema. É exibida a Mensagem: *Login realizado com sucesso.* |
-| **TA01.04** | O servidor informa, na tela Login, os dados para logar incorretamente, ao clicar em **Entrar** ele é notificado com uma mensagem de erro. Mensagem: *Login e/ou senha incorreta*. |
-| **TA01.05** | O servidor navega até a área de configurações do perfil, e clica em **Excluir conta.** Ele deve então digitar sua senha para confirmar a decisão, recebendo uma mensagem de confirmação. Mensagem: *Conta removida com sucesso.* |
+| **TA01.01** | O servidor informa seus dados na tela de registro, caso os dados estejam corretamente dispotos, ao clicar em **Cadastrar-se** ele é redirecionado para a tela principal do sistema (home screen) e notificado com uma mensagem de sucesso. Mensagem: *O Cadastro foi realizado com sucesso.* |
+| **TA01.02** | O servidor informa, na tela Registrar, os dados para registrar-se incorretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de erro e o cadastro não é efetuado. Mensagem: **Cadastro não realizado, o campo “xxxx” não foi informado corretamente.** |
+| **TA01.03** | O servidor informa, na tela de Login, os dados para logar de forma correta, ao clicar em **Entrar** ele é redirecionado para a tela de gestão(?) do sistema. É exibida a Mensagem: **Login efetuado com sucesso.** |
+| **TA01.04** | O servidor informa, na tela Login, os dados para logar incorretamente, ao clicar em **Entrar** ele é notificado com uma mensagem de erro. Mensagem: **Não foi possível efetuar o login, verifique seus dados**. |
+| **TA01.05** | O servidor navega até a área de configurações do perfil, e clica em **Excluir conta.** Ele deve confirmar seus dados para concluir a sua decisão, recebendo uma mensagem de confirmação. Mensagem: **Conta removida com sucesso.** |
+| **TA01.06** | O servidor não preenche um dos campos obrigatórios (marcados com "*"), ao clicar para avançar, ele é notificado com uma mensagem de erro. Mensagem : **O campo "xxxx" não foi preenchido.** |
+
 
 | Protótipo de telas |
 | ------------------ |
-| <p><img src="https://lh3.googleusercontent.com/fife/ALs6j_E-BiJiLzT2IlfoHt-tfJNOv6Uk42mAfVAGzhhnUMrJaIt3h2on3BFK42yejVf6BWvJnt9BojWzHgIsbxJdh7RT7CQLjcuDOhpKFd5hB9pKBxigTE431qsKqkjAjL8Al6fPU_sTJEfBDhx3mIKrTqzY1d07qw9Aw6vTGCJqIva-VaoXWTKDbq5wyl3aeg1MnSrPXMncEyEB8KAF9PKBFOZqUoSiDKloIlGLkL6TqAoabg0Q7SbRBJJQEfWqJpZmRh6m-KRRXHhQP4lG1HCtFG4HJl5tVlaahlguC0U7wrvRHxCOCqgQaGb85CNvMSOYJH_hD57piXIITnDpXo9P0n_XeR3JZuKU0Ikk3FuA_IUDDSJwKG3fjUO4DGtGs08tAAbTmw_jMZTOt_Kv3N1-a_TmWIWw6d5DjmnlsneuXdwGty7MRLUf_7xteSw8yS_DqAI2J7sysVqXzX-ggtkCG9WNelhSuwRZb1TnVfQe7ClS-CzcegsjLvDTUOz7_b-5YnsQ2ZmJYURfCipkhrn8nY1BmXjtucXupo-JK0fFm2x-6UADgRNvYUlbJ9nePEIYlnI9TcGu0xSXSmw-aExEJMB76UC7XOT0_Pxy_QN7AqAYJ9aQrVNm8P2x91LQLmD7YtiI-qF7KcCxNXGRLN_OrM3o6NkLAV9Hmi6PAIZ3EPqqSxgGLFHhoVaKHAhmr1z-8yxCvZiqaFzStxLnHcb8yEJRcDbwXDM80azFHeloLeXgNeZua5uX9tB_lczwyzf3M9aF_7NENhbJSVfBce0Fr3Ve5d-0QdeHrYJwPfhndqvxvIQnYmrx4xtZ53UMEKcdNRdJA0tKOF0TEoyo7vVdOSDydPA1ir09uKcHWaIp7FTihHx7uovaT7gt2Zxqt5B4nwENWhyx6W0jPbKUQR09GzFcslk3Sem8BewboZNvjB7algG0_ojx60SHAmwiZdD0yB1H8zlIxO6Yj_jPhJcZdNfZMHFZMKCFms6R1BgY3fsBjjk1TC2dKYlmNYPzMGFSr5at4bORrITDOYz_saeGKd5fOpxX2egYO2ZxlFIg_InP476QcA1BS5xW_AZgmA0IhPWvgkxhD5MIzOvhGxRQ3ps9jZH1XOBCx7Vpolu6btUrgjLMHXnI-a2lL64rR0H8B43lklygoXXEvvxQ4vSziQqpmmkpDm4XdIxFhQvJqHSuuY-EqiAIcKF-spxnBjJr30-jNh7tl6GyyMOKCGS2GHhe9-ppDWTA0DkDq49Uh7HxI_xvhbXkz-zWA6rL1voOW2NmXSIvzRw0JqRUu03Th41V1igl7RrD8R6au5K6RN6bIio9IRnh2k_498Zm_P8AsAIEmn-kYEC4JcH3x_r6jXco87siclbzhLl-QZONmAJR_MZ3V_NTesRJe7R-uX44Si1No86Jy5G0URq5V3HWDKhYiiK812_vjft_vxOjBgs7Kk1zllnr0K-44DZRx7t4PWSzEgMZXjcYDccqu5XGB3GU7mT0_jvY8vJC4vqxqqFYrDUOmPsRzw5BQ5WTzHPFYuHqY4ME3KDc5PWVlMeYRIWW3ZjKyZBGAmmwaEegY2b_2weo=w1863-h882" ></p><p>Figura 1 - Tela de Login</p> |
+Imagem a ser inserida futuramente.
 
 ### User Story US02 - Manter Bolsista
 
