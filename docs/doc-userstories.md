@@ -291,3 +291,38 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 | *TA08.01* | O usuário informa o item e o mês e depois clica em *Exibir relatório. O sistema exibe a mensagem: *Relatório gerado com sucesso. Em seguida o relatório é processado e exibido. |
 | *TA08.02* | Tentar gerar relatório com erro, exibir a mensagem de erro: MSG001: O campo {item} é obrigatório. MSG002: O campo {mês} é obrigatório. |
 | *TA08.03* | O usuário informa um item que nunca foi reservado anteriormente. O sistema exibe um relatório em branco e uma mensagem informando: O item não foi emprestado ainda. |
+
+### User Story US09 - Manter Laboratórios
+
+|               |                                                                |
+| ------------- | :------------------------------------------------------------- |
+| *Descrição* | O sistema deve manter um cadastro de laboratórios por usuário. Um laboratório pode ter várias reservas e tem os atributos de identificação, e reservas, além de uma chave associada ao mesmo. Cada laboratório possui um histórico de reservas, que poderá ser acessado pelos servidores e bolsistas. |
+
+| *Requisitos envolvidos* | *Descrição*                                                  |
+| ------------- | :------------------------------------------------------------- |
+| RF28          | Cadastrar Laboratório |
+| RF29          | Alterar Laboratório  |
+| RF30          | Excluir Laboratório        |
+| RF31          | Listar Laboratórios |
+| RF32          | Visualizar Laboratório |
+
+|                           |                                     |
+| ------------------------- | ----------------------------------- | 
+| *Prioridade*            | Importante                          | 
+| *Estimativa*            | 8h                                  | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 10 PF                               | 
+| *Analista*              | Marlon                              | 
+| *Desenvolvedor*         | Anderson                            | 
+| *Revisor*               | Ericleison                          | 
+| *Testador*              | Rafael                              | 
+
+
+| Testes de Aceitação (TA) |  |
+| ----------- | ------------- |
+| *Código*  | *Descrição* |
+| *TA09.01* | O usuário preenche a identificação do laboratório no formulário de cadastro e depois clica em *Salvar*. O sistema exibe a mensage: *Laboratório {id} cadastrado com sucesso*. |
+| *TA09.02* | Tentar cadastrar mas não preenche alguma informação obrigatória, ou preenche com algum identificador já cadastrado, exibir uma das mensagens de erro: <br>MSG001: *O campo {id} é obrigatório*.<br> MSG002: *A sala {id} já existe*. |
+| *TA09.03* | O usuário preenche as novas informações do laboratório no formulário para Editar Laboratório, e clica em *Salvar*. Mensagem: *Sala alterada com sucesso*. |
+| *TA09.04* | O usuário tenta excluir a sala desejada, e obtém sucesso. Mensagem:  *Sala excluída com sucesso*. <br>Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
+| *TA09.05* | Pesquisar com sucesso. Exibição com sucesso dos resultados encontrados ou, caso não haja resultados, exibição vazia (Mensagem: *Nenhum resultado encontrado*.). Testar exibição com paginação. |
