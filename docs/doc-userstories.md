@@ -15,9 +15,43 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 | 05/12/2023 | 1.0.0   | Documento completo com o detalhamento de todos os User Stories | Anderson, Cleomar, Ericleison, Marlon, Rafael, Thomas |
 | 01/03/2023 | 2.0.0   | Adaptação do documento so modelo proposto para a disciplina ESII | Thomas |
 
+### User Story US01 - Autenticação de Usuário    
+
+|               |                                                                |
+| ------------- | :------------------------------------------------------------- |
+| **Descrição** | O sistema deve permitir que o usuário tenha acesso via login e senha. Um usuário tem os atributos matrícula, nome, email, senha e tipo de perfil. |
+
+| **Requisitos envolvidos** | **Descrição**                                                  |
+| ------------- | :------------------------------------------------------------- |
+| RF01          | Cadastro de usuário |
+| RF02          | Login de usuário  |
+| RF03          | Logout de usuário       |
+| RF04          | Remoção de conta de usuário |
+
+|                           |                                     |
+| ------------------------- | ----------------------------------- | 
+| **Prioridade**            | Essencial                           | 
+| **Estimativa**            | 10h                                 | 
+| **Tempo Gasto (real):**   |                                     | 
+| **Tamanho Funcional**     | 13 PF                               | 
+| **Analista**              | Cleomar                             | 
+| **Desenvolvedor**         | Rafael                              | 
+| **Revisor**               | Thomas                              | 
+| **Testador**              | Anderson                            | 
 
 
-### User Story US01 - Manter Servidor
+| Testes de Aceitação (TA) |  |
+| ----------- | ------------- |
+| **Código**  | **Descrição** |
+| **TA01.01** | O usuário informa, na tela Cadastro, todos os dados para registrar-se corretamente, ao clicar em **Salvar** ele é encaminhado para a tela principal do sistema e notificado com uma mensagem de sucesso. Mensagem: *Cadastro realizado com sucesso*. |
+| **TA01.02** | O usuário informa, na tela Cadastro, os dados para registrar-se faltando alguma informação, ao clicar em **Salvar** ele é notificado com uma mensagem de erro. Mensagem: *Cadastro não realizado, o campo “xxxx” não foi informado corretamente.* |
+| **TA01.03** | O usuário informa, na tela Login, os dados para logar corretamente, ao clicar em **Entrar** ele é encaminhado para a tela principal do sistema. É exibida a Mensagem: *Login realizado com sucesso.* |
+| **TA01.04** | O usuário informa, na tela Login, os dados para logar incorretamente, ao clicar em **Entrar** ele é notificado com uma mensagem de erro. Mensagem: *Login e/ou senha incorreta*. |
+| **TA01.05** | O usuário, ao clicar no botao **Logout** é exibida uma mensagem de confirmação de logout, após confirmar o usuário é deslogado de sua conta. Mensagem: *Deseja sair da sua conta?* .|
+| **TA01.06** | O usuário navega até a área de configurações do perfil, e clica em **Excluir conta.** Ele deve então digitar sua senha para confirmar a decisão, recebendo uma mensagem de confirmação. Mensagem: *Conta removida com sucesso.* |
+
+
+### User Story US02 - Manter Servidor
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
