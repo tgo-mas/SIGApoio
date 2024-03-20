@@ -360,3 +360,38 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 | *TA09.03* | O usuário preenche as novas informações do laboratório no formulário para Editar Laboratório, e clica em *Salvar*. Mensagem: *Sala alterada com sucesso*. |
 | *TA09.04* | O usuário tenta excluir a sala desejada, e obtém sucesso. Mensagem:  *Sala excluída com sucesso*. <br>Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
 | *TA09.05* | Pesquisar com sucesso. Exibição com sucesso dos resultados encontrados ou, caso não haja resultados, exibição vazia (Mensagem: *Nenhum resultado encontrado*.). Testar exibição com paginação. |
+
+### User Story US10 - Manter Auditório
+
+|               |                                                                |
+| ------------- | :------------------------------------------------------------- |
+| *Descrição* | O sistema deve manter um cadastro de auditórios por usuário. Um auditório pode ter várias reservas e tem os atributos de identificação, e reservas, além de uma chave associada ao mesmo. Cada auditório possui um histórico de reservas, que poderá ser acessado pelos servidores e bolsistas. |
+
+| *Requisitos envolvidos* | *Descrição*                                                  |
+| ------------- | :------------------------------------------------------------- |
+| RF33          | Cadastrar Auditório |
+| RF34          | Alterar Auditório  |
+| RF35          | Excluir Auditório        |
+| RF36          | Listar Auditório |
+| RF37          | Visualizar Auditório |
+
+|                           |                                     |
+| ------------------------- | ----------------------------------- | 
+| *Prioridade*            | Importante                          | 
+| *Estimativa*            | 8h                                  | 
+| *Tempo Gasto (real):*   |                                     | 
+| *Tamanho Funcional*     | 10 PF                               | 
+| *Analista*              | Marlon                              | 
+| *Desenvolvedor*         | Anderson                            | 
+| *Revisor*               | Ericleison                          | 
+| *Testador*              | Rafael                              | 
+
+
+| Testes de Aceitação (TA) |  |
+| ----------- | ------------- |
+| *Código*  | *Descrição* |
+| *TA10.01* | O usuário preenche a identificação do auditório no formulário de cadastro e depois clica em *Salvar*. O sistema exibe a mensage: *Auditório {id} cadastrado com sucesso*. |
+| *TA10.02* | Tentar cadastrar mas não preenche alguma informação obrigatória, ou preenche com algum identificador já cadastrado, exibir uma das mensagens de erro: <br>MSG001: *O campo {id} é obrigatório*.<br> MSG002: *A sala {id} já existe*. |
+| *TA10.03* | O usuário preenche as novas informações do Auditório no formulário para Editar Auditório, e clica em *Salvar*. Mensagem: *Sala alterada com sucesso*. |
+| *TA10.04* | O usuário tenta excluir a sala desejada, e obtém sucesso. Mensagem:  *Sala excluída com sucesso*. <br>Caso o usuário não tenha essa permissão, o botão para a funcionalidade não é renderizado. |
+| *TA10.05* | Pesquisar com sucesso. Exibição com sucesso dos resultados encontrados ou, caso não haja resultados, exibição vazia (Mensagem: *Nenhum resultado encontrado*.). Testar exibição com paginação. |
