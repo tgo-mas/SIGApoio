@@ -30,11 +30,10 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 
 | **Requisitos envolvidos** | **Descrição**                                                  |
 | ------------- | :------------------------------------------------------------- |
-| RF01          | Incluir Servidor |
-| RF02          | Alterar Servidor  |
-| RF03          | Listar Servidor        |
-| RF04          | Visualizar detalhes do Servidor |
-| RF05          | Excluir Servidor |
+| RF06          | Alterar Servidor      |
+| RF07          | Listar Servidor       |
+| RF08          | Visualizar Servidor   |
+| RF09          | Excluir Servidor      |
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
@@ -69,15 +68,15 @@ Imagem a ser inserida futuramente.
 
 |               |                                                                |
 | ------------- | :------------------------------------------------------------- |
-| **Descrição** | O sistema deve manter um cadastro de bolsista que tem acesso ao sistema via login e senha. Um bolsista tem os atributos matricula, nome, endereço, email, telefone e escala. O email será</p><p>o login e ele deve ser registrado no sistema por um servidor. O bolsista pode alterar o email, endereço e telefone, além de poder visualizar os demais bolsistas cadastrados. |
+| **Descrição** | O sistema deve manter um cadastro de bolsisa, ele tem acesso ao sistema via login e senha. Um bolsista tem os atributos **matrícula**, nome, endereço, email, telefone e escala de horários. </p>O email será o login e ele deve ser registrado no sistema por um **servidor**. O bolsista pode alterar os seus dados cadastrais (email, endereço e telefone), além de poder visualizar os demais bolsistas cadastrados no sistema. |
 
 | **Requisitos envolvidos** | **Descrição**                                                  |
 | ------------- | :------------------------------------------------------------- |
-| RF06          | Incluir Bolsista    |
-| RF07          | Alterar Bolsista    |
-| RF08          | Listar Bolsista     |
-| RF09          | Visualizar Bolsista |
-| RF10          | Excluir Bolsista    |
+| RF10          | Incluir Bolsista    |
+| RF11          | Alterar Bolsista    |
+| RF12          | Listar Bolsista     |
+| RF13        | Visualizar Bolsista |
+| RF14         | Excluir Bolsista    |
 
 |                           |                                     |
 | ------------------------- | ----------------------------------- | 
@@ -94,11 +93,17 @@ Imagem a ser inserida futuramente.
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
 | **Código**  | **Descrição** |
-| **TA02.01** | O servidor informa, na tela Registrar, todos os dados para registrar um bolsista corretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de sucesso. Mensagem: *Cadastro realizado com sucesso.* |
-| **TA02.02** | O servidor informa, na tela Registrar, os dados para registrar um bolsista incorretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de erro. Mensagem: *Cadastro não realizado, o campo “xxxx” não foi informado corretamente.* |
-| **TA02.03** | O bolsista informa, na tela Login, os dados para logar corretamente, ao clicar em **Entrar** ele é encaminhado para a tela principal do sistema. É exibida a Mensagem: Login realizado com sucesso. |
-| **TA02.04** | O bolsista informa, na tela Login, os dados para logar incorretamente, ao clicar em **Entrar** ele é notificado com uma mensagem de erro. Mensagem: *Login e/ou senha incorreta*. |
-| **TA02.05** | O servidor navega até a área de configurações do perfil do bolsista, e clica em **Excluir conta.** Ele deve então digitar sua senha para confirmar a decisão, recebendo uma mensagem de confirmação. Mensagem: *Conta removida com sucesso.* |
+| **TA02.01** | O servidor informa, na tela de Registro, todos os dados para registrar um bolsista corretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de sucesso. Mensagem: *Cadastro realizado com sucesso.* |
+| **TA02.02** | O servidor informa, na tela de Registro, os dados para registrar um bolsista incorretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de erro. Mensagem: *Cadastro não realizado, o campo “xxxxx” não foi informado corretamente.* |
+| **TA02.03** | O bolsista informa, na tela Login, os dados para logar corretamente, ao clicar em **Entrar** ele é encaminhado para a tela principal do sistema. É exibida a Mensagem: *O Login foi realizado com sucesso.* |
+| **TA02.04** | O bolsista informa, na tela Login, os dados para logar incorretamente, ao clicar em **Entrar** ele é notificado com uma mensagem de erro. Mensagem: *Login e/ou senha incorreta(s)*. |
+| **TA02.05** | O servidor navega até a área de configurações do perfil do bolsista, e clica em **Excluir conta.** Ele deve então digitar sua senha para confirmar a decisão da exclusão, ao digitar a senha corretamente, o sistema responde retornando uma mensagem de confirmação. Mensagem: *Essa conta foi removida com sucesso.* |
+| **TA02.06** | O servidor navega até a área de configurações do perfil do bolsista, e clica em **Excluir conta.** Ele deve então digitar sua senha para confirmar a decisão da exclusão, caso a senha digitada seja incorreta, o sistema responde retornando uma mensagem de alerta. Mensagem: *Erro, senha incorreta.* |
+| **TA02.07** | O bolsista navega até a área de configurações do perfil, atualiza seus dados, informando de maneira correta e  clica em Salvar, Ele deve então digitar sua senha para confirmar a decisão, caso a senha digitada corretamente, o sistema responde retornando uma mensagem de confirmação. Mensagem: *Seus dados foram atualizados com sucesso.* |
+| **TA02.08** | O bolsista navega até a área de configurações do perfil, atualiza seus dados, mas informa algum dado incorreto, ao clicar em **Salvar** Ele deve então digitar sua senha para confirmar a decisão da exclusão, caso tenha digitado a senha corretamente, o sistema responde retornando uma mensagem de alerta. Mensagem: *Erro, os dados do campo "xxxxx" não foram preenchidos corretamente.* |
+| **TA02.09** | O bolsista navega até a área de configurações do perfil, atualiza seus dados corretamente, ao clicar em **Salvar** Ele deve então digitar sua senha para confirmar a decisão da exclusão, caso tenha digitado a senha incorretamente, o sistema responde retornando uma mensagem de alerta. Mensagem: *Erro, senha digitada não corresponde.* |
+
+
 
 ### User Story US03 - Manter salas
 
