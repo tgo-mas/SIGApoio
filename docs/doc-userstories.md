@@ -51,12 +51,14 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 | Testes de Aceitação (TA) |  |
 | ----------- | ------------- |
 | **Código**  | **Descrição** |
-| **TA01.01** | O servidor informa seus dados na tela de registro, caso os dados estejam corretamente dispotos, ao clicar em **Cadastrar-se** ele é redirecionado para a tela principal do sistema (home screen) e notificado com uma mensagem de sucesso. Mensagem: *O Cadastro foi realizado com sucesso.* |
+| **TA01.01** | O servidor informa seus dados na tela de registro, caso os dados estejam corretamente dispotos, ao clicar em **Cadastrar-se** ele é redirecionado para a tela principal do sistema (home screen) e notificado com uma mensagem de sucesso. Mensagem: **O Cadastro foi realizado com sucesso.** |
 | **TA01.02** | O servidor informa, na tela Registrar, os dados para registrar-se incorretamente, ao clicar em **Salvar** ele é notificado com uma mensagem de erro e o cadastro não é efetuado. Mensagem: **Cadastro não realizado, o campo “xxxx” não foi informado corretamente.** |
 | **TA01.03** | O servidor informa, na tela de Login, os dados para logar de forma correta, ao clicar em **Entrar** ele é redirecionado para a tela de gestão(?) do sistema. É exibida a Mensagem: **Login efetuado com sucesso.** |
 | **TA01.04** | O servidor informa, na tela Login, os dados para logar incorretamente, ao clicar em **Entrar** ele é notificado com uma mensagem de erro. Mensagem: **Não foi possível efetuar o login, verifique seus dados**. |
 | **TA01.05** | O servidor navega até a área de configurações do perfil, e clica em **Excluir conta.** Ele deve confirmar seus dados para concluir a sua decisão, recebendo uma mensagem de confirmação. Mensagem: **Conta removida com sucesso.** |
-| **TA01.06** | O servidor não preenche um dos campos obrigatórios (marcados com "*"), ao clicar para avançar, ele é notificado com uma mensagem de erro. Mensagem : **O campo "xxxx" não foi preenchido.** |
+| **TA01.06** | O servidor não preenche um ou mais dos campos obrigatórios (marcados com " * "), ao clicar para avançar, ele é notificado com uma mensagem de erro. Mensagem : **O campo "xxxx" não foi preenchido.** |
+| **TA01.07** | O Usuário foi alterar seus dados cadastrais e informou algum dado inválido, uma mensagem de erro aparecerá. Mensagem: **Você informou dados incorretos**.|
+| **TA01.08** | O usuário foi alterar seus dados cadastrais, ao efetuar as alterações, aparece a mensagem : **Dados atualizados com sucesso.**| 
 
 
 | Protótipo de telas |
