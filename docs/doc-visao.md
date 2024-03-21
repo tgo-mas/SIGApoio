@@ -66,48 +66,47 @@ RF24 - Alterar Sala|Descrição: Pode alterar o bloco e número. |Ator: Servidor
 RF25 - Excluir Sala|Descrição: Pode remover uma sala do sistema. |Ator: Servidor
 RF26 - Listar Salas|Descrição: Exibe em lista todas as salas cadastradas indicando quais estão reservadas e disponíveis.|Ator: Servidor/Bolsista
 RF27 - Visualizar Sala|Descrição: Exibe o horário de reserva de uma sala.|Ator: Servidor/Bolsista
-RF23 - Cadastrar Laboratório|Descrição: O Laboratório tem os atributos bloco e número. Criar um Laboratório também cria uma chave com lista de autorizados editável. |Ator: Servidor
-RF24 - Alterar Laboratório|Descrição: Pode alterar o bloco e número. |Ator: Servidor
-RF25 - Excluir Laboratório|Descrição: Pode remover um Laboratório do sistema. |Ator: Servidor
-RF26 - Listar Laboratórios|Descrição: Exibe em lista todos os Laboratórios cadastrados indicando quais estão reservados e/ou disponíveis.|Ator: Servidor/Bolsista
-RF27 - Visualizar Laboratório|Descrição: Exibe os horários de reserva de um Laboratório.|Ator: Servidor/Bolsista
-RF23 - Cadastrar Auditório|Descrição: O Auditório tem os atributos nome e ID. Criar um Auditório também cria uma chave com lista de autorizados editável. |Ator: Servidor
-RF24 - Alterar Auditório|Descrição: Pode alterar o nome. |Ator: Servidor
-RF25 - Excluir Auditório|Descrição: Pode remover um Auditório do sistema. |Ator: Servidor
-RF26 - Listar Auditórios|Descrição: Exibe em lista todos os Auditórios cadastrados indicando quais estão reservados e/ou disponíveis.|Ator: Servidor/Bolsista
-RF27 - Visualizar Auditório|Descrição: Exibe os horários de reserva de um Auditório.|Ator: Servidor/Bolsista
-RF28 - Cadastrar Reserva de local|Descrição: Efetua a reserva de um local caso esteja disponível |Ator: Servidor
-RF29 - Excluir Reserva de local|Descrição: Remoção do local da lista de reservas |Ator: Servidor
-RF30 - Cadastrar Reserva de Recurso|Descrição: Efetua a reserva de um recurso caso esteja disponível |Ator: Servidor/Bolsista
-RF31 - Excluir Reserva de Recurso |Descrição: Faz a exclusão de uma reserva|Ator: Servidor/Bolsista
-RF32 - Relatório de reserva de locais no mês|Descrição: Exibe um relatório de todas os locais e suas reservas. |Ator: Servidor/Bolsista
-RF33 - Relatório de reserva de itens no mês|Descrição: Exibe um relatório de determinados itens e suas reservas. |Ator: Servidor/Bolsista|
-RF34 - Adicionar solicitação de horário| Descrição: Pode realizar a solicitação de horário.| Ator: Chefia
-RF35 - Editar solicitação de horário| Descrição: Realiza a edição de solicitação em aberto.| Ator: Chefia
-RF36 - Listar solicitação de horário| Descrição: Efetua a listagem de todas as solicitações cadastradas, filtrando por pendentes, canceladas, concluídas.| Ator: Chefia
-RF37 - Detalhar solicitação de horário| Descrição: Exibe as informações de uma solicitação, como hora e data, horários solicitados, pessoa que solicitou.| Ator: Chefia
-RF38 - Excluir solicitação de horário| Descrição: Realiza a exclusão de uma solicitação.| Ator: Chefia
-RF39 - Aprovar solicitação de horário| Descrição: Efetua o deferimento ou indeferimento do horário solicitado.| Ator: Servidor
-RF40 - Alterar bolsa|Descrição: Permite alterar a lista de itens da bolsa referente. |Ator: Servidor/Bolsista|
-RF41 - Listar bolsas|Descrição: Visualizar brevemente cada bolsa, seu status e itens. |Ator: Servidor/Bolsista|
-RF42 - Detalhar bolsa|Descrição: Permite visualizar os detalhes da bolsa escolhida, e sua lista de itens, bem como exercer ações sobre a lista. |Ator: Servidor/Bolsista|
-RF43 - Adicionar item de bolsa |Descrição: Adiciona um determinado item ao kit de uma bolsa.| Ator: Servidor/Bolsista
-RF44 - Listar itens de bolsa |Descrição: Lista os itens do kit de uma bolsa.| Ator: Servidor/Bolsista
-RF45 - Remover item de bolsa |Descrição: Remove um determinado item do kit de uma bolsa.| Ator: Servidor/Bolsista
-RF46 - Registrar saída de bolsa |Descrição: Registra a saída (empréstimo) de uma bolsa (bolsista, docente, horário de saída, horário de devolução).| Ator: Servidor/Bolsista
-RF47 - Adicionar chave|Descrição: A chave possui seu número associado a sua sala correspondente, status e uma lista de pessoas autorizadas a pegarem a mesma. |Ator: Servidor/Bolsista
-RF48 - Alterar chave|Descrição: Permite a correção de alguma informação referente a chave. |Ator: Servidor/Bolsista
-RF49 - Listar chaves|Descrição: Exibe a lista de todas as chaves cadastradas e seus respectivos status. |Ator: Servidor/Bolsista
-RF50 - Excluir chave|Descrição: Exclui uma chave |Ator: Servidor/Bolsista
-RF51 - Adicionar autorizado|Descrição: Adicionar um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
-RF52 - Editar autorizado|Descrição: Editar Lista de usuários autorizados a pegar uma chave. |Ator: Servidr/Bolsista
-RF53 - Listar autorizados|Descrição: Listar usuários autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
-RF54 - Excluir autorizado|Descirção: Excluir um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
-RF55 - Incluir saída de chave|Descirção: Registra uma saída de chave, alterando o status da mesma. |Ator: Servidor/Bolsista
-RF56 - Editar saída de chave|Descirção: Permite corrigir uma saída de chave com algum erro. |Ator: Servidor/Bolsista
-RF57 - Listar saída de chave|Descirção: Exibe uma lista das chaves que já foram pegas. |Ator: Servidor/Bolsista
-RF58 - Excluir saída de chave|Descirção: Registra uma devolução de chave, alterando seu status. |Ator: Servidor/Bolsista
-
+RF28 - Cadastrar Laboratório|Descrição: O Laboratório tem os atributos bloco e número. Criar um Laboratório também cria uma chave com lista de autorizados editável. |Ator: Servidor
+RF29 - Alterar Laboratório|Descrição: Pode alterar o bloco e número. |Ator: Servidor
+RF30 - Excluir Laboratório|Descrição: Pode remover um Laboratório do sistema. |Ator: Servidor
+RF31 - Listar Laboratórios|Descrição: Exibe em lista todos os Laboratórios cadastrados indicando quais estão reservados e/ou disponíveis.|Ator: Servidor/Bolsista
+RF32 - Visualizar Laboratório|Descrição: Exibe os horários de reserva de um Laboratório.|Ator: Servidor/Bolsista
+RF33 - Cadastrar Auditório|Descrição: O Auditório tem os atributos nome e ID. Criar um Auditório também cria uma chave com lista de autorizados editável. |Ator: Servidor
+RF34 - Alterar Auditório|Descrição: Pode alterar o nome. |Ator: Servidor
+RF35 - Excluir Auditório|Descrição: Pode remover um Auditório do sistema. |Ator: Servidor
+RF36 - Listar Auditórios|Descrição: Exibe em lista todos os Auditórios cadastrados indicando quais estão reservados e/ou disponíveis.|Ator: Servidor/Bolsista
+RF37 - Visualizar Auditório|Descrição: Exibe os horários de reserva de um Auditório.|Ator: Servidor/Bolsista
+RF38 - Cadastrar Reserva de local|Descrição: Efetua a reserva de um local caso esteja disponível |Ator: Servidor
+RF39 - Excluir Reserva de local|Descrição: Remoção do local da lista de reservas |Ator: Servidor
+RF40 - Cadastrar Reserva de Recurso|Descrição: Efetua a reserva de um recurso caso esteja disponível |Ator: Servidor/Bolsista
+RF41 - Excluir Reserva de Recurso |Descrição: Faz a exclusão de uma reserva|Ator: Servidor/Bolsista
+RF42 - Relatório de reserva de locais no mês|Descrição: Exibe um relatório de todas os locais e suas reservas. |Ator: Servidor/Bolsista
+RF43 - Relatório de reserva de itens no mês|Descrição: Exibe um relatório de determinados itens e suas reservas. |Ator: Servidor/Bolsista|
+RF44 - Adicionar solicitação de horário| Descrição: Pode realizar a solicitação de horário.| Ator: Chefia
+RF45 - Editar solicitação de horário| Descrição: Realiza a edição de solicitação em aberto.| Ator: Chefia
+RF46 - Listar solicitação de horário| Descrição: Efetua a listagem de todas as solicitações cadastradas, filtrando por pendentes, canceladas, concluídas.| Ator: Chefia
+RF47 - Detalhar solicitação de horário| Descrição: Exibe as informações de uma solicitação, como hora e data, horários solicitados, pessoa que solicitou.| Ator: Chefia
+RF48 - Excluir solicitação de horário| Descrição: Realiza a exclusão de uma solicitação.| Ator: Chefia
+RF49 - Aprovar solicitação de horário| Descrição: Efetua o deferimento ou indeferimento do horário solicitado.| Ator: Servidor
+RF50 - Alterar bolsa|Descrição: Permite alterar a lista de itens da bolsa referente. |Ator: Servidor/Bolsista|
+RF51 - Listar bolsas|Descrição: Visualizar brevemente cada bolsa, seu status e itens. |Ator: Servidor/Bolsista|
+RF52 - Detalhar bolsa|Descrição: Permite visualizar os detalhes da bolsa escolhida, e sua lista de itens, bem como exercer ações sobre a lista. |Ator: Servidor/Bolsista|
+RF53 - Adicionar item de bolsa |Descrição: Adiciona um determinado item ao kit de uma bolsa.| Ator: Servidor/Bolsista
+RF54 - Listar itens de bolsa |Descrição: Lista os itens do kit de uma bolsa.| Ator: Servidor/Bolsista
+RF55 - Remover item de bolsa |Descrição: Remove um determinado item do kit de uma bolsa.| Ator: Servidor/Bolsista
+RF56 - Registrar saída de bolsa |Descrição: Registra a saída (empréstimo) de uma bolsa (bolsista, docente, horário de saída, horário de devolução).| Ator: Servidor/Bolsista
+RF57 - Adicionar chave|Descrição: A chave possui seu número associado a sua sala correspondente, status e uma lista de pessoas autorizadas a pegarem a mesma. |Ator: Servidor/Bolsista
+RF58 - Alterar chave|Descrição: Permite a correção de alguma informação referente a chave. |Ator: Servidor/Bolsista
+RF59 - Listar chaves|Descrição: Exibe a lista de todas as chaves cadastradas e seus respectivos status. |Ator: Servidor/Bolsista
+RF60 - Excluir chave|Descrição: Exclui uma chave |Ator: Servidor/Bolsista
+RF61 - Adicionar autorizado|Descrição: Adicionar um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF62 - Editar autorizado|Descrição: Editar Lista de usuários autorizados a pegar uma chave. |Ator: Servidr/Bolsista
+RF63 - Listar autorizados|Descrição: Listar usuários autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF64 - Excluir autorizado|Descrição: Excluir um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF65 - Incluir saída de chave|Descrição: Registra uma saída de chave, alterando o status da mesma. |Ator: Servidor/Bolsista
+RF66 - Editar saída de chave|Descrição: Permite corrigir uma saída de chave com algum erro. |Ator: Servidor/Bolsista
+RF67 - Listar saída de chave|Descrição: Exibe uma lista das chaves que já foram pegas. |Ator: Servidor/Bolsista
+RF68 - Excluir saída de chave|Descrição: Registra uma devolução de chave, alterando seu status. |Ator: Servidor/Bolsista
 
 ### Modelo Conceitual
 
