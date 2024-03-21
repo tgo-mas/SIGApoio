@@ -34,6 +34,8 @@ Perfil                                 | Descrição   |
 Administrador | Este usuário realiza os cadastros base e pode realizar qualquer função.
 Servidor | Este usuário utiliza o sistema para cadastrar novos usuários (bolsistas e outros servidores), gerenciamento do estoque do sistema, reservas de salas cadastradas (assim como cadastrá-las e controle do fluxo de entrada e saída de itens.)
 Bolsista | O bolsista tem um acesso mais limitado ao sistema, utilizando apenas para realizar gerenciamento de estoque, juntamente com entrada e saída de itens, podendo também efetuar reservas de salas caso seja requerido por um servidor. Caso a reserva seja de algum auditório ou anfiteatro, o papel do bolsista é apenas verificar se está disponível no horário em que foi determinado, caso esteja, é repassado para o servidor do setor, e ele por sua vez, efetuará a reserva no sistema.
+Chefia  | Este usuário é o Coordenador de curso ou chefe de departamento. Ele pode solicitar horários do semestre ou reservar recursos e locais.
+Docente | Este usuário tem permissão para visualizar os horários e as reservas de salas. Além disso, ele pode abrir chamados e solicitar a reserva de itens antecipadamente.
 
 ## Lista de Requisitos Funcionais
 
@@ -88,7 +90,12 @@ RF46 - Listar solicitação de horário| Descrição: Efetua a listagem de todas
 RF47 - Detalhar solicitação de horário| Descrição: Exibe as informações de uma solicitação, como hora e data, horários solicitados, pessoa que solicitou.| Ator: Chefia
 RF48 - Excluir solicitação de horário| Descrição: Realiza a exclusão de uma solicitação.| Ator: Chefia
 RF49 - Aprovar solicitação de horário| Descrição: Efetua o deferimento ou indeferimento do horário solicitado.| Ator: Servidor
-RF50 - Alterar bolsa|Descrição: Permite alterar a lista de itens da bolsa referente. |Ator: Servidor/Bolsista|
+RF50 - Visualizar horários| Descrição: Permite que o docente visualize os horários disponíveis das salas de aula.| Ator: Docente.
+RF51 - Abrir chamado| Descrição: Permite abrir um chamado no sistema para relatar problemas relacionados à infraestrutura, equipamentos ou outros assuntos pertinentes.| Ator: Docente.
+RF52 - Solicitar reserva de itens| Descrição: Solicita a reserva antecipada de itens específicos, como equipamentos de laboratório, materiais didáticos ou outros recursos.| Ator: Docente.
+RF53 - Solicitar horários do semestre| Descrição: Permite solicitar os horários do semestre ao sistema para planejamento acadêmico.| Ator:Chefia.
+
+<!-- RF50 - Alterar bolsa|Descrição: Permite alterar a lista de itens da bolsa referente. |Ator: Servidor/Bolsista|
 RF51 - Listar bolsas|Descrição: Visualizar brevemente cada bolsa, seu status e itens. |Ator: Servidor/Bolsista|
 RF52 - Detalhar bolsa|Descrição: Permite visualizar os detalhes da bolsa escolhida, e sua lista de itens, bem como exercer ações sobre a lista. |Ator: Servidor/Bolsista|
 RF53 - Adicionar item de bolsa |Descrição: Adiciona um determinado item ao kit de uma bolsa.| Ator: Servidor/Bolsista
@@ -99,14 +106,14 @@ RF57 - Adicionar chave|Descrição: A chave possui seu número associado a sua s
 RF58 - Alterar chave|Descrição: Permite a correção de alguma informação referente a chave. |Ator: Servidor/Bolsista
 RF59 - Listar chaves|Descrição: Exibe a lista de todas as chaves cadastradas e seus respectivos status. |Ator: Servidor/Bolsista
 RF60 - Excluir chave|Descrição: Exclui uma chave |Ator: Servidor/Bolsista
-RF61 - Adicionar autorizado|Descrição: Adicionar um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
-RF62 - Editar autorizado|Descrição: Editar Lista de usuários autorizados a pegar uma chave. |Ator: Servidr/Bolsista
-RF63 - Listar autorizados|Descrição: Listar usuários autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
-RF64 - Excluir autorizado|Descrição: Excluir um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
-RF65 - Incluir saída de chave|Descrição: Registra uma saída de chave, alterando o status da mesma. |Ator: Servidor/Bolsista
-RF66 - Editar saída de chave|Descrição: Permite corrigir uma saída de chave com algum erro. |Ator: Servidor/Bolsista
-RF67 - Listar saída de chave|Descrição: Exibe uma lista das chaves que já foram pegas. |Ator: Servidor/Bolsista
-RF68 - Excluir saída de chave|Descrição: Registra uma devolução de chave, alterando seu status. |Ator: Servidor/Bolsista
+RF50 - Adicionar autorizado|Descrição: Adicionar um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF51 - Editar autorizado|Descrição: Editar Lista de usuários autorizados a pegar uma chave. |Ator: Servidr/Bolsista
+RF52 - Listar autorizados|Descrição: Listar usuários autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF53 - Excluir autorizado|Descrição: Excluir um usuário à lista de autorizados a pegar determinada chave. |Ator: Servidor/Bolsista
+RF54 - Incluir saída de chave|Descrição: Registra uma saída de chave, alterando o status da mesma. |Ator: Servidor/Bolsista
+RF55 - Editar saída de chave|Descrição: Permite corrigir uma saída de chave com algum erro. |Ator: Servidor/Bolsista
+RF56 - Listar saída de chave|Descrição: Exibe uma lista das chaves que já foram pegas. |Ator: Servidor/Bolsista
+RF57 - Excluir saída de chave|Descrição: Registra uma devolução de chave, alterando seu status. |Ator: Servidor/Bolsista -->
 
 ### Modelo Conceitual
 
