@@ -18,12 +18,12 @@ link: https://docs.google.com/document/d/1DPBcyGHgflmz5RDsZQ2X8KVBPoEF5PdAz9BBNF
 
 Membro     |     Competências   |
 ---------  | ----------- |
-|Anderson  |Desenvolvedor JavaScript, Next, C.|
-|Cleomar   |Excel, Postman.                   |
+|Anderson  |Python, Django, JavaScript, Next, C.|
+|Cleomar   |Excel, Python, C.                 |
 |Ericleison|Python, c, JavaScript, UML, Canva.|
 |Marlon    |Python, C, C++, JavaScript, SQL.  |
 |Rafael    |Pytest, Postman, Excel, Jest, Mocha JS.|
-|Thomas    |JavaScript, Node, React, Express, Figma, Canva, UML, C, Java.|
+|Thomas    |JavaScript, Node, React, Express, Figma, Canva, UML, C, Java, Python.|
 
 ## Perfis dos Usuários
 
