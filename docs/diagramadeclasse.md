@@ -5,22 +5,28 @@ classDiagram
     Local <|-- Auditório
     Local <|-- Laboratório
 
-    Usuário <|-- Bolsista
-    Usuário <|-- Docente
-    Usuário <|-- Chefia
-    Usuário <|-- Servidor
+    %% Reserva <|-- Usuário
+    %% Usuário <|-- Bolsista
+    %% Usuário <|-- Docente
+    %% Usuário <|-- Chefia
+    %% Usuário <|-- Servidor
+
 
 
 
     Local --> Reserva
     Horario --> Reserva
+
     Chamado --> Reserva
+    Horario --> Usuário
 
     Recurso *-- TipoRecurso
     Usuário *-- TipoUsuario
 
-    Usuário --> Empréstimo
+
     Recurso --> Empréstimo
+    Usuário --> Empréstimo
+
 
     class Local{
         -int id
@@ -45,8 +51,8 @@ classDiagram
         -Horario horarios
         -int id
         -int idLocal
-        -string matBolsista
-        -string matUsuario
+        -string matResponsavel
+        -string matSolicitante
         +isAprovada():bool
         +novaReserva():Reserva
     }
@@ -64,6 +70,7 @@ classDiagram
         -int codigo
         -bool status
         -bool funcionando
+        +alterarRecurso();
     }
     class TipoRecurso{
         -string tipo
@@ -73,6 +80,8 @@ classDiagram
         -string matricula
         -string nome
         -string tipo
+        -Horario escala
+
     }
     class TipoUsuario{
         -string tipo
@@ -93,6 +102,7 @@ classDiagram
         -int id
     }
     class Bolsista{
+
 
     }
     class Servidor{
