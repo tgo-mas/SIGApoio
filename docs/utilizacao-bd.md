@@ -57,3 +57,7 @@ Esteja na raiz do projeto ou no mesmo diretório que o projeto
 python manage.py startapp <nome do app>
 ```
 
+## Executando o projeto 
+```
+python manage.py runserver
+```
