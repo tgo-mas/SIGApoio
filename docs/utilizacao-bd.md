@@ -4,6 +4,7 @@
 >   Necessário ter o python instalado na máquina, de preferência, a versão mais recente.
 
 ## Instalando o sistema
+## Ambiente Virtual
 ### Criando o ambiente virtual
 
 Antes é necessário baixar a biblioteca do python, responsável por criar o ambiente virtual
@@ -26,3 +27,11 @@ $ source <venv>/bin/activate
 C:\Projeto> <venv>\Scripts\activate
 ```
 
+## Instalando o Django no projeto
+```
+pip install django
+```
+## Instalando dependências
+```
+pip install -r requirements.txt
+```
