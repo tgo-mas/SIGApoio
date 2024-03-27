@@ -2,8 +2,11 @@
 Sistema de Gerenciamento do Apoio Pedagógico. Projeto criado como forma de avaliação da disciplina Engenharia de Software II.
 
 **Universidade Federal do Rio Grande do Norte**
+
 Curso: Bacharelado em Sistemas de Informação
+
 Disciplina: Engenharia de Software II
+
 Professor: Taciano Silva (Github: [TacianoSilva](https://github.com/tacianosilva))
 
 ## Equipe
