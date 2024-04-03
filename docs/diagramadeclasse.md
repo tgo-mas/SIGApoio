@@ -59,12 +59,24 @@ classDiagram
     class Sala{
         -char bloco
         -int codigo
+        +cadastrarSala();
+        +editarSala();
+        +removerSala();
+        +listarSalas();
     }
     class Auditório{
         -String nome
+        +cadastrarAuditório();
+        +editarAuditório();
+        +removerAuditório();
+        +listarAuditório();
     }
     class Laboratório{
         -string nome
+        +cadastrarLaboratório();
+        +editarLaboratório();
+        +removerLaboratório();
+        +listarLaboratório();
     }
     class Recurso{
         -int codigo
@@ -81,7 +93,10 @@ classDiagram
         -string nome
         -string tipo
         -Horario escala
-
+        +cadastrarUsuário();
+        +editarUsuário();
+        +removerUsuário();
+        +listarUsuários();
     }
     class TipoUsuario{
         -string tipo
@@ -93,6 +108,10 @@ classDiagram
         -int idRecurso
         -string matBolsista
         -string matUsuario
+        +cadastrarEmpréstimo();
+        +editarEmpréstimo();
+        +removerEmpréstimo();
+        +listarEmpréstimo();
     }
     class Chamado{
         -Reserva reserva
@@ -100,5 +119,7 @@ classDiagram
         -Datetime hora
         -bool status
         -int id
+        +cadastrarChamado();
+        +deletarChamado();
     }
 ~~~
