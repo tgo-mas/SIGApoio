@@ -101,17 +101,4 @@ classDiagram
         -bool status
         -int id
     }
-    class Bolsista{
-
-
-    }
-    class Servidor{
-
-    }
-    class Chefia{
-
-    }
-    class Docente{
-
-    }
 ~~~
