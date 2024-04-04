@@ -8,9 +8,9 @@ It0      | 27/02/2024  | 14/03/2024 |      --      | Thomas  | Planejamento, Est
 It1      | 15/03/2024  | 28/03/2024 | 28/03/2024   | Thomas | Criar Documento de Visão, Modelo Conceitual, Lista de User Stories, Plano de Iteração e Plano de Release, Detalhar User Stories para a Iteração 2, Implementar User Stories definidos na Iteração 1 (um US por membro da equipe).
 It2      | 29/03/2024  | 18/04/2024 | 18/04/2024   | Ericleison | Detalhar User Stories, Implementar User Stories, Testar User Stories, Deploy da Iteração.
 It3      | 19/04/2024  | 09/05/2024 | 09/05/2024   | Anderson | Detalhar User Stories, Implementar User Stories, Testar User Stories, Deploy da Iteração.
-It4      | 10/05/2024  | 30/05/2024 | 30/05/2024   | A definir | Detalhar User Stories, Implementar User Stories, Testar User Stories, Deploy da Iteração.
-It5      | 31/05/2024  | 20/06/2024 | 20/06/2024   | A definir | Detalhar User Stories, Implementar User Stories, Testar User Stories, Deploy da Iteração.
-It6      | 21/06/2024  | 11/07/2024 | 11/07/2024   | A definir | Correções de Bugs, Testes, e Entrega do Projeto.
+It4      | 10/05/2024  | 30/05/2024 | 30/05/2024   | Marlon | Detalhar User Stories, Implementar User Stories, Testar User Stories, Deploy da Iteração.
+It5      | 31/05/2024  | 20/06/2024 | 20/06/2024   | Rafael | Detalhar User Stories, Implementar User Stories, Testar User Stories, Deploy da Iteração.
+It6      | 21/06/2024  | 11/07/2024 | 11/07/2024   | Cleomar | Correções de Bugs, Testes, e Entrega do Projeto.
 
 * Observação 1: Cada Issue deve ser alocada em uma Iteração cadastrada como Milestones no GitHub.   
 * Observação 2: Use este Plano de Iteração como Modelo. No seu projeto você deve identificar os User Stories de cada iteração e o líder técnico deve alocar pelo menos um *User Story* por membro da equipe em cada iteração.
