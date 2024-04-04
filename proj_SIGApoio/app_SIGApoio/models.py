@@ -19,3 +19,11 @@ class Recurso(models.Model):
     codigo = models.IntegerField(primary_key=True, unique=True)
     status = models.BooleanField(choices=STATUS_CHOICE, blank=True, default=True,)
     funcionando = models.BooleanField(choices=FUNCIONANDO_CHOICE, blank=True, default=True)
+
+class Emprestimo(models.Model):
+    horaSaida = models.DateTimeField()
+    horaEntrada = models.DateTimeField()
+    id = models.IntegerField(primary_key=True, unique=True, serialize=True)
+    idRecurso = models.ForeignKey(Recurso, on_delete=models.SET_NULL)
+    matBolsista = models.ForeignKey(Usuario, on_delete=models.SET_NULL)
+    matUsuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL)
