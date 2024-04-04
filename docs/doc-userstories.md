@@ -19,6 +19,23 @@ Este documento descreve os User Stories criados a partir da Lista de Requisitos 
 | 19/03/2024 | 2.0.4   | Alteração de user stories (Autenticação do Usuário) | Cleomar 
 | 20/03/2024 | 2.0.5   | Alteração de user stories (Manter Servidor e Bolsista) | Ericleison 
 
+
+### User Story US00 - Estrutura inicial do projeto    
+
+|               |                                                                |
+| ------------- | :------------------------------------------------------------- |
+| **Descrição** | Construção da estrutura da aplicação Django, com a página inicial e os arquivos envolvendo rotas e banco de dados. |
+
+|                           |                                     |
+| ------------------------- | ----------------------------------- | 
+| **Prioridade**            | Essencial                           | 
+| **Estimativa**            | 2h                                  | 
+| **Tempo Gasto (real):**   | 2h                                  | 
+| **Analista**              | Tgomas                              | 
+| **Desenvolvedor**         | Ericleison                          | 
+| **Revisor**               | Thomas                              | 
+| **Testador**              | Anderson                            | 
+
 ### User Story US01 - Autenticação de Usuário    
 
 |               |                                                                |
