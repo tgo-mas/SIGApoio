@@ -22,7 +22,7 @@ Membro     |     Competências   |
 |Cleomar   |Excel, Python, C.                 |
 |Ericleison|Python, c, JavaScript, UML, Canva.|
 |Marlon    |Python, C, C++, JavaScript, SQL.  |
-|Rafael    |Pytest, Postman, Excel, Jest, Mocha JS.|
+|Rafael    |Javascript, Python, Next, React, Excel.|
 |Thomas    |JavaScript, Node, React, Express, Figma, Canva, UML, C, Java, Python.|
 
 ## Perfis dos Usuários
