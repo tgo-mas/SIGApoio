@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, unique=True, primary_key=True)
 
@@ -9,7 +9,6 @@ class Usuario(models.Model):
     email = models.EmailField(max_length=100, unique=True)
     nome = models.CharField(max_length=200)
     tipo = models.OneToOneField(TipoUsuario, on_delete=models.CASCADE)
-    #escala  = models.ForeignKey(Horario, on_delete=models.SET_NULL, default=None)
 
 class TipoRecurso(models.Model):
     tipo = models.CharField(max_length=100)
@@ -26,12 +25,30 @@ class Recurso(models.Model):
 
 class Emprestimo(models.Model):
     horaSaida = models.DateTimeField(auto_now=True)
-    horaEntrada = models.DateTimeField()
+    horaEntrada = models.DateTimeField(null=True, blank=True)
     idRecurso = models.ForeignKey(Recurso, on_delete=models.DO_NOTHING)
     matBolsista = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
     matUsuario = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
 
+class Horario(models.Model): 
+    SEMANA = ((0, 'Domingo'), (1, 'Segunda'), (2,'Terça'), (3, 'Quarta'), (4, 'Quinta'), (5, 'Sexta'), (6, 'Sábado'))
 
-class Sala(models.Model):
-    bloco = models.CharField(max_length=1)
+    dia = models.IntegerField(choices=SEMANA, default=True)
+    horaInicio = models.TimeField(null=True, blank=True)
+    horaFim = models.TimeField(null=True, blank=True)
     
+class TipoLocal(models.Model):
+    tipo = models.CharField(max_length=50, unique=True, primary_key=True)
+
+class Local(models.Model):   
+    nome = models.CharField(max_length=50, unique=True)
+    bloco = models.CharField(max_length=10)
+    capacidade = models.IntegerField()
+    tipo = models.ForeignKey(TipoLocal, on_delete=models.DO_NOTHING)
+
+    
+class Reserva(models.Model):    
+    horarios = models.ManyToManyField(Horario) # Verificar esse ManyToManyField
+    local = models.ForeignKey(Local, on_delete=models.DO_NOTHING)
+    matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
+    matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
