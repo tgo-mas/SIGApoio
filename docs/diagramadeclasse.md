@@ -1,125 +1,94 @@
 ~~~mermaid 
 classDiagram
 
-    Local <|-- Sala
-    Local <|-- Auditório
-    Local <|-- Laboratório
-
-    %% Reserva <|-- Usuário
-    %% Usuário <|-- Bolsista
-    %% Usuário <|-- Docente
-    %% Usuário <|-- Chefia
-    %% Usuário <|-- Servidor
-
-
-
-
+    Local *-- TipoLocal
     Local --> Reserva
     Horario --> Reserva
-
     Chamado --> Reserva
-    Horario --> Usuário
+    DiaSemana --o Horario
 
+    Usuário --o Reserva
+    Usuário <|-- Bolsista
+    Usuário <|-- Docente
+    Usuário <|-- Chefia
+    Usuário <|-- Servidor
+
+    Recurso --o Empréstimo
+    Usuário --o Empréstimo
     Recurso *-- TipoRecurso
-    Usuário *-- TipoUsuario
 
-
-    Recurso --> Empréstimo
-    Usuário --> Empréstimo
-
-
+    class TipoLocal{
+        -string tipo
+    }
     class Local{
         -int id
-        -Chave chave
-        +criarLocal():Local;
-        +editarLocal();
-        +removerLocal();
-        +listarLocais();
-        +getLocal();
+        -string bloco
+        -string nome
+        -TipoLocal tipo
+        -bool ocupado
+        +setLivre()
+        +setOcupado()
     }
+
     class Horario{
         -string id
         -string cod
-        -Date dia
-        -Datetime hora
-        +criarLocal():Local;
-        +editarLocal();
-        +removerLocal();
-        +listarLocais();
+        -DiaSemana dia
+        -Time hora
     }
+    class DiaSemana{
+        -int codigo
+        -string dia
+    }
+
     class Reserva{
-        -Horario horarios
         -int id
-        -int idLocal
+        -Horario horarios
+        -Local local
+        -bool aprovada
         -string matResponsavel
         -string matSolicitante
-        +isAprovada():bool
-        +novaReserva():Reserva
+        -isValida(Horario, Local) bool
+        +setAprovada(status) void
     }
-    class Sala{
-        -char bloco
-        -int codigo
-        +cadastrarSala();
-        +editarSala();
-        +removerSala();
-        +listarSalas();
-    }
-    class Auditório{
-        -String nome
-        +cadastrarAuditório();
-        +editarAuditório();
-        +removerAuditório();
-        +listarAuditório();
-    }
-    class Laboratório{
-        -string nome
-        +cadastrarLaboratório();
-        +editarLaboratório();
-        +removerLaboratório();
-        +listarLaboratório();
-    }
+
     class Recurso{
         -int codigo
         -bool status
         -bool funcionando
-        +alterarRecurso();
+        -TipoRecurso tipo
     }
     class TipoRecurso{
         -string tipo
     }
+
     class Usuário{
         -string email
         -string matricula
         -string nome
-        -string tipo
-        -Horario escala
-        +cadastrarUsuário();
-        +editarUsuário();
-        +removerUsuário();
-        +listarUsuários();
     }
-    class TipoUsuario{
-        -string tipo
+    class Servidor{
+        -setTipoUsuario(Usuario, tipo)
     }
+
     class Empréstimo{
+        -int id
         -Datetime horaSaida
         -Datetime horaEntrada
-        -int id
-        -int idRecurso
+        -bool status
+        -Recurso Recurso
         -string matBolsista
         -string matUsuario
-        +cadastrarEmpréstimo();
-        +editarEmpréstimo();
-        +removerEmpréstimo();
-        +listarEmpréstimo();
+        +setStatus(status)
     }
+
     class Chamado{
+        -int id
         -Reserva reserva
         -string descricao
         -Datetime hora
         -bool status
-        -int id
-        +cadastrarChamado();
-        +deletarChamado();
+        -Bolsista bolsista
+        +setAtendido(status)
     }
 ~~~

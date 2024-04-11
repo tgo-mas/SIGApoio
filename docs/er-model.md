@@ -1,40 +1,27 @@
-# Modelo ER (Entidade Relacionamento v0.1)
+# Modelo ER (Entidade Relacionamento v0.2)
 
 ```mermaid
 erDiagram
-Usuario ||--|{ Docente: Tipo
-Usuario ||--|{ Servidor: Tipo
-Usuario ||--|{ Bolsista: Tipo
-Usuario ||--|{ Chefia: Tipo
-
-Docente ||--|{ Chamado : Abre
-Servidor ||--|{ Reserva_de_Salas: Aprova 
-Reserva_de_Salas ||--|{ Sala : Reserva
-Sala ||--||  Bolsa--- :Acompanha
-Bolsista ||--|| Chave :Empresta
-Chave ||--|{ Autorizado-- :Possui
-Chefia  ||--|{Reserva_de_Salas: Solicita
-
-Usuario ||--|{ Recurso : Reserva
-Recurso }|--|{ Bolsista : Empresta 
-Recurso ||--|| Adaptador : Pode_ser
-Recurso ||--|| Caixa_de_som: Pode_ser
-Recurso ||--|| Projetor : Pode_ser
-Recurso ||--|| Notebook : Pode_ser 
+    Docente ||--|{ Chamado : Abre
+    Docente ||--|{ Reserva: Utiliza
+    Chefia  ||--|{ Reserva: Solicita
+    Servidor ||--|{ Reserva: Aprova 
+    Servidor ||--|{ Usuario: AprovaCadastro
+    Reserva ||--|| Sala : Reserva
+    Reserva ||--|{ Horario: Marca
+    Usuario ||--|{ Recurso : Recebe
+    Recurso }|--|{ Bolsista : Empresta 
 ```
-
-
 ## Listando entidades do projeto
 
-|Entidades normais|Entidades fracas |Entidade associativas|
-|------|-----|------|
-|Docente|Bolsa|Abre|
-|Servidor|Autorização|Aprova|
-|Chefia|             |Solicita|
-|Bolsista|           |Empresta|
-|Recurso|            |Acompanha|
-
-
-
+|Entidades |Entidades fracas|Entidades associativas|
+|----------|---------|---------|
+|Docente   |Chamado  |Abre     |
+|Servidor  |Horario  |Aprova   |
+|Chefia    |         |Solicita |
+|Bolsista  |         |Empresta |
+|Recurso   |         |Acompanha|
+|Reserva   |         |Marca    |
+|          |         |Utiliza  |
 
 [Referências (Lucidchart)](https://www.lucidchart.com/pages/pt/o-que-e-diagrama-entidade-relacionamento)

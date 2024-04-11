@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, unique=True, primary_key=True)
 
