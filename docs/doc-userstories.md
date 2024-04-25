@@ -227,6 +227,10 @@ Imagem a ser inserida futuramente.
 | *TA04.07* | Emprestar um recurso, aparece a mensagem: Empréstimo do recurso com sucesso. |
 | *TA04.08* | Tentar emprestar, recebe mensagem de erro: O recurso escolhido já está emprestado no momento. |
 
+| Protótipo de telas |
+| ------------------ |
+| <p><img src="./images/tela_cadastro_recurso.png" ></p><p>Figura  - Página de Cadastro de Recurso</p> |
+
 ### User Story US06 - Manter reservas de salas
 
 |               |                                                                |
