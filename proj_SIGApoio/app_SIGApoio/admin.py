@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TipoRecurso, TipoUsuario, Recurso, Usuario, Emprestimo, Horario, Local, Reserva, TipoLocal
+from .models import TipoRecurso, TipoUsuario, Usuario, Horario, Local, Reserva, TipoLocal, Recurso, Emprestimo
 
 admin.site.register(Usuario)
 admin.site.register(TipoRecurso)
