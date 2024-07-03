@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <title>SIG-Apoio</title>
+
+  <body>
+    <nav style="background-color: rgb(0, 0, 153)"  class="navbar navbar-light bg-light">
+      <div class="">
+        <button><a href="{% url 'home' %}" class="btn">Home</a></button>
+        <button><a href="{% url 'cadastro-recurso' %}" class="btn">Cadastrar Recurso</a></button>
+      </div>
+    </nav>
+    <h1>Seja Bem vindo ao SIG-Apoio</h1>
+  </body>
+
+    
+{% endblock content %}
