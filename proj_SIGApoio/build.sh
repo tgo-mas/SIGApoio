@@ -3,7 +3,7 @@
 set -o errexit
 
 # Instalação das dependências usando pip
-pip install -r ./requirements.txt
+pip install -r proj_SIGApoio/requirements.txt
 
 # Comandos de gerenciamento do Django
 python manage.py collectstatic --no-input
