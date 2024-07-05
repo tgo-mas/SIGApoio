@@ -53,6 +53,7 @@ class Horario(models.Model):
     horaInicio = models.TimeField(null=True, blank=True)
     horaFim = models.TimeField(null=True, blank=True)
     
+''' 
 class TipoLocal(models.Model):
     tipo = models.CharField(max_length=50, unique=True, primary_key=True)
     
@@ -64,6 +65,16 @@ class Local(models.Model):
     bloco = models.CharField(max_length=10)
     capacidade = models.IntegerField()
     tipo = models.ForeignKey(TipoLocal, on_delete=models.DO_NOTHING)
+'''
+
+class Local(models.Model):
+    nome = models.CharField(max_length=50, unique=True)
+    bloco = models.CharField(max_length=1, choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')])
+    local = models.CharField(max_length=20, choices=[('sala', 'Sala'), ('auditorio', 'Auditório'), ('laboratorio', 'Laboratório')], default='sala')
+    numero = models.CharField(max_length=10, default="1")
+
+    def __str__(self):
+        return f"{self.local} {self.numero}"
     
     def __str__(self):
         return self.nome
