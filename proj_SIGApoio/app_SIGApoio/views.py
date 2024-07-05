@@ -1,5 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .forms import LocalForm
+from django.urls import reverse
+from .forms import LocalForm, RecursoForm
 # Create your views here.
 
 def home(request):
@@ -17,8 +19,6 @@ def cad_local(request):
 
 def success_page(request):
     return render(request, 'usuarios/success_page.html')
-
-    return render(request,'index.html')  
 
 def cadastroRecurso(request):
     if request.method != 'POST':

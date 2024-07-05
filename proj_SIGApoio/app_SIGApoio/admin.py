@@ -9,5 +9,6 @@ admin.site.register(Emprestimo)
 admin.site.register(Horario)
 admin.site.register(Local)
 admin.site.register(Reserva)
+admin.site.register(TipoLocal)
 
 # admin.site.register(TipoLocal)
