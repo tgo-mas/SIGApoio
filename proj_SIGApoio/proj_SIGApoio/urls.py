@@ -7,8 +7,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('',views.home,name = "home"),
+    path('cad_local/',views.cad_local, name = "cad_local"),
+    path('success_page/', views.success_page, name = "success_page"),
     path('admin/', admin.site.urls)
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
