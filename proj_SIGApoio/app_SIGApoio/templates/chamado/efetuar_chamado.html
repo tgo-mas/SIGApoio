@@ -13,6 +13,11 @@
             color: white;
         }
 
+        .botao{
+            display: flex;
+            justify-content: center;
+        }
+
         .line1{
             border:1px solid #0800b5;
         }
@@ -33,7 +38,9 @@
             {% csrf_token %}
             {{ form.as_p }}
             <div id='line1' class='line1'></div></br>
-            <button name="submit" class="btn">Cadastrar</button>
+            <div class="botao">
+                <button name="submit" class="buttons">Cadastrar</button>
+            </div>
         </form>
     </div>
     
