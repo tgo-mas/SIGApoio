@@ -75,6 +75,9 @@ class Reserva(models.Model):
     matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
     matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
 
+    def __str__(self):
+        return self.local.nome
+
 class Chamado(models.Model):
     id_chamado = models.IntegerField(primary_key=True)
     chamado = models.CharField(max_length=200)
