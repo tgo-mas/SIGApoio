@@ -1,5 +1,5 @@
 from django import forms
-from .models import Recurso, TipoRecurso
+from .models import Recurso, TipoRecurso, Chamado
 
 class RecursoForm(forms.Form, forms.ModelForm):
     codigo = forms.CharField(
@@ -26,3 +26,13 @@ class RecursoForm(forms.Form, forms.ModelForm):
     class Meta:
         model = Recurso
         fields = ['codigo','tipo', 'status', 'funcionando']  
+
+class ChamadoForm(forms.Form, forms.ModelForm):
+    chamado = forms.CharField(
+        label='Chamado',
+        widget=forms.Textarea(attrs={'class':'form-control'})
+    )
+
+    class Meta:
+        model = Chamado
+        fields = ['chamado']
