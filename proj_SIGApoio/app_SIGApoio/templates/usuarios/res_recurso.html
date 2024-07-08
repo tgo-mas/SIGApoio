@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apoio Pedagógico</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/res_recurso.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">
+        <span>Apoio Pedagógico</span>
+        <img class="profile" src="{% static 'img/profile.png' %}" alt="Profile">
+    </div>
+    <div class="container">
+        <div class="section">
+            <h2>Empréstimo de recurso</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ emprestimo_form.as_p }}
+                <div class="search">
+                    <input type="text" id="docente" placeholder="Digite o nome do docente">
+                    <button class="btn" name="confirmar_emprestimo">Confirmar Empréstimo</button>
+                </div>
+            </form>
+        </div>
+        <div class="section">
+            <h2>Reservar recurso</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ reserva_form.as_p }}
+                <div class="btn-container">
+                    <button class="btn" type="submit" name="confirmar_reserva">Confirmar Reserva</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
