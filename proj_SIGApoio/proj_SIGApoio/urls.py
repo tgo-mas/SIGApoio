@@ -11,5 +11,6 @@ urlpatterns = [
     path('cad_local/',views.cad_local, name = "cad_local"),
     path('success_page/', views.success_page, name = "success_page"),
     path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', include('app_SIGApoio.urls'))
-]
+    ]
