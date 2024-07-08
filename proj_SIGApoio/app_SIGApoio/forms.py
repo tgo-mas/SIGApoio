@@ -1,5 +1,6 @@
 from django import forms
-from .models import Recurso, TipoRecurso, Local
+from .models import Recurso, TipoRecurso, Local, Chamado, Reserva
+
 
 class RecursoForm(forms.Form, forms.ModelForm):
     codigo = forms.CharField(
@@ -26,7 +27,23 @@ class RecursoForm(forms.Form, forms.ModelForm):
     class Meta:
         model = Recurso
         fields = ['codigo','tipo', 'status', 'funcionando']  
-        
+
+class ChamadoForm(forms.Form, forms.ModelForm):
+    chamado = forms.CharField(
+        label='Chamado',
+        widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'Escreva sua mensagem aqui!'})
+    )
+
+    reserva = forms.ModelChoiceField(
+        queryset=Reserva.objects.all(),
+        label='Reserva',
+        widget=forms.Select(attrs={'class':'form-control', 'style':'color: black'})
+    )
+
+    class Meta:
+        model = Chamado
+        fields = ['chamado', 'reserva']
+
 class LocalForm(forms.ModelForm):
     class Meta:
         model= Local

@@ -1,3 +1,7 @@
+
+from django.shortcuts import render 
+from .forms import RecursoForm, ChamadoForm
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -31,3 +35,15 @@ def cadastroRecurso(request):
         
     context = {'form': form}
     return render(request, 'recurso/cadastro_recurso.html', context)
+
+def efetuarChamado(request):
+    if request.method != 'POST':
+        form = ChamadoForm()
+    else:
+        form = ChamadoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('efetuar-chamado'))
+        
+    context = {'form': form}
+    return render(request, 'chamado/efetuar_chamado.html', context)
