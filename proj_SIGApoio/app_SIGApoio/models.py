@@ -56,8 +56,8 @@ class Local(models.Model):
     def __str__(self):
         return f"{self.local} {self.numero}"
     
-class Reserva(models.Model):    
-    horarios = models.ManyToManyField(Horario) # Verificar esse ManyToManyField
+class Reserva(models.Model):
+    horarios = models.ManyToManyField(Horario)  # Verificar se 'Horario' está corretamente importado e definido
     local = models.ForeignKey(Local, on_delete=models.DO_NOTHING)
-    matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
+    matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
     matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')

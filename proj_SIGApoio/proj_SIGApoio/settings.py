@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'proj_SIGApoio.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 load_dotenv()
-
+'''
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
@@ -89,15 +89,15 @@ DATABASES = {
     'HOST': getenv('PGHOST'),
     'PORT': getenv('PGPORT')
   }
-}
+}'''
 
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}'''
+}
 
 
 # Password validation
