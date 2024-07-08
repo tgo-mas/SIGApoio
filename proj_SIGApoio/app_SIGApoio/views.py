@@ -1,8 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import LocalForm, RecursoForm
-# Create your views here.
+from .forms import LocalForm, RecursoForm, TipoRecursoForm
+from .models import TipoRecurso, Recurso
 
 def home(request):
     return render(request,'usuarios/home.html')  
@@ -25,9 +25,31 @@ def cadastroRecurso(request):
         form = RecursoForm()
     else:
         form = RecursoForm(request.POST)
+        for i in Recurso.objects.all():
+            if str(i.tipo) == TipoRecurso.objects.get(pk = form.data['tipo']).tipo and str(i.codigo) == str(form.data['codigo']):
+                context = {'erro':'Recurso já cadastrado','form':form}
+                return render(request, 'recurso/cadastro_recurso.html', context)
+            
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('cadastro-recurso'))
         
     context = {'form': form}
     return render(request, 'recurso/cadastro_recurso.html', context)
+
+def cadastroTipoRecurso(request):
+    if request.method != 'POST':
+        form = TipoRecursoForm()
+    else:
+        form = TipoRecursoForm(request.POST)
+        for i in TipoRecurso.objects.all():
+            if str(i).lower() == form.data['tipo'].lower():
+                context = {'erro':'Tipo de recurso já cadastrado','form':form}
+                return render(request, 'recurso/cadastro_tipo_recurso.html', context)
+                   
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('cadastro-tipo-recurso'))
+            
+    context = {'form':form}
+    return render(request, 'recurso/cadastro_tipo_recurso.html', context)
