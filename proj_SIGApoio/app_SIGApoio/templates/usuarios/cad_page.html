@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Local</title>
+    <link rel="stylesheet" href="{% static 'styles/cad_page.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <h1><img src="{% static 'img/logo.png' %}" alt="Logo" width="50" height="50"> Apoio Pedagógico</h1>
+        <div class="profile">
+            <img src="{% static 'img/profile.png' %}" alt="Profile" width="40" height="40">
+        </div>
+    </div>
+    <div class="container">
+        <h2>Cadastro de Local</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-group full-width">
+                <button type="submit" class="button">CADASTRAR</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
