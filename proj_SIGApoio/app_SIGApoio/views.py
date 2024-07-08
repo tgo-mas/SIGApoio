@@ -37,10 +37,8 @@ def cadastroTipoRecurso(request):
         form = TipoRecursoForm()
     else:
         form = TipoRecursoForm(request.POST)
-        #print(form.data['tipo'])
         for i in TipoRecurso.objects.all():
             if str(i).lower() == form.data['tipo'].lower():
-                print('igual')
                 context = {'response':'Tipo de recurso já cadastrado','form':form}
                 return render(request, 'recurso/cadastro_tipo_recurso.html', context)
         
