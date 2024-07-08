@@ -1,6 +1,16 @@
 from django import forms
 from .models import Recurso, TipoRecurso, Local
 
+class TipoRecursoForm(forms.Form, forms.ModelForm):
+    tipo = forms.CharField(
+        label = 'Tipo',
+        widget = forms.TextInput(attrs={'class':'form-control'}) 
+    )
+    
+    class Meta:
+        model = TipoRecurso
+        fields = ['tipo']
+
 class RecursoForm(forms.Form, forms.ModelForm):
     codigo = forms.CharField(
         label='Código',
