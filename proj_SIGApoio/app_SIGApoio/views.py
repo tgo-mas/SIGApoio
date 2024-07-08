@@ -46,7 +46,6 @@ def cadastroTipoRecurso(request):
             if str(i).lower() == form.data['tipo'].lower():
                 context = {'erro':'Tipo de recurso já cadastrado','form':form}
                 return render(request, 'recurso/cadastro_tipo_recurso.html', context)
-        
                    
         if form.is_valid():
             form.save()

@@ -36,7 +36,14 @@
             <div id='line1' class='line1'></div> </br>
             {% csrf_token %}
             {{ form.as_p }}
-            <div>{{ erro }}</div>
+
+            {% if erro %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ erro }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+
             <div id='line1' class='line1'></div></br>
             <button id="but" name="submit" class="btn">Cadastrar</button>
         </form>
