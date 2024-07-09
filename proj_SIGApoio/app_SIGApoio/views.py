@@ -1,8 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import LocalForm, RecursoForm, TipoRecursoForm
-from .models import TipoRecurso, Recurso
+from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm
+from .models import TipoRecurso, Recurso, Local
 
 def home(request):
     return render(request,'usuarios/home.html')  
@@ -53,3 +53,14 @@ def cadastroTipoRecurso(request):
             
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
+
+def cadastroReserva(request):
+    if request.method != 'POST':
+        form = ReservaForm()
+        context = {'form': form}
+        return render(request, 'reserva/cadastroReserva.html', context)
+    
+def getLocais(request):
+    if request.method != 'POST':
+        locais = Local.objects.all()
+        return locais

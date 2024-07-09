@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="." method="POST">
+    {{ form }}
+    <button>Enviar</button>
+</form>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js">
+    function fetchLocais(){
+        locaisSelect = document.getElementById('locais');
+        $.ajax({
+            url: '/get_locais'
+        }).done((res) => {
+            console.log(res);
+        })
+    }
+</script>
+
+{% endblock content %}
