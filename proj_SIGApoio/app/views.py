@@ -1,15 +1,14 @@
 
 from django.shortcuts import render 
 from .forms import RecursoForm, ChamadoForm
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import LocalForm, RecursoForm
-# Create your views here.
+
 
 def home(request):
-    return render(request,'usuarios/home.html')  
+    return render(request,'index.html')  
 
 def cad_local(request):
     if request.method == 'POST':
