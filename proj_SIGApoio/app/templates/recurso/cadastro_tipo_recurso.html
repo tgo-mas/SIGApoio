@@ -28,11 +28,11 @@
 
     </style>
 
-    <title>Recurso | Cadastro</title>
+    <title>Recurso | Tipo</title>
 
     <div class="container">
-        <form action="{% url 'cadastro-recurso' %}" method="post" class="container-fluid" style="max-width: 40em;">
-            <h1>Cadastro Recurso</h1>
+        <form action="{% url 'cadastro-tipo-recurso' %}" method="post" class="container-fluid" style="max-width: 40em;">
+            <h1>Cadastro de Tipo Recurso</h1>
             <div id='line1' class='line1'></div> </br>
             {% csrf_token %}
             {{ form.as_p }}
@@ -43,7 +43,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             {% endif %}
-
+              
             <div id='line1' class='line1'></div></br>
             <button id="but" name="submit" class="btn">Cadastrar</button>
         </form>
