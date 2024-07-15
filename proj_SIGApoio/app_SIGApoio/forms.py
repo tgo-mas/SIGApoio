@@ -49,8 +49,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
             ('M1', 'M1'), ('M2', 'M2'), ('M3', 'M3'), ('M4', 'M4'), ('M5', 'M5'), ('M6', 'M6'),
             ('T1', 'T1'), ('T2', 'T2'), ('T3', 'T3'), ('T4', 'T4'), ('T5', 'T5'), ('T6', 'T6'),
             ('N1', 'N1'), ('N2', 'N2'), ('N3', 'N3'), ('N4', 'N4')
-        ],
-        widget=forms.Select(attrs={'onChange': 'fetchLocais()'})
+        ]
     )
     
     dias = forms.ChoiceField(
@@ -62,7 +61,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
             ('5', 'Quinta'),
             ('6', 'Sexta'),
         ],
-        widget=forms.Select(attrs={'onChange': 'fetchLocais()'})
+        widget=forms.Select()
     )
     
     matResponsavel = forms.ChoiceField(
@@ -77,12 +76,28 @@ class ReservaForm(forms.ModelForm, forms.Form):
     
     locais = forms.ChoiceField(
         label="Locais",
-        widget=forms.Select(
-            attrs={'id': 'locais', 'class': 'form-select'}
-        )   
+        widget=forms.Select()   
     )
 
     class Meta:
         model = Reserva
         fields = ['horarios', 'dias', 'matResponsavel', 'matSolicitante', 'locais']
+        
+    def __init__(self, *args, **kwargs):
+        super(ReservaForm, self).__init__(*args, **kwargs)
+        self.fields['locais'].queryset = Local.objects.none()
+
+        if 'horarios' and 'dias' in self.data:
+            try:
+                self.fields['locais'].queryset = \
+                    Local.objects.all().order_by('nome')
+                print(self.fields['locais'].queryset)
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty Docente queryset
+        elif self.instance.pk:
+            # TODO aqui seria o carregamento de Vínculos Docentes??
+            print('forms.py - linha 67')
+            # self.fields['docente'].queryset = self.instance.departamento.docente_set.order_by('nome')
+            self.fields['locais'].queryset = Local.objects.none()
+
     

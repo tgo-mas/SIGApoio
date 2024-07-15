@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm
@@ -61,6 +61,6 @@ def cadastroReserva(request):
         return render(request, 'reserva/cadastroReserva.html', context)
     
 def getLocais(request):
-    if request.method != 'POST':
-        locais = Local.objects.all()
-        return locais
+    locais = Local.objects.all()
+    context = {'locais':locais}
+    return render(request, 'reserva/local_option.html', context)
