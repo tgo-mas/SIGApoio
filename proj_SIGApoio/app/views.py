@@ -5,13 +5,13 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import LocalForm, RecursoForm
-from django.views.decorators.http import require_POST, require_GET, require_safe
+from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 
 @require_GET
 def home(request):
     return render(request,'index.html')  
 
-@require_safe
+@require_POST
 def cad_local(request):
     if request.method == 'POST':
         form = LocalForm(request.POST)
@@ -26,7 +26,7 @@ def cad_local(request):
 def success_page(request):
     return render(request, 'usuarios/success_page.html')
 
-@require_safe
+@require_POST
 def cadastroRecurso(request):
     if request.method != 'POST':
         form = RecursoForm()
