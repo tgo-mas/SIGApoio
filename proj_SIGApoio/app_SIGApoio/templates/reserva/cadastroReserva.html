@@ -43,7 +43,7 @@
         {{ form.matResponsavel }}
     </div><div class="px-4 pb-4">
         <h5>Local</h5>
-        {{ form.locais }}
+        {{ form.local }}
     </div>
     <div class="text-end me-2 pe-4 pb-4 mb-4">
         <button class="btn blue-btn btn-primary" type="submit">Enviar</button>
@@ -56,14 +56,14 @@
     $("#id_horarios").change(() => {
         const url = $('#ReservaFormDom').attr('locais_url');
         horarios = $("#id_horarios").val();
+        dias = $("#id_dias").val();
 
         $.ajax({
+            type: 'POST',
             url: url,
-            data: {
-                'horarios': horarios
-            },
+            data: JSON.stringify({'horarios': horarios, 'dias': dias}),
             success: (data) => {
-                $('#id_locais').html(data);
+                $('#id_local').html(data);
             }
         })
     })

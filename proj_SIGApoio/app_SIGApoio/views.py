@@ -2,7 +2,11 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm
-from .models import TipoRecurso, Recurso, Local
+from .models import TipoRecurso, Recurso, Local, Reserva, Usuario, Horario
+from .bo.horarios import converter_horarios
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+import json
 
 def home(request):
     return render(request,'usuarios/home.html')  
@@ -59,8 +63,35 @@ def cadastroReserva(request):
         form = ReservaForm()
         context = {'form': form}
         return render(request, 'reserva/cadastroReserva.html', context)
+    else:
+        req = request.POST
+        form = ReservaForm()
+        # try:
+        context = {'form': form, 'message': 'Reserva cadastrada com sucesso!'}
+        resp = Usuario.objects.get(matricula=req['matResponsavel'])
+        solic = Usuario.objects.get(matricula=req['matSolicitante'])
+        local = Local.objects.get(id=req['local'])
+        horarios = Horario.objects.filter(id__in=req['horarios'])
+        novaReserva = Reserva.objects.create(local=local, matResponsavel=resp, matSolicitante=solic)
+        novaReserva.horarios.set(horarios)
+        novaReserva.save()
+        return render(request, 'reserva/cadastroReserva.html', context)
+        # except:
+        #     context = {'form': form, 'message': 'Erro no cadastro da reserva'}
+        #     return render(request, 'reserva/cadastroReserva.html', context)
     
+@csrf_exempt
 def getLocais(request):
-    locais = Local.objects.all()
+    data = json.loads(request.body)
+    horarios = data['horarios']
+    dias = data['dias']
+    horarios_final = converter_horarios(dias, horarios)
+    reservas_filt = Reserva.objects.filter(
+        Q(horarios__id__in=horarios_final)
+    )
+    locais_ocupados = map(lambda reserva: reserva.local, reservas_filt)
+    locais = Local.objects.exclude(
+        Q(nome__in=locais_ocupados)
+    )
     context = {'locais':locais}
     return render(request, 'reserva/local_option.html', context)
