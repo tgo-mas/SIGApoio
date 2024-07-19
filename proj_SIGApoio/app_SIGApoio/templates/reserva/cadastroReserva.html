@@ -13,7 +13,7 @@
     {% csrf_token %}
     <hr class="ms-4 me-4 blue-text">
     {% if message %}
-    <h5 class="text-danger text-center">{{ message }}</h5>
+    <h5 class="{% if error %}text-danger{% else %}text-success{% endif %} text-center">{{ message }}</h5>
     {% endif %}
     <div class="d-flex justify-content-between gap-4 px-4">
         <div class="flex-fill">
@@ -28,7 +28,7 @@
     <div class="d-flex justify-content-between gap-4 p-4">
         <div class="flex-fill">
             <h5>Nº de pessoas</h5>
-            {{ form.n_pessoas }}
+            {{ form.qtd_pessoas }}
         </div>
         <div class="flex-fill">
             <h5>Bloco</h5>
@@ -38,10 +38,12 @@
     <div class="px-4 pb-4">
         <h5>Matrícula do solicitante</h5>
         {{ form.matSolicitante }}
-    </div><div class="px-4 pb-4">
+    </div>
+    <!-- <div class="px-4 pb-4">
         <h5>Matrícula do Responsável</h5>
         {{ form.matResponsavel }}
-    </div><div class="px-4 pb-4">
+    </div> -->
+    <div class="px-4 pb-4">
         <h5>Local</h5>
         {{ form.local }}
     </div>
@@ -53,20 +55,32 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-    $("#id_horarios").change(() => {
+    onChangeHorarios = () => {
         const url = $('#ReservaFormDom').attr('locais_url');
         horarios = $("#id_horarios").val();
         dias = $("#id_dias").val();
+        pessoas = $("#id_qtd_pessoas").val();
+        bloco = $("#id_bloco").val();
 
         $.ajax({
             type: 'POST',
             url: url,
-            data: JSON.stringify({'horarios': horarios, 'dias': dias}),
+            data: JSON.stringify({ 'horarios': horarios, 'dias': dias, 'pessoas': pessoas, 'bloco': bloco}),
             success: (data) => {
+                if(data.length == 0){
+                    data = '<option disabled selected>Nenhum local disponível</option>'
+                }
                 $('#id_local').html(data);
             }
         })
-    })
+    }
+
+    $("#id_horarios").change(onChangeHorarios)
+    $("#id_dias").change(onChangeHorarios)
+    $("#id_qtd_pessoas").change(onChangeHorarios)
+    $("#id_bloco").change(onChangeHorarios)
+
+
 </script>
 
 {% endblock content %}

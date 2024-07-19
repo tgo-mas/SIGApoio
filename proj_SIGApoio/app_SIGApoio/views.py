@@ -66,25 +66,29 @@ def cadastroReserva(request):
     else:
         req = request.POST
         form = ReservaForm()
-        # try:
         context = {'form': form, 'message': 'Reserva cadastrada com sucesso!'}
-        resp = Usuario.objects.get(matricula=req['matResponsavel'])
-        solic = Usuario.objects.get(matricula=req['matSolicitante'])
-        local = Local.objects.get(id=req['local'])
-        horarios = Horario.objects.filter(id__in=req['horarios'])
-        novaReserva = Reserva.objects.create(local=local, matResponsavel=resp, matSolicitante=solic)
-        novaReserva.horarios.set(horarios)
-        novaReserva.save()
-        return render(request, 'reserva/cadastroReserva.html', context)
-        # except:
-        #     context = {'form': form, 'message': 'Erro no cadastro da reserva'}
-        #     return render(request, 'reserva/cadastroReserva.html', context)
+        try:
+            resp = Usuario.objects.get(matricula=req['matSolicitante']) # Enquanto a auth não está pronta
+            # resp = get_auth_user().get("matricula")                  // Vai ser algo assim depois da autenticação
+            solic = Usuario.objects.get(matricula=req['matSolicitante'])
+            local = Local.objects.get(id=req['local'])
+            horarios_vetor = converter_horarios(req.getlist('dias'), req.getlist('horarios')) # Junta os dias e horarios
+            horarios = Horario.objects.filter(id__in=horarios_vetor)
+            novaReserva = Reserva.objects.create(local=local, matResponsavel=resp, matSolicitante=solic)
+            novaReserva.horarios.set(horarios)
+            novaReserva.save()
+            return render(request, 'reserva/cadastroReserva.html', context)
+        except:
+            context = {'form': form, 'message': 'Erro no cadastro da reserva', 'error': True}
+            return render(request, 'reserva/cadastroReserva.html', context)
     
 @csrf_exempt
 def getLocais(request):
     data = json.loads(request.body)
     horarios = data['horarios']
     dias = data['dias']
+    bloco = data['bloco']
+    pessoas = data['pessoas']
     horarios_final = converter_horarios(dias, horarios)
     reservas_filt = Reserva.objects.filter(
         Q(horarios__id__in=horarios_final)
@@ -93,5 +97,9 @@ def getLocais(request):
     locais = Local.objects.exclude(
         Q(nome__in=locais_ocupados)
     )
-    context = {'locais':locais}
+    locais_final = locais.filter(
+        capacidade__gt=pessoas,
+        bloco=bloco
+    )
+    context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)

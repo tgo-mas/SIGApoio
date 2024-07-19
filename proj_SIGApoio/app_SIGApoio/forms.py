@@ -1,6 +1,10 @@
 from django import forms
 from .models import Recurso, TipoRecurso, Local, Usuario, Reserva
 
+
+BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'Bloco D'), ('Aud', 'Auditórios'), ('Lab', 'Laboratórios')]
+
+
 class TipoRecursoForm(forms.Form, forms.ModelForm):
     tipo = forms.CharField(
         label = 'Tipo',
@@ -73,9 +77,18 @@ class ReservaForm(forms.ModelForm, forms.Form):
         )
     )
     
-    matResponsavel = forms.ChoiceField(
-        label="Responsável",
-        choices=Usuario.objects.values_list('matricula', 'nome'),
+    qtd_pessoas = forms.IntegerField(
+        max_value=250,
+        initial=0,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control gray-back blue-text me-4'
+            },
+        )
+    )
+    
+    bloco = forms.ChoiceField(
+        choices=BLOCOS_CHOICES,
         widget=forms.Select(
             attrs={
                 'class': 'form-select gray-back blue-text me-4'
@@ -104,7 +117,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
 
     class Meta:
         model = Reserva
-        fields = ['horarios', 'dias', 'matResponsavel', 'matSolicitante', 'local']
+        fields = ['horarios', 'dias', 'qtd_pessoas', 'matSolicitante', 'local']
         
     def __init__(self, *args, **kwargs):
         super(ReservaForm, self).__init__(*args, **kwargs)
