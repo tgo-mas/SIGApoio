@@ -2,12 +2,12 @@ import os
 import django
 
 # Defina a variável de ambiente para o arquivo de configurações do Django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj_SIGApoio.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
 # Configure o Django
 django.setup()
 
-from app_SIGApoio import models as md
+from app import models as md
 
 def generate_schedule():
     schedule = []

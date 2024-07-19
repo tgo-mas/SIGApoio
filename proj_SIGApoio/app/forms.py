@@ -1,9 +1,18 @@
 from django import forms
+from django.db import connection
 from .models import Recurso, TipoRecurso, Local, Usuario, Reserva
 
 
 BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'Bloco D'), ('Aud', 'Auditórios'), ('Lab', 'Laboratórios')]
 
+def get_usuario_choices():
+    try:
+        if 'app_usuario' in connection.introspection.table_names():
+            return [(usuario.matricula, usuario.nome) for usuario in Usuario.objects.all()]
+        else:
+            return []
+    except Exception as e:
+        return []
 
 class TipoRecursoForm(forms.Form, forms.ModelForm):
     tipo = forms.CharField(
@@ -98,7 +107,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
     
     matSolicitante = forms.ChoiceField(
         label="Solicitante",
-        choices=Usuario.objects.values_list('matricula', 'nome'),
+        choices=get_usuario_choices(),
         widget=forms.Select(
             attrs={
                 'class': 'form-select gray-back blue-text me-4'
