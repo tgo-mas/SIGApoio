@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from os import getenv, path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'jquery',
-    'django_ajax',
     'app_SIGApoio'
 ]
 
@@ -80,7 +78,7 @@ WSGI_APPLICATION = 'proj_SIGApoio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-load_dotenv()
+# load_dotenv()
 
 # DATABASES = {
 #   'default': {
