@@ -6,12 +6,13 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import LocalForm, RecursoForm
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
+from django.http import JsonResponse
 
-@require_GET
+# @require_GET
 def home(request):
     return render(request,'index.html')  
 
-@require_POST
+# @require_POST
 def cad_local(request):
     if request.method == 'POST':
         form = LocalForm(request.POST)
@@ -26,7 +27,7 @@ def cad_local(request):
 def success_page(request):
     return render(request, 'usuarios/success_page.html')
 
-@require_POST
+# @require_POST
 def cadastroRecurso(request):
     if request.method != 'POST':
         form = RecursoForm()
@@ -45,7 +46,7 @@ def cadastroRecurso(request):
     context = {'form': form}
     return render(request, 'recurso/cadastro_recurso.html', context)
 
-@require_POST
+# @require_POST
 def efetuarChamado(request):
     if request.method != 'POST':
         form = ChamadoForm()
@@ -58,7 +59,7 @@ def efetuarChamado(request):
     context = {'form': form}
     return render(request, 'chamado/efetuar_chamado.html', context)
 
-@require_POST
+# @require_POST
 def cadastroTipoRecurso(request):
     if request.method != 'POST':
         form = TipoRecursoForm()
@@ -75,3 +76,13 @@ def cadastroTipoRecurso(request):
             
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
+
+def listarRecursos(request):
+    recursos = Recurso.objects.all()
+    recursosDisponiveis = Recurso.objects.filter(status=True)
+    recursosIndisponiveis = Recurso.objects.filter(status=False)
+    recursosFunciona = Recurso.objects.filter(funcionando=True)
+    recursosNaoFunciona = Recurso.objects.filter(funcionando=False)
+    tipos = TipoRecurso.objects.all()
+    context = {'recursos':recursos, 'tipos':tipos, 'recursosDisponiveis':recursosDisponiveis, 'recursosIndisponiveis':recursosIndisponiveis, 'recursosNaoFunciona':recursosNaoFunciona, 'recursosFunciona':recursosFunciona}
+    return render(request, 'recurso/listar_recurso.html', context)
