@@ -1,5 +1,5 @@
 from django import forms
-from .models import Recurso, TipoRecurso, Local, Chamado, Reserva
+from .models import Recurso, TipoRecurso, Local, TipoLocal, Chamado, Reserva
 
 
 class TipoRecursoForm(forms.Form, forms.ModelForm):
@@ -55,6 +55,12 @@ class ChamadoForm(forms.Form, forms.ModelForm):
         fields = ['chamado', 'reserva']
 
 class LocalForm(forms.ModelForm):
+    tipo = forms.ModelChoiceField(
+        queryset=TipoLocal.objects.all(),
+        label='Tipo de Local',
+        widget=forms.Select(attrs={'class': 'form-control', 'style': 'color: black'})
+    )
+
     class Meta:
-        model= Local
-        fields= "__all__"
+        model = Local
+        fields = "__all__"
