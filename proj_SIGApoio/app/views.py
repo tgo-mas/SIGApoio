@@ -22,9 +22,9 @@ def cad_local(request):
         form = LocalForm()
     return render(request, 'local/cadastro_local.html', {'form': form})
 
-@require_GET
+@require_safe
 def success_page(request):
-    return render(request, 'usuarios/success_page.html')
+    return render(request, 'success_page.html')
 
 @require_POST
 def cadastroRecurso(request):
