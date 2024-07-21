@@ -20,7 +20,7 @@ def cad_local(request):
             return redirect('success_page') 
     else:
         form = LocalForm()
-    return render(request, 'usuarios/cad_page.html', {'form': form})
+    return render(request, 'local/cadastro_local.html', {'form': form})
 
 @require_GET
 def success_page(request):
