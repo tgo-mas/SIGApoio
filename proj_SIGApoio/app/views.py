@@ -2,6 +2,8 @@ from django.views.decorators.http import require_POST, require_GET, require_safe
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm
 from .models import TipoRecurso, Recurso, Local, Reserva, Usuario, Horario
 from .bo.horarios import converter_horarios
@@ -9,10 +11,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 import json
 
-@require_GET
+# @require_GET
 def home(request):
     return render(request,'index.html')  
-
 
 #@require_http_methods(['GET','POST'])
 @require_POST
@@ -29,7 +30,6 @@ def cad_local(request):
 @require_GET
 def success_page(request):
     return render(request, 'usuarios/success_page.html')
-
 
 #@require_http_methods(['GET','POST'])
 @require_POST
@@ -51,7 +51,7 @@ def cadastroRecurso(request):
     context = {'form': form}
     return render(request, 'recurso/cadastro_recurso.html', context)
 
-
+  
 #@require_http_methods(['GET','POST'])
 @require_POST
 def efetuarChamado(request):
@@ -85,6 +85,16 @@ def cadastroTipoRecurso(request):
             
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
+
+def listarRecursos(request):
+    recursos = Recurso.objects.all()
+    recursosDisponiveis = Recurso.objects.filter(status=True)
+    recursosIndisponiveis = Recurso.objects.filter(status=False)
+    recursosFunciona = Recurso.objects.filter(funcionando=True)
+    recursosNaoFunciona = Recurso.objects.filter(funcionando=False)
+    tipos = TipoRecurso.objects.all()
+    context = {'recursos':recursos, 'tipos':tipos, 'recursosDisponiveis':recursosDisponiveis, 'recursosIndisponiveis':recursosIndisponiveis, 'recursosNaoFunciona':recursosNaoFunciona, 'recursosFunciona':recursosFunciona}
+    return render(request, 'recurso/listar_recurso.html', context)
 
 def cadastroReserva(request):
     if request.method != 'POST':
