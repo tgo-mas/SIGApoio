@@ -30,10 +30,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Bloco</th>
-                    <th>Capacidade</th>
-                    <th>Tipo</th>
+                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=nome">Nome</a></th>
+                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=bloco">Bloco</a></th>
+                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=capacidade">Capacidade</a></th>
+                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=tipo">Tipo</a></th>
                 </tr>
             </thead>
             <tbody>

@@ -81,6 +81,7 @@ def listar_local(request):
     tipo = request.GET.get('tipo')
     bloco = request.GET.get('bloco')
     capacidade = request.GET.get('capacidade')
+    sort = request.GET.get('sort', 'nome')  # Default sort field is 'nome'
 
     if tipo:
         locais = locais.filter(tipo__tipo=tipo)
@@ -89,11 +90,14 @@ def listar_local(request):
     if capacidade:
         locais = locais.filter(capacidade=capacidade)
 
+    locais = locais.order_by(sort)
+
     context = {
         'locais': locais,
         'tipo': tipo,
         'bloco': bloco,
         'capacidade': capacidade,
-        'tipos_locais': TipoLocal.objects.all()
+        'tipos_locais': TipoLocal.objects.all(),
+        'sort': sort
     }
     return render(request, 'local/listar_local.html', context)
