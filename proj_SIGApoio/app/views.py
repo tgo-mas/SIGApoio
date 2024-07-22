@@ -58,6 +58,9 @@ def cadastroTipoRecurso(request):
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
 
+def tipoReserva(request):
+    return render(request, 'reserva/tipoReserva.html')
+
 def cadastroReserva(request):
     if request.method != 'POST':
         form = ReservaForm()
