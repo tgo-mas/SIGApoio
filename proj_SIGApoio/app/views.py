@@ -4,7 +4,7 @@ from .forms import RecursoForm, ChamadoForm, TipoRecursoForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import LocalForm, RecursoForm
+from .forms import LocalForm, RecursoForm, ReservaForm
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 
 @require_GET
@@ -26,7 +26,7 @@ def cad_local(request):
 def success_page(request):
     return render(request, 'usuarios/success_page.html')
 
-@require_POST
+#@require_POST
 def cadastroRecurso(request):
     if request.method != 'POST':
         form = RecursoForm()
@@ -75,3 +75,16 @@ def cadastroTipoRecurso(request):
             
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
+
+def reserva_recurso(request):
+    tipos_recursos = TipoRecurso.objects.all()
+    
+    if request.method == 'POST':
+        reserva_form = ReservaForm(request.POST)
+        if reserva_form.is_valid():
+            reserva_form.save()
+            return redirect('success_page')  # Ajuste o redirecionamento conforme necessário
+    else:
+        reserva_form = ReservaForm()
+
+    return render(request, 'recurso/reserva_recurso.html', {'reserva_form': reserva_form, 'tipos_recursos': tipos_recursos})

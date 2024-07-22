@@ -58,3 +58,8 @@ class LocalForm(forms.ModelForm):
     class Meta:
         model= Local
         fields= "__all__"
+
+class ReservaForm(forms.ModelForm):
+    class Meta:
+        model = Reserva
+        fields = ['horarios', 'local', 'matResponsavel', 'matSolicitante']

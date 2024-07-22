@@ -1,0 +1,88 @@
+body {
+    font-family: 'Jockey One', Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #0000AA;
+    color: white;
+    padding: 10px 20px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.header h1 {
+    display: inline;
+    font-size: 24px;
+    margin: 0;
+    font-family: 'Jockey One', Arial, sans-serif;
+}
+
+.header .profile {
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+h2 {
+    text-align: center;
+    color: #0000AA;
+    font-family: 'Jockey One', Arial, sans-serif;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-group {
+    margin: 10px 0;
+    width: 48%;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #0000AA;
+    border-radius: 4px;
+}
+
+.form-group.full-width {
+    width: 100%;
+    text-align: center; 
+}
+
+.button {
+    background-color: #0000AA;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+    margin: 20px auto 0; 
+}

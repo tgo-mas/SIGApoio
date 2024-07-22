@@ -1,4 +1,4 @@
-from .views import efetuarChamado, cadastroRecurso, home, cadastroRecurso, cad_local, success_page, cadastroTipoRecurso
+from .views import efetuarChamado, cadastroRecurso, home, cadastroRecurso, cad_local, success_page, cadastroTipoRecurso, reserva_recurso
 from django.urls import path
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path('cadastro_recurso',cadastroRecurso, name= "cad_recurso"),
     path('cad_local/', cad_local, name = "cad_local"),
     path('success_page/', success_page, name = "success_page"),
+    path('reserva_recurso/', reserva_recurso, name='reserva_recurso'),
 ]
