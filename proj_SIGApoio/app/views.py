@@ -1,11 +1,13 @@
-from .models import Recurso, TipoRecurso
-from django.shortcuts import render 
-from .forms import RecursoForm, ChamadoForm, TipoRecursoForm
-from django.http import HttpResponseRedirect
+from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import LocalForm, RecursoForm
-from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
+from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm
+from .models import TipoRecurso, Recurso, Local, Reserva, Usuario, Horario
+from .bo.horarios import converter_horarios
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+import json
 
 @require_GET
 def home(request):
@@ -83,3 +85,49 @@ def cadastroTipoRecurso(request):
             
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
+
+def cadastroReserva(request):
+    if request.method != 'POST':
+        form = ReservaForm()
+        context = {'form': form}
+        return render(request, 'reserva/cadastroReserva.html', context)
+    else:
+        req = request.POST
+        form = ReservaForm()
+        context = {'form': form, 'message': 'Reserva cadastrada com sucesso!'}
+        try:
+            resp = Usuario.objects.get(matricula=req['matSolicitante']) # Enquanto a auth não está pronta
+            # resp = get_auth_user().get("matricula")                  // Vai ser algo assim depois da autenticação
+            solic = Usuario.objects.get(matricula=req['matSolicitante'])
+            local = Local.objects.get(id=req['local'])
+            horarios_vetor = converter_horarios(req.getlist('dias'), req.getlist('horarios')) # Junta os dias e horarios
+            horarios = Horario.objects.filter(id__in=horarios_vetor)
+            novaReserva = Reserva.objects.create(local=local, matResponsavel=resp, matSolicitante=solic)
+            novaReserva.horarios.set(horarios)
+            novaReserva.save()
+            return render(request, 'reserva/cadastroReserva.html', context)
+        except:
+            context = {'form': form, 'message': 'Erro no cadastro da reserva', 'error': True}
+            return render(request, 'reserva/cadastroReserva.html', context)
+    
+@csrf_exempt
+def getLocais(request):
+    data = json.loads(request.body)
+    horarios = data['horarios']
+    dias = data['dias']
+    bloco = data['bloco']
+    pessoas = data['pessoas']
+    horarios_final = converter_horarios(dias, horarios)
+    reservas_filt = Reserva.objects.filter(
+        Q(horarios__id__in=horarios_final)
+    )
+    locais_ocupados = map(lambda reserva: reserva.local, reservas_filt)
+    locais = Local.objects.exclude(
+        Q(nome__in=locais_ocupados)
+    )
+    locais_final = locais.filter(
+        capacidade__gt=pessoas,
+        bloco=bloco
+    )
+    context = {'locais':locais_final}
+    return render(request, 'reserva/local_option.html', context)

@@ -49,6 +49,7 @@ class Emprestimo(models.Model):
 class Horario(models.Model): 
     SEMANA = ((0, 'Domingo'), (1, 'Segunda'), (2,'Terça'), (3, 'Quarta'), (4, 'Quinta'), (5, 'Sexta'), (6, 'Sábado'))
 
+    id = models.CharField(max_length=3, default='2M1', primary_key=True)
     dia = models.IntegerField(choices=SEMANA, default=True)
     horaInicio = models.TimeField(null=True, blank=True)
     horaFim = models.TimeField(null=True, blank=True)
