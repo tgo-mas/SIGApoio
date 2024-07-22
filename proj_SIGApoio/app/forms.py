@@ -1,6 +1,6 @@
 from django import forms
 from django.db import connection
-from .models import Recurso, TipoRecurso, Local, Usuario, Reserva
+from .models import Recurso, TipoRecurso, Local, Usuario, Reserva, Chamado
 
 
 BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'Bloco D'), ('Aud', 'Auditórios'), ('Lab', 'Laboratórios')]
