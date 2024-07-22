@@ -80,16 +80,20 @@ def listar_local(request):
     locais = Local.objects.all()
     tipo = request.GET.get('tipo')
     bloco = request.GET.get('bloco')
+    capacidade = request.GET.get('capacidade')
 
     if tipo:
         locais = locais.filter(tipo__tipo=tipo)
     if bloco:
         locais = locais.filter(bloco=bloco)
+    if capacidade:
+        locais = locais.filter(capacidade=capacidade)
 
     context = {
         'locais': locais,
         'tipo': tipo,
         'bloco': bloco,
+        'capacidade': capacidade,
         'tipos_locais': TipoLocal.objects.all()
     }
     return render(request, 'local/listar_local.html', context)
