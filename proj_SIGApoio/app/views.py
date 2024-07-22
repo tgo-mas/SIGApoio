@@ -11,6 +11,8 @@ from django.views.decorators.http import require_POST, require_GET, require_safe
 def home(request):
     return render(request,'index.html')  
 
+
+#@require_http_methods(['GET','POST'])
 @require_POST
 def cad_local(request):
     if request.method == 'POST':
@@ -26,6 +28,8 @@ def cad_local(request):
 def success_page(request):
     return render(request, 'usuarios/success_page.html')
 
+
+#@require_http_methods(['GET','POST'])
 @require_POST
 def cadastroRecurso(request):
     if request.method != 'POST':
@@ -45,6 +49,8 @@ def cadastroRecurso(request):
     context = {'form': form}
     return render(request, 'recurso/cadastro_recurso.html', context)
 
+
+#@require_http_methods(['GET','POST'])
 @require_POST
 def efetuarChamado(request):
     if request.method != 'POST':
@@ -58,6 +64,8 @@ def efetuarChamado(request):
     context = {'form': form}
     return render(request, 'chamado/efetuar_chamado.html', context)
 
+
+#@require_http_methods(['GET','POST'])
 @require_POST
 def cadastroTipoRecurso(request):
     if request.method != 'POST':
@@ -71,7 +79,7 @@ def cadastroTipoRecurso(request):
                    
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('cadastro-tipo-recurso'))
+            return redirect('cadastro-tipo-recurso')
             
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
