@@ -1,4 +1,4 @@
-from .models import Recurso, TipoRecurso
+from .models import TipoLocal, Local, Recurso, TipoRecurso
 from django.shortcuts import render 
 from .forms import RecursoForm, ChamadoForm, TipoRecursoForm
 from django.http import HttpResponseRedirect
@@ -75,3 +75,21 @@ def cadastroTipoRecurso(request):
             
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
+
+def listar_local(request):
+    locais = Local.objects.all()
+    tipo = request.GET.get('tipo')
+    bloco = request.GET.get('bloco')
+
+    if tipo:
+        locais = locais.filter(tipo__tipo=tipo)
+    if bloco:
+        locais = locais.filter(bloco=bloco)
+
+    context = {
+        'locais': locais,
+        'tipo': tipo,
+        'bloco': bloco,
+        'tipos_locais': TipoLocal.objects.all()
+    }
+    return render(request, 'local/listar_local.html', context)
