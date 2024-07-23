@@ -16,7 +16,7 @@ def home(request):
     return render(request,'index.html')  
 
 #@require_http_methods(['GET','POST'])
-@require_POST
+# @require_POST
 def cad_local(request):
     if request.method == 'POST':
         form = LocalForm(request.POST)
@@ -25,14 +25,14 @@ def cad_local(request):
             return redirect('success_page') 
     else:
         form = LocalForm()
-    return render(request, 'usuarios/cad_page.html', {'form': form})
+    return render(request, 'local/cad_local.html', {'form': form})
 
 @require_GET
 def success_page(request):
-    return render(request, 'usuarios/success_page.html')
+    return render(request, 'local/success_page.html')
 
-#@require_http_methods(['GET','POST'])
-@require_POST
+# @require_http_methods(['GET','POST'])
+# @require_POST
 def cadastroRecurso(request):
     if request.method != 'POST':
         form = RecursoForm()
@@ -68,7 +68,7 @@ def efetuarChamado(request):
 
 
 #@require_http_methods(['GET','POST'])
-@require_POST
+# @require_POST
 def cadastroTipoRecurso(request):
     if request.method != 'POST':
         form = TipoRecursoForm()
