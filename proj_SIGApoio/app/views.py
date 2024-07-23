@@ -1,8 +1,8 @@
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm
-from .models import TipoRecurso, Recurso, Local, Reserva, Usuario, Horario
+from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ReservaDiaForm
+from .models import TipoRecurso, Recurso, Local, ReservaSemanal, Usuario, Horario
 from .bo.horarios import converter_horarios
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
@@ -61,7 +61,7 @@ def cadastroTipoRecurso(request):
 def tipoReserva(request):
     return render(request, 'reserva/tipoReserva.html')
 
-def cadastroReserva(request):
+def cadastroReservaSemanal(request):
     if request.method != 'POST':
         form = ReservaForm()
         context = {'form': form}
@@ -77,7 +77,7 @@ def cadastroReserva(request):
             local = Local.objects.get(id=req['local'])
             horarios_vetor = converter_horarios(req.getlist('dias'), req.getlist('horarios')) # Junta os dias e horarios
             horarios = Horario.objects.filter(id__in=horarios_vetor)
-            novaReserva = Reserva.objects.create(local=local, matResponsavel=resp, matSolicitante=solic)
+            novaReserva = ReservaSemanal.objects.create(local=local, matResponsavel=resp, matSolicitante=solic)
             novaReserva.horarios.set(horarios)
             novaReserva.save()
             return render(request, 'reserva/cadastroReserva.html', context)
@@ -85,6 +85,11 @@ def cadastroReserva(request):
             context = {'form': form, 'message': 'Erro no cadastro da reserva', 'error': True}
             return render(request, 'reserva/cadastroReserva.html', context)
     
+def cadastroReservaDia(request):
+    form = ReservaDiaForm()
+    context = {'form': form }
+    return render(request, 'reserva/cadastroReservaDia.html', context)
+
 @csrf_exempt
 def getLocais(request):
     data = json.loads(request.body)
@@ -93,7 +98,7 @@ def getLocais(request):
     bloco = data['bloco']
     pessoas = data['pessoas']
     horarios_final = converter_horarios(dias, horarios)
-    reservas_filt = Reserva.objects.filter(
+    reservas_filt = ReservaSemanal.objects.filter(
         Q(horarios__id__in=horarios_final)
     )
     locais_ocupados = map(lambda reserva: reserva.local, reservas_filt)

@@ -15,14 +15,18 @@
     {% if message %}
     <h5 class="{% if error %}text-danger{% else %}text-success{% endif %} text-center">{{ message }}</h5>
     {% endif %}
+    <div class="px-4 pb-4">
+        <h5>Descrição</h5>
+        {{ form.descricao }}
+    </div>
     <div class="d-flex justify-content-between gap-4 px-4">
         <div class="flex-fill">
-            <h5>Dias</h5>
-            {{ form.dias }}
+            <h5>Início</h5>
+            {{ form.diaHoraInicio }}
         </div>
         <div class="flex-fill">
-            <h5>Horários</h5>
-            {{ form.horarios }}
+            <h5>Fim da reserva</h5>
+            {{ form.diaHoraFim }}
         </div>
     </div>
     <div class="d-flex justify-content-between gap-4 p-4">
@@ -36,6 +40,10 @@
         </div>
     </div>
     <div class="px-4 pb-4">
+        <h5>Local</h5>
+        {{ form.local }}
+    </div>
+    <div class="px-4 pb-4">
         <h5>Solicitante da reserva</h5>
         {{ form.matSolicitante }}
     </div>
@@ -43,10 +51,6 @@
         <h5>Matrícula do Responsável</h5>
         {{ form.matResponsavel }}
     </div> -->
-    <div class="px-4 pb-4">
-        <h5>Local</h5>
-        {{ form.local }}
-    </div>
     <div class="text-end me-2 pe-4 pb-4 mb-4">
         <button class="btn blue-btn btn-primary" type="submit">Enviar</button>
     </div>
