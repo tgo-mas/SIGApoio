@@ -167,13 +167,73 @@ class ReservaDiaForm(forms.ModelForm, forms.Form):
     diaHoraInicio = forms.DateTimeField(
         label="Início da reserva",
         widget=forms.DateTimeInput(
-            attrs={'class': 'form-control blue-text gray-back me-4'}
+            attrs={'class': 'form-control blue-text gray-back me-4', 'type': 'datetime-local'}
         )
     )
     
     diaHoraFim = forms.DateTimeField(
         label="Fim da reserva",
         widget=forms.DateTimeInput(
+            attrs={'class': 'form-control blue-text gray-back me-4', 'type': 'datetime-local'}
+        )
+    )
+    
+    qtd_pessoas = forms.IntegerField(
+        max_value=250,
+        initial=0,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control gray-back blue-text me-4'
+            },
+        )
+    )
+    
+    bloco = forms.ChoiceField(
+        choices=BLOCOS_CHOICES,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select gray-back blue-text me-4'
+            }
+        )
+    )
+    
+    matSolicitante = forms.ChoiceField(
+        label='Solicitante',
+        choices=get_usuario_choices(),
+        widget=forms.Select(
+            attrs={'class': 'form-select blue-text gray-back me-4'}
+        )
+    )
+    
+    class Meta:
+        model = ReservaDiaUnico
+        fields = ['descricao', 'diaHoraInicio', 'diaHoraFim', 'local', 'matSolicitante']
+
+class ReservaMensalForm(forms.ModelForm, forms.Form):
+    descricao = forms.CharField(
+        label='Descrição',
+        widget=forms.TextInput(
+            attrs={'class': 'form-control blue-text gray-back me-4'}
+        )
+    )
+    
+    local = forms.ChoiceField(
+        label='Local',
+        widget=forms.Select(
+            attrs={'class': 'form-select blue-text gray-back me-4'}
+        )
+    )
+    
+    dias = forms.ChoiceField(
+        label="Dias",
+        widget=forms.DateInput(
+            attrs={'class': 'form-control blue-text gray-back me-4', 'type': 'date'}
+        )
+    )
+    
+    repeticoes = forms.IntegerField(
+        label="Repetições (meses)",
+        widget=forms.NumberInput(
             attrs={'class': 'form-control blue-text gray-back me-4'}
         )
     )
@@ -199,6 +259,7 @@ class ReservaDiaForm(forms.ModelForm, forms.Form):
     
     matSolicitante = forms.ChoiceField(
         label='Solicitante',
+        choices=get_usuario_choices(),
         widget=forms.Select(
             attrs={'class': 'form-select blue-text gray-back me-4'}
         )

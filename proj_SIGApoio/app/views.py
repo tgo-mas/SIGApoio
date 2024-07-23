@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ReservaDiaForm
+from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ReservaDiaForm, ReservaMensalForm
 from .models import TipoRecurso, Recurso, Local, ReservaSemanal, Usuario, Horario
 from .bo.horarios import converter_horarios
 from django.views.decorators.csrf import csrf_exempt
@@ -89,6 +89,11 @@ def cadastroReservaDia(request):
     form = ReservaDiaForm()
     context = {'form': form }
     return render(request, 'reserva/cadastroReservaDia.html', context)
+
+def cadastroReservaMensal(request):
+    form = ReservaMensalForm()
+    context = {'form': form}
+    return render(request, 'reserva/cadastroReservaMensal.html', context)
 
 @csrf_exempt
 def getLocais(request):
