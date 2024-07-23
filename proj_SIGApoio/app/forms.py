@@ -1,6 +1,6 @@
 from django import forms
 from django.db import connection
-from .models import Recurso, TipoRecurso, Local, Usuario, ReservaSemanal, ReservaDiaUnico
+from .models import Recurso, TipoRecurso, Local, TipoLocal, Usuario, ReservaSemanal, ReservaDiaUnico, ReservaMensal, Chamado
 
 
 BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'Bloco D'), ('Aud', 'Auditórios'), ('Lab', 'Laboratórios')]
@@ -13,6 +13,7 @@ def get_usuario_choices():
             return []
     except Exception as e:
         return []
+
 
 class TipoRecursoForm(forms.Form, forms.ModelForm):
     tipo = forms.CharField(
@@ -49,8 +50,30 @@ class RecursoForm(forms.Form, forms.ModelForm):
     class Meta:
         model = Recurso
         fields = ['codigo','tipo', 'status', 'funcionando']  
-        
+
+class ChamadoForm(forms.Form, forms.ModelForm):
+    chamado = forms.CharField(
+        label='Chamado',
+        widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'Escreva sua mensagem aqui!'})
+    )
+
+    reserva = forms.ModelChoiceField(
+        queryset=ReservaSemanal.objects.all(),
+        label='Reserva',
+        widget=forms.Select(attrs={'class':'form-control', 'style':'color: black'})
+    )
+
+    class Meta:
+        model = Chamado
+        fields = ['chamado', 'reserva']
+
 class LocalForm(forms.ModelForm):
+    tipo = forms.ModelChoiceField(
+        queryset=TipoLocal.objects.all(),
+        label='Tipo de Local',
+        widget=forms.Select(attrs={'class': 'form-control', 'style': 'color: black'})
+    )
+
     class Meta:
         model= Local
         fields= "__all__"

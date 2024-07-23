@@ -96,3 +96,14 @@ class ReservaMensal(models.Model):
         if isinstance(value, int):
             self.dias.append(value)
             self.save()
+
+    def __str__(self):
+        return self.local.nome
+
+class Chamado(models.Model):
+    id_chamado = models.IntegerField(primary_key=True)
+    chamado = models.CharField(max_length=200)
+    reserva = models.ForeignKey(ReservaSemanal, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.reserva.local.nome + ' ' + self.reserva.matSolicitante.nome
