@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        h1 {
+            color: #0800B5;
+            text-align: center;
+        }
+
+        .line1 {
+            border: 1px solid #0800b5;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-custom {
+            color: white;
+            background-color: #0800B5;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #050080;
+        }
+    </style>
+
+    <title>Cadastro Realizado com Sucesso</title>
+
+    <div class="container">
+        <h1>Cadastro Realizado com Sucesso!</h1>
+        <div id="line1" class="line1"></div> </br>
+        
+        <div class="button-container">
+            <a href="{% url 'cad_local' %}" class="btn-custom">Voltar para Cadastro de Local</a>
+            <a href="{% url 'home' %}" class="btn-custom">Ir para Home</a>
+        </div>
+    </div>
+
+{% endblock content %}
