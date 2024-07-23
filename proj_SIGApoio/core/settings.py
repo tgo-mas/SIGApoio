@@ -1,4 +1,3 @@
-import os
 
 """
 Django settings for core project.
@@ -13,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from os import getenv, path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ga2o34_axy#$rj7k&!1yadwrwfat3ou1c7@=f3q#=y)@euuoa0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -78,7 +77,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-load_dotenv()
+# load_dotenv()
 
 # DATABASES = {
 #   'default': {
