@@ -68,6 +68,12 @@ class ChamadoForm(forms.Form, forms.ModelForm):
         fields = ['chamado', 'reserva']
 
 class LocalForm(forms.ModelForm):
+    tipo = forms.ModelChoiceField(
+        queryset=TipoLocal.objects.all(),
+        label='Tipo de Local',
+        widget=forms.Select(attrs={'class': 'form-control', 'style': 'color: black'})
+    )
+
     class Meta:
         model= Local
         fields= "__all__"
@@ -162,4 +168,4 @@ class ReservaForm(forms.ModelForm, forms.Form):
             # self.fields['docente'].queryset = self.instance.departamento.docente_set.order_by('nome')
             self.fields['local'].queryset = Local.objects.none()
 
-    
+  

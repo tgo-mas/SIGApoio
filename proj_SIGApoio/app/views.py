@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm
-from .models import TipoRecurso, Recurso, Local, Reserva, Usuario, Horario
+from .models import TipoRecurso, Recurso, Local, Reserva, Usuario, Horario, TipoLocal
 from .bo.horarios import converter_horarios
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
@@ -27,9 +27,11 @@ def cad_local(request):
         form = LocalForm()
     return render(request, 'local/cad_local.html', {'form': form})
 
-@require_GET
+
+@require_safe
 def success_page(request):
     return render(request, 'local/success_page.html')
+
 
 # @require_http_methods(['GET','POST'])
 # @require_POST
@@ -86,6 +88,32 @@ def cadastroTipoRecurso(request):
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
 
+def listar_local(request):
+    locais = Local.objects.all()
+    tipo = request.GET.get('tipo')
+    bloco = request.GET.get('bloco')
+    capacidade = request.GET.get('capacidade')
+    sort = request.GET.get('sort', 'nome')  # Default sort field is 'nome'
+
+    if tipo:
+        locais = locais.filter(tipo__tipo=tipo)
+    if bloco:
+        locais = locais.filter(bloco=bloco)
+    if capacidade:
+        locais = locais.filter(capacidade=capacidade)
+
+    locais = locais.order_by(sort)
+
+    context = {
+        'locais': locais,
+        'tipo': tipo,
+        'bloco': bloco,
+        'capacidade': capacidade,
+        'tipos_locais': TipoLocal.objects.all(),
+        'sort': sort
+    }
+    return render(request, 'local/listar_local.html', context)
+
 def listarRecursos(request):
     recursos = Recurso.objects.all()
     recursosDisponiveis = Recurso.objects.filter(status=True)
@@ -141,3 +169,4 @@ def getLocais(request):
     )
     context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)
+
