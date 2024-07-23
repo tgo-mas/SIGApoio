@@ -9,7 +9,7 @@
 </style>
 
 <h1 class="text-center mt-4 pt-4 blue-text">Cadastro de Reserva</h1>
-<form action="." method="POST" id="ReservaFormDom" locais_url="{% url 'getLocais' %}" class="container text-start">
+<form action="{% url 'cad_reserva_semanal' %}" method="POST" id="ReservaFormDom" locais_url="{% url 'getLocais' %}" class="container text-start">
     {% csrf_token %}
     <hr class="ms-4 me-4 blue-text">
     {% if message %}
