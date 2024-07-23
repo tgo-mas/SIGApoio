@@ -2,7 +2,6 @@ from django.views.decorators.http import require_POST, require_GET, require_safe
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm
 from .models import TipoRecurso, Recurso, Local, Reserva, Usuario, Horario, TipoLocal
@@ -31,7 +30,6 @@ def cad_local(request):
 @require_safe
 def success_page(request):
     return render(request, 'local/success_page.html')
-
 
 # @require_http_methods(['GET','POST'])
 # @require_POST
@@ -87,6 +85,19 @@ def cadastroTipoRecurso(request):
             
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
+
+def reserva_recurso(request):
+    tipos_recursos = TipoRecurso.objects.all()
+    
+    if request.method == 'POST':
+        reserva_form = ReservaForm(request.POST)
+        if reserva_form.is_valid():
+            reserva_form.save()
+            return redirect('success_page')  # Ajuste o redirecionamento conforme necessário
+    else:
+        reserva_form = ReservaForm()
+
+    return render(request, 'recurso/reserva_recurso.html', {'reserva_form': reserva_form, 'tipos_recursos': tipos_recursos})
 
 def listar_local(request):
     locais = Local.objects.all()
@@ -169,4 +180,3 @@ def getLocais(request):
     )
     context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)
-

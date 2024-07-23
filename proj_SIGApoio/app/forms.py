@@ -167,5 +167,3 @@ class ReservaForm(forms.ModelForm, forms.Form):
             print('forms.py - linha 67')
             # self.fields['docente'].queryset = self.instance.departamento.docente_set.order_by('nome')
             self.fields['local'].queryset = Local.objects.none()
-
-  
