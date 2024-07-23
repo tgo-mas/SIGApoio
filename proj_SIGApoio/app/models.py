@@ -68,13 +68,34 @@ class Local(models.Model):
     
     def __str__(self):
         return self.nome
-
     
-class Reserva(models.Model):    
+class ReservaSemanal(models.Model):    
+    descricao = models.CharField(max_length=100, null=True)
     horarios = models.ManyToManyField(Horario) # Verificar esse ManyToManyField
     local = models.ForeignKey(Local, on_delete=models.DO_NOTHING)
     matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
     matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
+    
+class ReservaDiaUnico(models.Model):
+    descricao = models.CharField(max_length=100, null=True)
+    local = models.ForeignKey(Local, on_delete=models.DO_NOTHING)
+    matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
+    matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
+    diaHoraInicio = models.DateTimeField()
+    diaHoraFim = models.DateTimeField()
+    
+class ReservaMensal(models.Model):
+    descricao = models.CharField(max_length=100, null=True)
+    local = models.ForeignKey(Local, on_delete=models.DO_NOTHING)
+    matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
+    matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
+    dias = models.JSONField()
+    meses = models.IntegerField()
+    
+    def add_dia(self, value):
+        if isinstance(value, int):
+            self.dias.append(value)
+            self.save()
 
     def __str__(self):
         return self.local.nome
@@ -82,7 +103,7 @@ class Reserva(models.Model):
 class Chamado(models.Model):
     id_chamado = models.IntegerField(primary_key=True)
     chamado = models.CharField(max_length=200)
-    reserva = models.ForeignKey(Reserva, on_delete=models.DO_NOTHING)
+    reserva = models.ForeignKey(ReservaSemanal, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.reserva.local.nome + ' ' + self.reserva.matSolicitante.nome

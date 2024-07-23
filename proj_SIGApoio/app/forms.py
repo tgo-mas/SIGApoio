@@ -1,6 +1,6 @@
 from django import forms
 from django.db import connection
-from .models import Recurso, TipoRecurso, Local, Usuario, Reserva, Chamado
+from .models import Recurso, TipoRecurso, Local, TipoLocal, Usuario, ReservaSemanal, ReservaDiaUnico, ReservaMensal, Chamado
 
 
 BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'Bloco D'), ('Aud', 'Auditórios'), ('Lab', 'Laboratórios')]
@@ -58,7 +58,7 @@ class ChamadoForm(forms.Form, forms.ModelForm):
     )
 
     reserva = forms.ModelChoiceField(
-        queryset=Reserva.objects.all(),
+        queryset=ReservaSemanal.objects.all(),
         label='Reserva',
         widget=forms.Select(attrs={'class':'form-control', 'style':'color: black'})
     )
@@ -79,6 +79,13 @@ class LocalForm(forms.ModelForm):
         fields= "__all__"
         
 class ReservaForm(forms.ModelForm, forms.Form):
+    descricao = forms.CharField(
+        label='Descrição',
+        widget=forms.TextInput(
+            attrs={'class': 'form-control blue-text gray-back me-4'}
+        )
+    )
+    
     horarios = forms.MultipleChoiceField(
         label="Horários",
         choices=[
@@ -148,7 +155,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
     )
 
     class Meta:
-        model = Reserva
+        model = ReservaSemanal
         fields = ['horarios', 'dias', 'qtd_pessoas', 'matSolicitante', 'local']
         
     def __init__(self, *args, **kwargs):
@@ -161,9 +168,127 @@ class ReservaForm(forms.ModelForm, forms.Form):
                     Local.objects.all().order_by('nome')
                 print(self.fields['local'].queryset)
             except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty Docente queryset
+                pass  # invalid input from the client; ignore and fallback to empty Horarios queryset
         elif self.instance.pk:
-            # TODO aqui seria o carregamento de Vínculos Docentes??
-            print('forms.py - linha 67')
-            # self.fields['docente'].queryset = self.instance.departamento.docente_set.order_by('nome')
             self.fields['local'].queryset = Local.objects.none()
+
+class ReservaDiaForm(forms.ModelForm, forms.Form):
+    descricao = forms.CharField(
+        label='Descrição',
+        widget=forms.TextInput(
+            attrs={'class': 'form-control blue-text gray-back me-4'}
+        )
+    )
+    
+    local = forms.ChoiceField(
+        label='Local',
+        widget=forms.Select(
+            attrs={'class': 'form-select blue-text gray-back me-4'}
+        )
+    )
+    
+    diaHoraInicio = forms.DateTimeField(
+        label="Início da reserva",
+        widget=forms.DateTimeInput(
+            attrs={'class': 'form-control blue-text gray-back me-4', 'type': 'datetime-local'}
+        )
+    )
+    
+    diaHoraFim = forms.DateTimeField(
+        label="Fim da reserva",
+        widget=forms.DateTimeInput(
+            attrs={'class': 'form-control blue-text gray-back me-4', 'type': 'datetime-local'}
+        )
+    )
+    
+    qtd_pessoas = forms.IntegerField(
+        max_value=250,
+        initial=0,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control gray-back blue-text me-4'
+            },
+        )
+    )
+    
+    bloco = forms.ChoiceField(
+        choices=BLOCOS_CHOICES,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select gray-back blue-text me-4'
+            }
+        )
+    )
+    
+    matSolicitante = forms.ChoiceField(
+        label='Solicitante',
+        choices=get_usuario_choices(),
+        widget=forms.Select(
+            attrs={'class': 'form-select blue-text gray-back me-4'}
+        )
+    )
+    
+    class Meta:
+        model = ReservaDiaUnico
+        fields = ['descricao', 'diaHoraInicio', 'diaHoraFim', 'local', 'matSolicitante']
+
+class ReservaMensalForm(forms.ModelForm, forms.Form):
+    descricao = forms.CharField(
+        label='Descrição',
+        widget=forms.TextInput(
+            attrs={'class': 'form-control blue-text gray-back me-4'}
+        )
+    )
+    
+    local = forms.ChoiceField(
+        label='Local',
+        widget=forms.Select(
+            attrs={'class': 'form-select blue-text gray-back me-4'}
+        )
+    )
+    
+    dias = forms.ChoiceField(
+        label="Dias",
+        widget=forms.DateInput(
+            attrs={'class': 'form-control blue-text gray-back me-4', 'type': 'date'}
+        )
+    )
+    
+    repeticoes = forms.IntegerField(
+        label="Repetições (meses)",
+        widget=forms.NumberInput(
+            attrs={'class': 'form-control blue-text gray-back me-4'}
+        )
+    )
+    
+    qtd_pessoas = forms.IntegerField(
+        max_value=250,
+        initial=0,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control gray-back blue-text me-4'
+            },
+        )
+    )
+    
+    bloco = forms.ChoiceField(
+        choices=BLOCOS_CHOICES,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select gray-back blue-text me-4'
+            }
+        )
+    )
+    
+    matSolicitante = forms.ChoiceField(
+        label='Solicitante',
+        choices=get_usuario_choices(),
+        widget=forms.Select(
+            attrs={'class': 'form-select blue-text gray-back me-4'}
+        )
+    )
+    
+    class Meta:
+        model = ReservaDiaUnico
+        fields = ['descricao', 'diaHoraInicio', 'diaHoraFim', 'local', 'matSolicitante']
+   
