@@ -1,4 +1,4 @@
-from .models import Recurso, TipoRecurso
+from .models import Recurso, TipoRecurso, Emprestimo
 from django.shortcuts import render 
 from .forms import RecursoForm, ChamadoForm, TipoRecursoForm
 from django.http import HttpResponseRedirect
@@ -88,3 +88,31 @@ def reserva_recurso(request):
         reserva_form = ReservaForm()
 
     return render(request, 'recurso/reserva_recurso.html', {'reserva_form': reserva_form, 'tipos_recursos': tipos_recursos})
+
+def listar_emprestimos(request):
+    status = request.GET.get('status')
+    usuario = request.GET.get('usuario')
+    solicitante = request.GET.get('solicitante')
+
+    emprestimos = Emprestimo.objects.all()
+
+    if status:
+        if status == 'ativos':
+            emprestimos = emprestimos.filter(horaEntrada__isnull=True)
+        elif status == 'devolvidos':
+            emprestimos = emprestimos.filter(horaEntrada__isnull=False)
+
+    if usuario:
+        emprestimos = emprestimos.filter(matBolsista__nome__icontains=usuario)
+
+    if solicitante:
+        emprestimos = emprestimos.filter(matUsuario__nome__icontains=solicitante)
+
+    context = {
+        'emprestimos': emprestimos,
+        'status': status,
+        'usuario': usuario,
+        'solicitante': solicitante,
+    }
+
+    return render(request, 'emprestimos/lista_emprestimos.html', context)
