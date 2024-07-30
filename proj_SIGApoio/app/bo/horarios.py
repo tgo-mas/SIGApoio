@@ -9,7 +9,33 @@ def converter_horarios(dias, horarios):
         for horario in horarios:
             horarios_final.append(dia + horario)
     return horarios_final
- 
+    
+def converter_horarios_dia(dataInicio, dataFinal):
+    diaHoraInicio = datetime.strptime(dataInicio, '%Y-%m-%dT%H:%M')    
+    diaHoraFinal = datetime.strptime(dataFinal, '%Y-%m-%dT%H:%M')
+    
+    diaSemanaInicio = diaHoraInicio.weekday() ## 0 - Segunda, 6 - domingo
+    diaSemanaFinal = diaHoraFinal.weekday()
+    
+    if diaSemanaInicio == 6:
+        diaSemanaInicio = 0 ## domingo = 0
+    else:
+        diaSemanaInicio = diaSemanaInicio + 1 ## segunda = 1 e assim em diante
+    
+    if diaSemanaFinal == 6:
+        diaSemanaFinal = 0 
+    else:
+        diaSemanaFinal = diaSemanaFinal + 1
+        
+    if diaSemanaInicio in [6, 0] and diaSemanaFinal in [6, 0]: ## se começar e terminar no fim de semana, retorna None
+        return None
+    
+    horarioInicio = getHorarioAt(diaSemanaInicio, f'{diaHoraInicio.hour:02d}:{diaHoraInicio.minute:02d}', True)
+    horarioFinal = getHorarioAt(diaSemanaFinal, f'{diaHoraFinal.hour:02d}:{diaHoraFinal.minute:02d}', False)
+    
+    horarios_final = getHorariosBetween(horarioInicio, horarioFinal)
+    return horarios_final
+    
 def getHorarioAt(diaSemana, hora, inicio):
     if diaSemana in [6, 0] and inicio: ## se começar no final de semana, pula pra segunda
         diaSemana = 1
