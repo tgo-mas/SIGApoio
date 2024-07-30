@@ -8,10 +8,14 @@ BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'B
 def get_usuario_choices():
     try:
         if 'app_usuario' in connection.introspection.table_names():
+            print('achou usuário')
             return [(usuario.matricula, usuario.nome) for usuario in Usuario.objects.all()]
         else:
             return []
+            print('nao achou usuário')
+        
     except Exception as e:
+        print('deu erro')
         return []
 
 
@@ -289,6 +293,6 @@ class ReservaMensalForm(forms.ModelForm, forms.Form):
     )
     
     class Meta:
-        model = ReservaDiaUnico
-        fields = ['descricao', 'diaHoraInicio', 'diaHoraFim', 'local', 'matSolicitante']
+        model = ReservaMensal
+        fields = ['descricao', 'dias', 'repeticoes', 'local', 'matSolicitante']
    

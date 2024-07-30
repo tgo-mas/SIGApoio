@@ -9,7 +9,7 @@
 </style>
 
 <h1 class="text-center mt-4 pt-4 blue-text">Cadastro de Reserva</h1>
-<form action="." method="POST" id="ReservaFormDom" locais_url="{% url 'getLocais' %}" class="container text-start">
+<form action="{% url 'cad_reserva_dia' %}" method="POST" id="ReservaFormDom" locais_url="{% url 'getLocaisDia' %}" class="container text-start">
     {% csrf_token %}
     <hr class="ms-4 me-4 blue-text">
     {% if message %}
@@ -62,14 +62,15 @@
     onChangeHorarios = () => {
         const url = $('#ReservaFormDom').attr('locais_url');
         horarios = $("#id_horarios").val();
-        dias = $("#id_dias").val();
+        dia = $("#id_diaHoraInicio").val();
+        diaFim = $("#id_diaHoraFim").val();
         pessoas = $("#id_qtd_pessoas").val();
         bloco = $("#id_bloco").val();
 
         $.ajax({
             type: 'POST',
             url: url,
-            data: JSON.stringify({ 'horarios': horarios, 'dias': dias, 'pessoas': pessoas, 'bloco': bloco}),
+            data: JSON.stringify({ 'horarios': horarios, 'diaInicio': dia, 'diaFim': diaFim, 'pessoas': pessoas, 'bloco': bloco}),
             success: (data) => {
                 if(data.length == 0){
                     data = '<option disabled selected>Nenhum local disponível</option>'
@@ -79,8 +80,8 @@
         })
     }
 
-    $("#id_horarios").change(onChangeHorarios)
-    $("#id_dias").change(onChangeHorarios)
+    $("#id_diaHoraInicio").change(onChangeHorarios)
+    $("#id_diaHoraFim").change(onChangeHorarios)
     $("#id_qtd_pessoas").change(onChangeHorarios)
     $("#id_bloco").change(onChangeHorarios)
 
