@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm, ReservaMensalForm
-from .models import TipoRecurso, Recurso, Local, ReservaSemanal, Usuario, Horario, TipoLocal
+from .models import TipoRecurso, Recurso, Local, ReservaSemanal, Usuario, Horario, TipoLocal, Emprestimo
 from .bo.horarios import converter_horarios
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
@@ -98,6 +98,36 @@ def reserva_recurso(request):
 
     return render(request, 'recurso/reserva_recurso.html', {'reserva_form': reserva_form, 'tipos_recursos': tipos_recursos})
 
+
+def listar_emprestimos(request):
+    status = request.GET.get('status')
+    usuario = request.GET.get('usuario')
+    solicitante = request.GET.get('solicitante')
+
+    emprestimos = Emprestimo.objects.all()
+
+    if status:
+        if status == 'ativos':
+            emprestimos = emprestimos.filter(horaEntrada__isnull=True)
+        elif status == 'devolvidos':
+            emprestimos = emprestimos.filter(horaEntrada__isnull=False)
+
+    if usuario:
+        emprestimos = emprestimos.filter(matBolsista__nome__icontains=usuario)
+
+    if solicitante:
+        emprestimos = emprestimos.filter(matUsuario__nome__icontains=solicitante)
+
+    context = {
+        'emprestimos': emprestimos,
+        'status': status,
+        'usuario': usuario,
+        'solicitante': solicitante,
+    }
+
+    return render(request, 'emprestimos/lista_emprestimos.html', context)
+
+ 
 def listar_local(request):
     locais = Local.objects.all()
     tipo = request.GET.get('tipo')
