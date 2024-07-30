@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <title>Lista de Locais</title>
+
+    <div class="container">
+        <h1>Locais Cadastrados</h1>
+        <form method="GET" class="form-inline">
+            <div class="form-group">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo" class="form-control">
+                    <option value="">Todos</option>
+                    {% for tipo_local in tipos_locais %}
+                        <option value="{{ tipo_local.tipo }}" {% if tipo_local.tipo == tipo %}selected{% endif %}>{{ tipo_local.tipo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bloco">Bloco:</label>
+                <input type="text" id="bloco" name="bloco" class="form-control" value="{{ bloco|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="capacidade">Capacidade:</label>
+                <input type="number" id="capacidade" name="capacidade" class="form-control" value="{{ capacidade|default_if_none:'' }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=nome">Nome</a></th>
+                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=bloco">Bloco</a></th>
+                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=capacidade">Capacidade</a></th>
+                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=tipo">Tipo</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for local in locais %}
+                <tr>
+                    <td>{{ local.nome }}</td>
+                    <td>{{ local.bloco }}</td>
+                    <td>{{ local.capacidade }}</td>
+                    <td>{{ local.tipo.tipo }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

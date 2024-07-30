@@ -20,7 +20,11 @@ class TestFront(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
     
     def test_cad_local_post(self):
-        res = self.client.post(reverse('cad_local'), data={})
+        res = self.client.post(reverse('cad_local'), data={
+            'nome':'B3',
+            'bloco':'B',
+            'capacidade':'45', 
+            'tipo':'Sala'})
         self.assertEqual(res.status_code, status.HTTP_200_OK)
     
     def test_sucess_page(self):
@@ -32,7 +36,12 @@ class TestFront(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
     
     def test_cad_recurso_post(self):
-        res = self.client.post(reverse('cadastro-recurso'), data={})
+        res = self.client.post(reverse('cadastro-recurso'), data={
+            'codigo':52,
+            'tipo':'HDMI',
+            'status':False,
+            'funcionando':True
+        })
         self.assertEqual(res.status_code, status.HTTP_200_OK)
     
     def test_efetuar_chamado_get(self):
@@ -40,7 +49,7 @@ class TestFront(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
     
     def test_efetuar_chamado_post(self):
-        res = self.client.post(reverse('efetuar-chamado'), data={})
+        res = self.client.post(reverse('efetuar-chamado'), data={'chamado':'HDMI não funciona!','reserva':1})
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         
     def test_cadastro_tipo_recurso_get(self):
@@ -48,5 +57,6 @@ class TestFront(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
     
     def test_cadastro_tipo_recurso_post(self):
-        res = self.client.post(reverse('cadastro-tipo-recurso'), data={})
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        res = self.client.post(reverse('cadastro-tipo-recurso'), data={'tipo':'HDMI'})
+        self.assertEqual(res.status_code, status.HTTP_302_FOUND)
+        

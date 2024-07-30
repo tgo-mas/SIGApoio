@@ -1,19 +1,74 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}SIG-Apoio {% endblock %}
 
 {% block content %}
 
-  <title>SIG-Apoio</title>
+<style>
+  .blue-back {
+    background-color: #0800B5
+  }
 
-  <body>
-    <nav style="background-color: rgb(0, 0, 153)"  class="navbar navbar-light bg-light">
-      <div class="">
-        <button><a href="{% url 'home' %}" class="btn">Home</a></button>
-        <button><a href="{% url 'cadastro-recurso' %}" class="btn">Cadastrar Recurso</a></button>
-        <button><a href="{% url 'efetuar-chamado' %}" class="btn">Efetuar Chamado</a></button>
-      </div>
-    </nav>
-    <h1>Seja Bem vindo ao SIG-Apoio</h1>
-  </body>
+  .logo {
+    width: 30%;
+  }
 
-    
+  .no-back {
+    background-color: transparent !important;
+  }
+
+  .link:hover {
+    color: #aaa !important;
+  }
+
+  .link {
+    color: white;
+  }
+</style>
+
+<body class="blue-back">
+  <nav style="background-color: rgb(0, 0, 153)" class="navbar navbar-light bg-light">
+    <div class="container-fluid justify-content-center gap-2 m-3">
+      <button><a href="{% url 'home' %}" class="btn">Home</a></button>
+      <button><a href="{% url 'cadastro-recurso' %}" class="btn">Cadastrar Recurso</a></button>
+      <button><a href="{% url 'cadastro-tipo-recurso' %}" class="btn">Cadastro tipo recurso</a></button>
+      <button><a href="{% url 'listar-recurso' %}" class="btn">Listar recurso</a></button>
+      <button><a href="{% url 'cad_local' %}" class="btn">Cadastro de local</a></button>
+      <button><a href="{% url 'cad_reserva' %}" class="btn">Cadastro de reserva</a></button>
+      <button><a href="{% url 'efetuar-chamado' %}" class="btn">Efetuar Chamado</a></button>
+    </div>
+  </nav>
+  <div class="text-center container">
+    <h1 class="text-light mt-4 mx-4">Seja bem-vindo(a) ao SIG-Apoio.</h1>
+    <img src="{% static 'logo.png' %}" class="logo">
+    <hr class="text-center text-light" />
+  </div>
+
+  <footer class="container p-4 text-light">
+    <h4>Sobre o projeto</h4>
+    <div class="container d-flex">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item no-back text-light">Esse projeto faz parte da disciplina de Engenharia de Software
+          II, do curso de Sistemas de Informação da UFRN, Campus Caicó.</li>
+        <li class="list-group-item no-back text-light">Tecnologias usadas:  <ul>
+          <li><a class="link" href="https://www.djangoproject.com">Django</a></li>
+          <li><a class="link" href="https://www.postgresql.org">PostgreSQL</a></li>
+          <li><a class="link" href="https://neon.tech">Neon</a></li>
+        </ul></li>
+      </ul>
+      <ul>
+        <li class="list-group-item no-back text-light">Integrantes: <ul>
+        <li>Anderson Azevedo</li>
+        <li>Cleomar Junior</li>
+        <li>Ericleison Camilo</li>
+        <li>Marlon Silva</li>
+        <li>Rafael Garcia</li>
+        <li>Thomas Almeida</li>
+      </ul></li>
+    </div>
+  </footer>
+</body>
+
+
 {% endblock content %}

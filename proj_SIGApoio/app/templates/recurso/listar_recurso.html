@@ -1,0 +1,201 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        h1{
+            color: #0800B5;
+            text-align: center;
+        }
+
+        .line1{
+            border:1px solid #0800b5;
+        }
+
+        .table{
+            text-align: center;
+        }
+
+        .radios{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+    </style>    
+
+    <div class="container">
+        <h1>Listagem de recursos</h1>
+        <div id='line1' class='line1'></div></br>
+
+        <div>
+            <div class="radios" id="radios">
+                <h4>Filtrar por:</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTodos1" value="1">
+                    <label class="form-check-label" for="flexRadioTodos1">Todos</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioStatus3" value="3">
+                    <label class="form-check-label" for="flexRadioStatus3">Status</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioFuncionando4" value="4">
+                    <label class="form-check-label" for="flexRadioFuncionando4">Funcionando</label>
+                </div>
+            </div>
+
+            <div id='line1' class='line1'></div></br>
+
+            <div id="filtros"></div>
+            
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Funcionando</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                
+            </tbody>
+        </table>
+
+        <div id='line1' class='line1'></div></br>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.querySelector('.radios');
+            var radios = form.querySelectorAll('input[name="flexRadioDefault"]');
+            radios.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    if(document.querySelector('input[name="flexRadioDefault"]:checked').value == 1){
+                        funcTodos()
+                    }
+
+                    else if(document.querySelector('input[name="flexRadioDefault"]:checked').value == 2){
+                        funcTipo()
+                    }
+
+                    else if(document.querySelector('input[name="flexRadioDefault"]:checked').value == 3){
+                        funcStatus()
+                    }
+
+                    else if(document.querySelector('input[name="flexRadioDefault"]:checked').value == 4){
+                        funcFuncionamento()
+                    }
+                });
+            });
+        });
+
+        const funcTodos = () => {
+            document.getElementById('filtros').innerHTML = ``
+
+            document.getElementById('tbody').innerHTML = `
+                {% for recurso in recursos %}
+                    <tr>
+                        <th scope="row">{{recurso.id_codigo}}</th>
+                        <td>{{ recurso.codigo }}</td>
+                        <td>{{ recurso.tipo }}</td>
+                        <td>{% if recurso.funcionando %}Disponível{% else %}Indisponível{% endif %}</td>
+                        <td>{% if recurso.funcionando %}Sim{% else %}Não{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            `
+        }
+
+        const funcStatus = () => {
+            document.getElementById('tbody').innerHTML = ``
+            document.getElementById('filtros').innerHTML = `
+                <select class="form-select" aria-label="Default select example" id='status' >
+                    <option selected>------</option>
+                        <option value="disponivel">Disponível</option>
+                        <option value="indisponivel">Indisponível</option>
+                </select>
+            `
+            
+            var selectElement = document.getElementById('status');
+            console.log(selectElement.value);
+            selectElement.addEventListener('change', function() {
+                if(selectElement.value == 'disponivel'){
+                    document.getElementById('tbody').innerHTML = `
+                        {% for recurso in recursosDisponiveis %}
+                            <tr>
+                                <th scope="row">{{recurso.id_codigo}}</th>
+                                <td>{{ recurso.codigo }}</td>
+                                <td>{{ recurso.tipo }}</td>
+                                <td>Disponível</td>
+                                <td>{% if recurso.funcionando %}Sim{% else %}Não{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    `
+                }else if(selectElement.value == 'indisponivel'){
+                    document.getElementById('tbody').innerHTML = `
+                        {% for recurso in recursosIndisponiveis %}
+                            <tr>
+                                <th scope="row">{{recurso.id_codigo}}</th>
+                                <td>{{ recurso.codigo }}</td>
+                                <td>{{ recurso.tipo }}</td>
+                                <td>Indisponível</td>
+                                <td>{% if recurso.funcionando %}Sim{% else %}Não{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    `
+                }
+            });
+        }
+
+        const funcFuncionamento = () =>{
+            document.getElementById('tbody').innerHTML = ``
+            document.getElementById('filtros').innerHTML = `
+                <select class="form-select" aria-label="Default select example" id='funcionamento' >
+                    <option selected>------</option>
+                        <option value="sim">Sim</option>
+                        <option value="não">Não</option>
+                </select>
+            `
+            
+            var selectElement = document.getElementById('funcionamento');
+            console.log(selectElement.value);
+            selectElement.addEventListener('change', function() {
+                if(selectElement.value == 'sim'){
+                    document.getElementById('tbody').innerHTML = `
+                        {% for recurso in recursosFunciona %}
+                            <tr>
+                                <th scope="row">{{recurso.id_codigo}}</th>
+                                <td>{{ recurso.codigo }}</td>
+                                <td>{{ recurso.tipo }}</td>
+                                <td>{% if recurso.status %}Disponível{% else %}Indisponível{% endif %}</td>
+                                <td>Sim</td>
+                            </tr>
+                        {% endfor %}
+                    `
+                }else if(selectElement.value == 'não'){
+                    document.getElementById('tbody').innerHTML = `
+                        {% for recurso in recursosNaoFunciona %}
+                            <tr>
+                                <th scope="row">{{recurso.id_codigo}}</th>
+                                <td>{{ recurso.codigo }}</td>
+                                <td>{{ recurso.tipo }}</td>
+                                <td>{% if recurso.status %}Disponível{% else %}Indisponível{% endif %}</td>
+                                <td>Não</td>
+                            </tr>
+                        {% endfor %}
+                    `
+                }
+            });
+        }
+
+    </script>
+
+{% endblock content %}
