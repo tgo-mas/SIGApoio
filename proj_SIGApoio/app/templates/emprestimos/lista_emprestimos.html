@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <title>Lista de Empréstimos</title>
+
+    <div class="container">
+        <h1>Empréstimos</h1>
+        <form method="GET" class="form-inline">
+            <div class="form-group">
+                <label for="filtro">Filtro:</label>
+                <select id="filtro" name="status" class="form-control">
+                    <option value="">Todos os empréstimos</option>
+                    <option value="ativos" {% if status == 'ativos' %}selected{% endif %}>Ativos</option>
+                    <option value="devolvidos" {% if status == 'devolvidos' %}selected{% endif %}>Devolvidos</option>
+                </select>
+                <label for="usuario">Usuário:</label>
+                <input type="text" id="usuario" name="usuario" class="form-control" value="{{ usuario }}">
+                <label for="solicitante">Solicitante:</label>
+                <input type="text" id="solicitante" name="solicitante" class="form-control" value="{{ solicitante }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Recurso</th>
+                    <th>Usuário</th>
+                    <th>Solicitante</th>
+                    <th>Data de Empréstimo</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emprestimo in emprestimos %}
+                    <tr>
+                        <td>{{ emprestimo.id }}</td>
+                        <td>{{ emprestimo.idRecurso.tipo.tipo }} {{ emprestimo.idRecurso.codigo }}</td>
+                        <td>{{ emprestimo.matBolsista.nome }}</td>
+                        <td>{{ emprestimo.matUsuario.nome }}</td>
+                        <td>{{ emprestimo.horaSaida }}</td>
+                        <td>{{ emprestimo.horaEntrada|yesno:"Devolvido,Ativo" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

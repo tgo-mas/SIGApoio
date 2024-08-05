@@ -1,4 +1,4 @@
-from .views import efetuarChamado, cadastroRecurso, home, getLocais, getLocaisDia, cadastroRecurso, cad_local, listar_local, success_page, cadastroTipoRecurso, listarRecursos, cadastroReservaSemanal, tipoReserva, cadastroReservaDia, reserva_recurso
+from .views import efetuarChamado, cadastroRecurso, home, getLocais, getLocaisDia, cadastroRecurso, cad_local, listar_local, success_page, cadastroTipoRecurso, listarRecursos, cadastroReservaSemanal, tipoReserva, cadastroReservaDia, reserva_recurso, listar_emprestimos
 from django.urls import path
 
 urlpatterns = [
@@ -11,6 +11,7 @@ urlpatterns = [
     path('cad_local/', cad_local, name = "cad_local"),
     path('success_page/', success_page, name = "success_page"),
     path('reserva_recurso/', reserva_recurso, name='reserva_recurso'),
+    path('emprestimos/', listar_emprestimos, name='listar_emprestimos'),
     path('local/listar/', listar_local, name='listar_local'),
     path('local/cad_local', cad_local, name = "cad_local"),
     path('reserva/cadastro/semanal', cadastroReservaSemanal, name = "cad_reserva_semanal"),
