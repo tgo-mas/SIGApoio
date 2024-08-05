@@ -80,11 +80,3 @@ def getHorariosBetween(horarioInicio, horarioFinal):
         )
     
     return horarios
-
-def get_dias_choices(mes):
-    if mes == 2:
-        return range(1, 30)
-    elif mes in [1, 3, 5, 7, 8, 10, 12]:
-        return range(1, 32)
-    elif mes in [4, 6, 9, 11]:
-        return range(1, 31)

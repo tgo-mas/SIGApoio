@@ -83,27 +83,6 @@ class ReservaDiaUnico(models.Model):
     matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
     diaHoraInicio = models.DateTimeField()
     diaHoraFim = models.DateTimeField()
-    
-class ReservaMensal(models.Model):
-    MESES_CHOICES = ((1, 'Janeiro'), (2, 'Fevereiro'), (3, 'Março'), (4, 'Abril'), (5, 'Maio'), (6, 'Junho'), (7, 'Julho'), (8, 'Agosto'), (9, 'Setembro'), (10, 'Outubro'), (11, 'Novembro'), (12, 'Dezembro'))
-    
-    descricao = models.CharField(max_length=100, null=True)
-    local = models.ForeignKey(Local, on_delete=models.DO_NOTHING)
-    matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
-    matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
-    horaInicio = models.TimeField(default='07:00')
-    horaFim = models.TimeField(default='22:00')
-    mesInicial = models.IntegerField(choices=MESES_CHOICES, default=date.today().month)
-    dias = models.JSONField()
-    meses = models.IntegerField()
-    
-    def add_dia(self, value):
-        if isinstance(value, int):
-            self.dias.append(value)
-            self.save()
-
-    def __str__(self):
-        return self.local.nome
 
 class Chamado(models.Model):
     id_chamado = models.IntegerField(primary_key=True)
