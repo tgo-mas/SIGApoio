@@ -17,8 +17,7 @@ def get_usuario_choices():
     except Exception as e:
         print('deu erro')
         return []
-
-
+    
 class TipoRecursoForm(forms.Form, forms.ModelForm):
     tipo = forms.CharField(
         label = 'Tipo',
@@ -251,16 +250,35 @@ class ReservaMensalForm(forms.ModelForm, forms.Form):
         )
     )
     
+    mesInicial = forms.ChoiceField(
+        choices=ReservaMensal.MESES_CHOICES,
+        widget=forms.Select(
+            attrs={'class': 'form-select blue-text gray-back me-4'}
+        )
+    )
+    
     dias = forms.ChoiceField(
         label="Dias",
-        widget=forms.DateInput(
-            attrs={'class': 'form-control blue-text gray-back me-4', 'type': 'date'}
+        widget=forms.SelectMultiple(
+            attrs={'class': 'form-select blue-text gray-back me-4'}
         )
     )
     
     repeticoes = forms.IntegerField(
         label="Repetições (meses)",
         widget=forms.NumberInput(
+            attrs={'class': 'form-control blue-text gray-back me-4'}
+        )
+    )
+    
+    horaInicio = forms.TimeField(
+        widget=forms.TimeInput(
+            attrs={'class': 'form-control blue-text gray-back me-4'}
+        )
+    )
+    
+    horaFim = forms.TimeField(
+        widget=forms.TimeInput(
             attrs={'class': 'form-control blue-text gray-back me-4'}
         )
     )

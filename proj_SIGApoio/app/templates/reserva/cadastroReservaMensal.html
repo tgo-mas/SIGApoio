@@ -9,7 +9,7 @@
 </style>
 
 <h1 class="text-center mt-4 pt-4 blue-text">Cadastro de Reserva</h1>
-<form action="." method="POST" id="ReservaFormDom" locais_url="{% url 'getLocais' %}" class="container text-start">
+<form action="." method="POST" id="ReservaFormDom" locais_url="{% url 'getLocais' %}" dias_url="{% url 'getDias' %}" class="container text-start">
     {% csrf_token %}
     <hr class="ms-4 me-4 blue-text">
     {% if message %}
@@ -20,6 +20,10 @@
         {{ form.descricao }}
     </div>
     <div class="d-flex justify-content-between gap-4 px-4">
+        <div class="flex-fill">
+            <h5>Mês inicial</h5>
+            {{ form.mesInicial }}
+        </div>
         <div class="flex-fill">
             <h5>Dias</h5>
             {{ form.dias }}
@@ -37,6 +41,16 @@
         <div class="flex-fill">
             <h5>Bloco</h5>
             {{ form.bloco }}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between gap-4 p-4">
+        <div class="flex-fill">
+            <h5>Hora inicial</h5>
+            {{ form.horaInicio }}
+        </div>
+        <div class="flex-fill">
+            <h5>Hora final</h5>
+            {{ form.horaFim }}
         </div>
     </div>
     <div class="px-4 pb-4">
@@ -79,11 +93,31 @@
         })
     }
 
+    onChangeMes = () => {
+        const url = $("#ReservaFormDom").attr('dias_url');
+        mes = $('#id_mesInicial').val();
+
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: JSON.stringify({'mes': mes }),
+            success: (data) => {
+                console.log(data);
+                if(data.length == 0){
+                    data = '<option>Erro ao recuperar dias.</option>'
+                }
+                $('#id_dias').html(data)
+            }
+        })
+    }
+
     $("#id_horarios").change(onChangeHorarios)
     $("#id_dias").change(onChangeHorarios)
     $("#id_qtd_pessoas").change(onChangeHorarios)
     $("#id_bloco").change(onChangeHorarios)
 
+    $("#id_mesInicial").change(onChangeMes)
 
 </script>
 

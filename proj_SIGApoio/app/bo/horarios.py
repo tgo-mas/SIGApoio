@@ -11,6 +11,7 @@ def converter_horarios(dias, horarios):
     return horarios_final
     
 def converter_horarios_dia(dataInicio, dataFinal):
+    '''Recebe duas datas e retorna os horarios entre elas.'''
     diaHoraInicio = datetime.strptime(dataInicio, '%Y-%m-%dT%H:%M')    
     diaHoraFinal = datetime.strptime(dataFinal, '%Y-%m-%dT%H:%M')
     
@@ -79,3 +80,11 @@ def getHorariosBetween(horarioInicio, horarioFinal):
         )
     
     return horarios
+
+def get_dias_choices(mes):
+    if mes == 2:
+        return range(1, 30)
+    elif mes in [1, 3, 5, 7, 8, 10, 12]:
+        return range(1, 32)
+    elif mes in [4, 6, 9, 11]:
+        return range(1, 31)

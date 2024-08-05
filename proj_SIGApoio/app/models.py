@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import date
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, unique=True, primary_key=True)
     
@@ -85,10 +85,15 @@ class ReservaDiaUnico(models.Model):
     diaHoraFim = models.DateTimeField()
     
 class ReservaMensal(models.Model):
+    MESES_CHOICES = ((1, 'Janeiro'), (2, 'Fevereiro'), (3, 'Março'), (4, 'Abril'), (5, 'Maio'), (6, 'Junho'), (7, 'Julho'), (8, 'Agosto'), (9, 'Setembro'), (10, 'Outubro'), (11, 'Novembro'), (12, 'Dezembro'))
+    
     descricao = models.CharField(max_length=100, null=True)
     local = models.ForeignKey(Local, on_delete=models.DO_NOTHING)
     matResponsavel = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
     matSolicitante = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
+    horaInicio = models.TimeField(default='07:00')
+    horaFim = models.TimeField(default='22:00')
+    mesInicial = models.IntegerField(choices=MESES_CHOICES, default=date.today().month)
     dias = models.JSONField()
     meses = models.IntegerField()
     
