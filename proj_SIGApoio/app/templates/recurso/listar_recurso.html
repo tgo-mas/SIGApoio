@@ -1,6 +1,8 @@
 
 {% extends "base.html" %}
 
+{% load teste_funcs %}
+
 {% block content %}
 
     <style>
@@ -34,6 +36,11 @@
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTodos1" value="1">
                     <label class="form-check-label" for="flexRadioTodos1">Todos</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioStatus2" value="2">
+                    <label class="form-check-label" for="flexRadioStatus2">Tipo</label>
                 </div>
 
                 <div class="form-check">
@@ -193,6 +200,44 @@
                         {% endfor %}
                     `
                 }
+            });
+        }
+
+        const funcTipo = () => {
+            document.getElementById('tbody').innerHTML = ``
+            document.getElementById('filtros').innerHTML = `
+                <select class="form-select" aria-label="Default select example" id='tipo' >
+                    <option selected>------</option>
+                    {% for tipo in tipos %}
+                        <option value={{tipo.tipo}}>{{ tipo.tipo }}</option>
+                    {% endfor %}
+                </select>
+            `
+            
+            var selectElement = document.getElementById('tipo');
+            console.log(selectElement.value);
+            selectElement.addEventListener('change', function() {
+                    if (selectElement.value == 'HDMI'){
+                        document.getElementById('tbody').innerHTML = `
+                            {% for recurso in recursos %}
+                                    {{recurso|filtro_tipo:"HDMI"}}
+                            {% endfor %}
+                        `
+                    }else if (selectElement.value == 'Projetor'){
+                        document.getElementById('tbody').innerHTML = `
+                            {% for recurso in recursos %}
+                                    {{recurso|filtro_tipo:"Projetor"}}
+                            {% endfor %}
+                        `
+                    }else if (selectElement.value == 'Notebook'){
+                        document.getElementById('tbody').innerHTML = `
+                            {% for recurso in recursos %}
+                                    {{recurso|filtro_tipo:"Notebook"}}
+                            {% endfor %}
+                        `
+                    }
+                    
+                
             });
         }
 

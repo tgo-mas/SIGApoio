@@ -163,6 +163,8 @@ def listarRecursos(request):
     recursosFunciona = Recurso.objects.filter(funcionando=True)
     recursosNaoFunciona = Recurso.objects.filter(funcionando=False)
     tipos = TipoRecurso.objects.all()
+    
+    
     context = {'recursos':recursos, 'tipos':tipos, 'recursosDisponiveis':recursosDisponiveis, 'recursosIndisponiveis':recursosIndisponiveis, 'recursosNaoFunciona':recursosNaoFunciona, 'recursosFunciona':recursosFunciona}
     return render(request, 'recurso/listar_recurso.html', context)
 
