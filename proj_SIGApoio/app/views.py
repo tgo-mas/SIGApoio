@@ -2,11 +2,13 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
-from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm, ReservaMensalForm
-from .models import TipoRecurso, Recurso, Local, ReservaSemanal, Usuario, Horario, TipoLocal, Emprestimo
-from .bo.horarios import converter_horarios
+from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm
+from .models import TipoRecurso, Recurso, Local, ReservaSemanal, Usuario, Horario, TipoLocal, ReservaDiaUnico, Emprestimo
+from .bo.horarios import converter_horarios, converter_horarios_dia
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 import json
 
 # @require_GET
@@ -177,13 +179,14 @@ def cadastroReservaSemanal(request):
         form = ReservaForm()
         context = {'form': form, 'message': 'Reserva cadastrada com sucesso!'}
         try:
+            descricao = req['descricao']
             resp = Usuario.objects.get(matricula=req['matSolicitante']) # Enquanto a auth não está pronta
             # resp = get_auth_user().get("matricula")                  // Vai ser algo assim depois da autenticação
             solic = Usuario.objects.get(matricula=req['matSolicitante'])
             local = Local.objects.get(id=req['local'])
             horarios_vetor = converter_horarios(req.getlist('dias'), req.getlist('horarios')) # Junta os dias e horarios
             horarios = Horario.objects.filter(id__in=horarios_vetor)
-            novaReserva = ReservaSemanal.objects.create(local=local, matResponsavel=resp, matSolicitante=solic)
+            novaReserva = ReservaSemanal.objects.create(descricao=descricao, local=local, matResponsavel=resp, matSolicitante=solic)
             novaReserva.horarios.set(horarios)
             novaReserva.save()
             return render(request, 'reserva/cadastroReserva.html', context)
@@ -192,15 +195,61 @@ def cadastroReservaSemanal(request):
             return render(request, 'reserva/cadastroReserva.html', context)
     
 def cadastroReservaDia(request):
-    form = ReservaDiaForm()
-    context = {'form': form }
-    return render(request, 'reserva/cadastroReservaDia.html', context)
-
-def cadastroReservaMensal(request):
-    form = ReservaMensalForm()
-    context = {'form': form}
-    return render(request, 'reserva/cadastroReservaMensal.html', context)
-
+    if request.method != 'POST':
+        form = ReservaDiaForm()
+        context = {'form': form }
+        return render(request, 'reserva/cadastroReservaDia.html', context)
+    else:
+        req = request.POST
+        form = ReservaDiaForm()
+        context = {'form': form, 'message': "Reserva cadastrada com sucesso!"}
+        try:
+            descricao = req['descricao']
+            resp = Usuario.objects.get(matricula=req['matSolicitante']) # Enquanto a auth não está pronta
+            # resp = get_auth_user().get("matricula")                  // Vai ser algo assim depois da autenticação
+            solic = Usuario.objects.get(matricula=req['matSolicitante'])
+            local = Local.objects.get(id=req['local'])
+            data_inicio = datetime.strptime(req['diaHoraInicio'], '%Y-%m-%dT%H:%M')    
+            data_fim = datetime.strptime(req['diaHoraFim'], '%Y-%m-%dT%H:%M')
+            repeticao  = req['repeticao']
+            if repeticao == 'unico':
+                novaReserva = ReservaDiaUnico.objects.create(descricao=descricao,
+                                                         local=local, 
+                                                         diaHoraInicio=data_inicio, 
+                                                         diaHoraFim=data_fim,
+                                                         matResponsavel=resp, 
+                                                         matSolicitante=solic)
+                novaReserva.save()
+            elif repeticao == 'semana':
+                while data_inicio.year == datetime.now().year:
+                    novaReserva = ReservaDiaUnico.objects.create(descricao=descricao,
+                                                         local=local, 
+                                                         diaHoraInicio=data_inicio, 
+                                                         diaHoraFim=data_fim,
+                                                         matResponsavel=resp, 
+                                                         matSolicitante=solic)
+                    novaReserva.save()
+                    data_inicio = data_inicio + timedelta(weeks=1)  # Pula uma semana
+                    data_fim = data_fim + timedelta(weeks=1)
+            elif repeticao == 'mes':
+                while data_inicio.year == datetime.now().year:
+                    novaReserva = ReservaDiaUnico.objects.create(descricao=descricao,
+                                                         local=local, 
+                                                         diaHoraInicio=data_inicio, 
+                                                         diaHoraFim=data_fim,
+                                                         matResponsavel=resp, 
+                                                         matSolicitante=solic)
+                    novaReserva.save()
+                    data_inicio = data_inicio + relativedelta(months=1)  # Pula um mês
+                    data_fim = data_fim + relativedelta(months=1)
+            
+            return render(request, 'reserva/cadastroReservaDia.html', context)
+        except Exception as error:
+            context = {'form': form, 'message': 'Erro no cadastro da reserva', 'error': True}
+            print(error)
+            return render(request, 'reserva/cadastroReservaDia.html', context)
+      
+# @require_POST
 @csrf_exempt
 def getLocais(request):
     data = json.loads(request.body)
@@ -213,6 +262,40 @@ def getLocais(request):
         Q(horarios__id__in=horarios_final)
     )
     locais_ocupados = map(lambda reserva: reserva.local, reservas_filt)
+    locais = Local.objects.exclude(
+        Q(nome__in=locais_ocupados)
+    )
+    locais_final = locais.filter(
+        capacidade__gt=pessoas,
+        bloco=bloco
+    )
+    context = {'locais':locais_final}
+    return render(request, 'reserva/local_option.html', context)
+
+# @require_POST
+@csrf_exempt
+def getLocaisDia(request):
+    data = json.loads(request.body)
+    dia = data['diaInicio']
+    diaFim = data['diaFim']
+    bloco = data['bloco']
+    pessoas = data['pessoas']
+    print(dia, diaFim)
+    horarios_final = converter_horarios_dia(dia, diaFim)
+    
+    if horarios_final is None:      ## se horarios_final for None, pule a verificação com os horarios da semana
+        lista_reservas = []
+    else:
+        reservas_filt = ReservaSemanal.objects.filter(
+            Q(horarios__id__in=horarios_final)
+        )
+        lista_reservas = list(reservas_filt)
+    
+    lista_reservas += list(ReservaDiaUnico.objects.filter(
+                          diaHoraInicio__range=[dia, diaFim]
+                      ))
+    
+    locais_ocupados = map(lambda reserva: reserva.local, lista_reservas)
     locais = Local.objects.exclude(
         Q(nome__in=locais_ocupados)
     )

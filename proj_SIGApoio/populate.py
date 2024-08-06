@@ -41,7 +41,7 @@ def generate_schedule():
                 end_time = f"{end_hour:02}:{end_minute:02}"
                 schedule.append({
                     'id': id,
-                    'dia': day,
+                    'dia': day - 1, ## no Models, o day começa no domingo, e no ID o day começa no sábado
                     'horaInicio': start_time,
                     'horaFim': end_time
                 })
