@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        h1{
+            color: #0800B5;
+            text-align: center;
+        }
+
+        button{
+            background-color: #0800B5;
+            color: white;
+        }
+
+        .botao{
+            display: flex;
+            justify-content: center;
+        }
+
+        .line1{
+            border:1px solid #0800b5;
+        }
+
+        select, input{
+            border-color: #0800b5;
+            border-radius: 5px;
+        }
+
+        #detalhes{
+            padding: 1em 5em;
+        }
+
+        .table{
+            text-align: center;
+        }
+
+        .radios{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+
+    </style>
+
+    <title>Listar Reservas</title>
+
+    <div class="container-fluid">
+        <h1>Listagem de reservas</h1>
+        <div id='line1' class='line1'></div></br>
+
+        <div>
+            <div class="radios" id="radios">
+                <h4>Filtrar por:</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTodos1" value="1">
+                    <label class="form-check-label" for="flexRadioTodos1">Todos</label>
+                </div>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTipo2" value="2">
+                    <label class="form-check-label" for="flexRadioTipo2">Tipo</label>
+                </div>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioLocal3" value="3">
+                    <label class="form-check-label" for="flexRadioLocal3">Local</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioResp4" value="4">
+                    <label class="form-check-label" for="flexRadioResp4">Responsavel</label>
+                </div>
+            </div>
+
+            <div id='line1' class='line1'></div></br>
+
+            <div id="filtros"></div>
+
+            <div id="detalhes"></div>
+            
+            <div id='line1' class='line1'></div></br>
+            
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Local</th>
+                    <th scope="col">Responsável</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                
+            </tbody>
+        </table>
+
+        <div id='line1' class='line1'></div></br>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        $('.radios').change(()=>{
+            var radio = $('input[name="flexRadioDefault"]:checked').val();
+            console.log(radio)
+
+
+                $.ajax({
+                    url: "{% url 'filtrar-reservas' %}",
+                    data: {'filtro_tipo': "default",
+                        'filtro_local': "default",
+                        'filtro_resp': "default"},
+                    success: function(response) {
+                        $("#tbody").html(response);
+                    }
+                });
+                $.ajax({
+                    url: "{% url 'filtros-reserva' %}",
+                    data: {'filtro': radio},
+                    success: function(response) {
+                        $('#filtros').html(response);
+                    }
+                });
+            
+            
+        });
+
+    
+        //função de exibir os detalhes quando clicar na reserva
+        $(".reserva").on('click',function(event) {
+            const url = $(this).attr('url');
+            var what_reserva = $(this).attr('idReserva');
+            var reserva_tipo = $(this).attr('tipoR');
+
+            $.ajax({
+                    url: url,
+                    data: {'reserva_pk': what_reserva, 'reserva_tipo': reserva_tipo},
+                    success: function(response) {
+                        $('#detalhes').html(response);
+                    }
+                });
+            event.preventDefault();
+        });
+
+
+
+
+    </script>
+    
+{% endblock content %}
