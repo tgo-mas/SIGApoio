@@ -210,3 +210,23 @@ def filtrosReserva(request):
     context = {'filtro': filtro}
 
     return render(request, "reserva/filtros_reserva.html", context)
+
+def filtrarReservas(request):
+    filtro_tipo = request.GET.get('filtro_tipo')
+    filtro_local = request.GET.get('filtro_local')
+    filtro_resp = request.GET.get('filtro_resp')
+    reservasS = ReservaSemanal.objects.all()
+    reservasD = ReservaDiaUnico.objects.all()
+
+    reservas = []
+    for res in reservasD:
+        reservas.append(res)
+    for res in reservasS:
+        reservas.append(res)
+
+    context = {"reservas": reservas,
+               "filtro_tipo": filtro_tipo,
+               "filtro_local": filtro_local,
+               "filtro_resp": filtro_resp}
+
+    return render(request, "reserva/lista_filtrada.html", context)
