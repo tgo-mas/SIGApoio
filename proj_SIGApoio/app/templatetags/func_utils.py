@@ -108,3 +108,28 @@ def get_tipo_reserva(reserva):
     else:
         stipo = "M"
     return stipo
+
+@register.filter(name="linha_tabela")
+def linha_tabela(reserva):
+    
+    if isinstance(reserva, ReservaDiaUnico):
+        tipo = "Dia Único"
+        stipo = 'D'
+    elif isinstance(reserva, ReservaSemanal):
+        tipo = "Semanal"
+        stipo = 'S'
+    else:
+        tipo = "undefined"
+        stipo = "M"
+
+    result = f"""
+        <tr>
+            <th scope='row'><a class='reserva' name='reserva' tipoR='{stipo}' idReserva='{reserva.pk}'> {reserva.pk} </a></th>
+            <td>{reserva.pk}</td>
+            <td>{tipo}</td>
+            <td>{reserva.local}</td>
+            <td>{reserva.matResponsavel.nome}</td>
+        </tr>
+    """
+
+    return mark_safe(result)
