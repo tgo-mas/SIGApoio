@@ -230,3 +230,17 @@ def filtrarReservas(request):
                "filtro_resp": filtro_resp}
 
     return render(request, "reserva/lista_filtrada.html", context)
+
+@csrf_exempt
+def reservaDetails(request):
+    reserva_pk = request.GET.get('reserva_pk')
+    reserva_tipo = request.GET.get('reserva_tipo')
+
+    if (reserva_tipo == 'S'):
+        reserva_detail = ReservaSemanal.objects.get(pk=reserva_pk)
+    elif (reserva_tipo == 'D'):
+        reserva_detail = ReservaDiaUnico.objects.get(pk=reserva_pk)
+
+    context = {'reserva': reserva_detail}
+    return render(request, 'reserva/reserva_details.html', context)
+    
