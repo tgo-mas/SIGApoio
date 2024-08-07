@@ -191,3 +191,16 @@ def efetuarChamado(request):
         
     context = {'form': form}
     return render(request, 'reserva/efetuar_chamado.html', context)
+
+
+def listarReservas(request):
+    filtro_tipo='default'
+
+    try:
+        request.GET.get('filtro_tipo')
+    except:
+        filtro_tipo = 'default'
+
+    context = {"filtro_tipo": filtro_tipo}
+
+    return render(request, "reserva/listar_reservas.html", context)
