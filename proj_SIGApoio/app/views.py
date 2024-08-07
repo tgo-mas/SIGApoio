@@ -3,11 +3,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm, ReservaMensalForm
-from .models import TipoRecurso, Recurso, Local, ReservaSemanal, Usuario, Horario, TipoLocal
+from .models import TipoRecurso, Recurso, Local, ReservaSemanal, ReservaMensal, ReservaDiaUnico, Usuario, Horario, TipoLocal, Chamado
 from .bo.horarios import converter_horarios
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 import json
+from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 
 # @require_GET
 def home(request):
@@ -49,22 +50,6 @@ def cadastroRecurso(request):
         
     context = {'form': form}
     return render(request, 'recurso/cadastro_recurso.html', context)
-
-  
-#@require_http_methods(['GET','POST'])
-# @require_POST
-def efetuarChamado(request):
-    if request.method != 'POST':
-        form = ChamadoForm()
-    else:
-        form = ChamadoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('efetuar-chamado'))
-        
-    context = {'form': form}
-    return render(request, 'chamado/efetuar_chamado.html', context)
-
 
 #@require_http_methods(['GET','POST'])
 # @require_POST
@@ -192,3 +177,17 @@ def getLocais(request):
     )
     context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)
+
+
+def efetuarChamado(request):
+    if request.method != 'POST':
+        form = ChamadoForm()
+    else:
+        form = ChamadoForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('efetuar-chamado'))
+        
+    context = {'form': form}
+    return render(request, 'reserva/efetuar_chamado.html', context)
