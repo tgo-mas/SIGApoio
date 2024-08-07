@@ -204,3 +204,9 @@ def listarReservas(request):
     context = {"filtro_tipo": filtro_tipo}
 
     return render(request, "reserva/listar_reservas.html", context)
+
+def filtrosReserva(request):
+    filtro = request.GET.get('filtro')
+    context = {'filtro': filtro}
+
+    return render(request, "reserva/filtros_reserva.html", context)
