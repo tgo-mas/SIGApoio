@@ -41,3 +41,60 @@ def detalhar(reserva):
         result += "</div>"
     
     return mark_safe(result)
+
+@register.filter(name="criar_filtro")
+def criar_filtro(valor):
+    if valor == "1":
+        result = ""
+    elif valor == "2":
+        result = """
+            <select class="form-select" aria-label="Default select example" name="tipo_reserva" id='filtro_tipo_reserva' >
+                <option selected value="default">------------</option>
+                <option value="S">Semanal</option>
+                <option value="D">Dia Unico</option>
+            </select>
+        """
+    elif valor == "3":
+        resD = ReservaDiaUnico.objects.all()
+        resS = ReservaSemanal.objects.all()
+
+        locais = []
+        for res in resD:
+            if res.local not in locais:
+                locais.append(res.local)
+        for res in resS:
+            if res.local not in locais:
+                locais.append(res.local)
+
+        result = """
+            <select class="form-select" aria-label="Default select example" name="local_reserva" id="filtro_local_reserva">
+                <option selected value="default">------------</option>"""
+        
+        for local in locais:
+            result += "<option value='%d'>%s</option>" %(local.pk, local)
+        
+        result += "</select>"
+
+    elif valor == "4":
+        resD = ReservaDiaUnico.objects.all()
+        resS = ReservaSemanal.objects.all()
+
+        resps = []
+        for res in resD:
+            if res.matResponsavel not in resps:
+                resps.append(res.matResponsavel)
+        for res in resS:
+            if res.matResponsavel not in resps:
+                resps.append(res.matResponsavel)
+
+        result = """
+           <select class="form-select" aria-label="Default select example" name="resp_reserva" id="filtro_resp_reserva">
+                <option selected value="default">------------</option>"""
+        for resp in resps:
+            result += "<option value='%d'>%s</option>" %(resp.pk, resp.nome)
+        
+        result += "</select>"
+    else:
+        result = ""
+
+    return mark_safe(result)
