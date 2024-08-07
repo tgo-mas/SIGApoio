@@ -98,3 +98,13 @@ def criar_filtro(valor):
         result = ""
 
     return mark_safe(result)
+
+@register.filter(name="get_tipo_reserva")
+def get_tipo_reserva(reserva):
+    if isinstance(reserva, ReservaDiaUnico):
+        stipo = 'D'
+    elif isinstance(reserva, ReservaSemanal):
+        stipo = 'S'
+    else:
+        stipo = "M"
+    return stipo
