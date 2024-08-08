@@ -1,0 +1,27 @@
+{% load func_utils %}
+{% for reserva in reservas %}
+    {% if filtro_local == 'default' or filtro_local == reserva.local.pk|to_str %}
+        {% if filtro_tipo == reserva|get_tipo_reserva or filtro_tipo == 'default' %}
+            {{reserva|linha_tabela}}
+        {% endif %}
+    {% endif %}    
+{% endfor %}
+
+<script>
+    $(".reserva").on('click',function(event) {
+        const url = "{% url 'reservaDetails' %}";
+        var what_reserva = $(this).attr('idReserva');
+        var reserva_tipo = $(this).attr('tipoR');
+
+        console.log(what_reserva)
+        //console.log(url)
+        $.ajax({
+                url: url,
+                data: {'reserva_pk': what_reserva, 'reserva_tipo': reserva_tipo},
+                success: function(response) {
+                    $('#detalhes').html(response);
+                }
+            });
+        event.preventDefault();
+    });
+</script>

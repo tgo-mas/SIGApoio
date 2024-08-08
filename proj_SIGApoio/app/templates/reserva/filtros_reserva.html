@@ -1,0 +1,40 @@
+{% load func_utils %}
+{{ filtro|criar_filtro }}
+
+<script>
+    filtrar = () => {
+        var radio = $('input[name="flexRadioDefault"]:checked').val();
+        const url = "{% url 'filtrar-reservas' %}"
+ 
+        var tipo_reserva = "default";
+        var local_reserva = "default";
+        var resp_reserva = "default";
+
+        if (radio == 2){
+            tipo_reserva = $("#filtro_tipo_reserva").val();
+        }else if (radio == 3){
+            local_reserva = $("#filtro_local_reserva").val();
+        }else if (radio == 4){
+            resp_reserva = $("#filtro_resp_reserva").val();
+        }
+        
+        
+
+
+        $.ajax({
+            url: url,
+            data: {'filtro_tipo': tipo_reserva,
+                   'filtro_local': local_reserva,
+                   'filtro_resp': resp_reserva},
+            success: function(response) {
+                $("#tbody").html(response);
+            }
+        });
+
+    };
+
+
+    $("#filtro_tipo_reserva").change(filtrar);
+    $("#filtro_local_reserva").change(filtrar);
+    $("#filtro_resp_reserva").change(filtrar);
+</script>

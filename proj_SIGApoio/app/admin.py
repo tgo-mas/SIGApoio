@@ -12,5 +12,4 @@ admin.site.register(ReservaSemanal)
 admin.site.register(ReservaDiaUnico)
 admin.site.register(TipoLocal)
 admin.site.register(Chamado)
-# admin.site.register(TipoLocal)
 

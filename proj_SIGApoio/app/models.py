@@ -85,9 +85,14 @@ class ReservaDiaUnico(models.Model):
     diaHoraFim = models.DateTimeField()
 
 class Chamado(models.Model):
+
+    STATUS_CHOICE = ((True,"Sim"),(False,"Não"))
+
     id_chamado = models.IntegerField(primary_key=True)
     chamado = models.CharField(max_length=200)
     reserva = models.ForeignKey(ReservaSemanal, on_delete=models.DO_NOTHING)
+    resolvido = models.BooleanField(choices=STATUS_CHOICE, blank=True, default=False)
+
 
     def __str__(self):
         return self.reserva.local.nome + ' ' + self.reserva.matSolicitante.nome

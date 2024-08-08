@@ -61,9 +61,13 @@ class ChamadoForm(forms.Form, forms.ModelForm):
     )
 
     reserva = forms.ModelChoiceField(
-        queryset=ReservaSemanal.objects.all(),
+        queryset= ReservaSemanal.objects.all(),
         label='Reserva',
-        widget=forms.Select(attrs={'class':'form-control', 'style':'color: black'})
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select gray-back blue-text me-4'
+            }
+        )
     )
 
     class Meta:

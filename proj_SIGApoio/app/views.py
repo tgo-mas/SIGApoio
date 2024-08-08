@@ -2,14 +2,15 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
-from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm
-from .models import TipoRecurso, Recurso, Local, ReservaSemanal, Usuario, Horario, TipoLocal, ReservaDiaUnico, Emprestimo
+from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm, ReservaMensalForm
+from .models import TipoRecurso, Recurso, Local, ReservaSemanal, ReservaMensal, ReservaDiaUnico, Usuario, Horario, TipoLocal, Chamado, Emprestimo
 from .bo.horarios import converter_horarios, converter_horarios_dia
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import json
+from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
 
 # @require_GET
 def home(request):
@@ -51,22 +52,6 @@ def cadastroRecurso(request):
         
     context = {'form': form}
     return render(request, 'recurso/cadastro_recurso.html', context)
-
-  
-#@require_http_methods(['GET','POST'])
-# @require_POST
-def efetuarChamado(request):
-    if request.method != 'POST':
-        form = ChamadoForm()
-    else:
-        form = ChamadoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('efetuar-chamado'))
-        
-    context = {'form': form}
-    return render(request, 'chamado/efetuar_chamado.html', context)
-
 
 #@require_http_methods(['GET','POST'])
 # @require_POST
@@ -272,6 +257,72 @@ def getLocais(request):
     context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)
 
+def efetuarChamado(request):
+    if request.method != 'POST':
+        form = ChamadoForm()
+    else:
+        form = ChamadoForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('efetuar-chamado'))
+        
+    context = {'form': form}
+    return render(request, 'reserva/efetuar_chamado.html', context)
+
+
+def listarReservas(request):
+    filtro_tipo='default'
+
+    try:
+        request.GET.get('filtro_tipo')
+    except:
+        filtro_tipo = 'default'
+
+    context = {"filtro_tipo": filtro_tipo}
+
+    return render(request, "reserva/listar_reservas.html", context)
+
+def filtrosReserva(request):
+    filtro = request.GET.get('filtro')
+    context = {'filtro': filtro}
+
+    return render(request, "reserva/filtros_reserva.html", context)
+
+def filtrarReservas(request):
+    filtro_tipo = request.GET.get('filtro_tipo')
+    filtro_local = request.GET.get('filtro_local')
+    filtro_resp = request.GET.get('filtro_resp')
+    reservasS = ReservaSemanal.objects.all()
+    reservasD = ReservaDiaUnico.objects.all()
+
+    reservas = []
+    for res in reservasD:
+        reservas.append(res)
+    for res in reservasS:
+        reservas.append(res)
+
+    context = {"reservas": reservas,
+               "filtro_tipo": filtro_tipo,
+               "filtro_local": filtro_local,
+               "filtro_resp": filtro_resp}
+
+    return render(request, "reserva/lista_filtrada.html", context)
+
+@csrf_exempt
+def reservaDetails(request):
+    reserva_pk = request.GET.get('reserva_pk')
+    reserva_tipo = request.GET.get('reserva_tipo')
+
+    if (reserva_tipo == 'S'):
+        reserva_detail = ReservaSemanal.objects.get(pk=reserva_pk)
+    elif (reserva_tipo == 'D'):
+        reserva_detail = ReservaDiaUnico.objects.get(pk=reserva_pk)
+
+    context = {'reserva': reserva_detail}
+    return render(request, 'reserva/reserva_details.html', context)
+    
+
 # @require_POST
 @csrf_exempt
 def getLocaisDia(request):
@@ -305,3 +356,4 @@ def getLocaisDia(request):
     )
     context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)
+
