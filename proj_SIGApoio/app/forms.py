@@ -1,6 +1,6 @@
 from django import forms
 from django.db import connection
-from .models import Recurso, TipoRecurso, Local, TipoLocal, Usuario, ReservaSemanal, ReservaDiaUnico, ReservaMensal, Chamado
+from .models import Recurso, TipoRecurso, Local, TipoLocal, Usuario, ReservaSemanal, ReservaDiaUnico, Chamado
 
 
 BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'Bloco D'), ('Aud', 'Auditórios'), ('Lab', 'Laboratórios')]
@@ -8,13 +8,16 @@ BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'B
 def get_usuario_choices():
     try:
         if 'app_usuario' in connection.introspection.table_names():
+            print('achou usuário')
             return [(usuario.matricula, usuario.nome) for usuario in Usuario.objects.all()]
         else:
             return []
+            print('nao achou usuário')
+        
     except Exception as e:
+        print('deu erro')
         return []
-
-
+    
 class TipoRecursoForm(forms.Form, forms.ModelForm):
     tipo = forms.CharField(
         label = 'Tipo',
@@ -205,63 +208,12 @@ class ReservaDiaForm(forms.ModelForm, forms.Form):
         )
     )
     
-    qtd_pessoas = forms.IntegerField(
-        max_value=250,
-        initial=0,
-        widget=forms.NumberInput(
-            attrs={
-                'class': 'form-control gray-back blue-text me-4'
-            },
-        )
-    )
-    
-    bloco = forms.ChoiceField(
-        choices=BLOCOS_CHOICES,
+    repeticao = forms.ChoiceField(
+        choices=[('unico', 'Única'), ('semana', 'Semanal'), ('mes', 'Mensal')],
         widget=forms.Select(
             attrs={
                 'class': 'form-select gray-back blue-text me-4'
-            }
-        )
-    )
-    
-    matSolicitante = forms.ChoiceField(
-        label='Solicitante',
-        choices=get_usuario_choices(),
-        widget=forms.Select(
-            attrs={'class': 'form-select blue-text gray-back me-4'}
-        )
-    )
-    
-    class Meta:
-        model = ReservaDiaUnico
-        fields = ['descricao', 'diaHoraInicio', 'diaHoraFim', 'local', 'matSolicitante']
-
-class ReservaMensalForm(forms.ModelForm, forms.Form):
-    descricao = forms.CharField(
-        label='Descrição',
-        widget=forms.TextInput(
-            attrs={'class': 'form-control blue-text gray-back me-4'}
-        )
-    )
-    
-    local = forms.ChoiceField(
-        label='Local',
-        widget=forms.Select(
-            attrs={'class': 'form-select blue-text gray-back me-4'}
-        )
-    )
-    
-    dias = forms.ChoiceField(
-        label="Dias",
-        widget=forms.DateInput(
-            attrs={'class': 'form-control blue-text gray-back me-4', 'type': 'date'}
-        )
-    )
-    
-    repeticoes = forms.IntegerField(
-        label="Repetições (meses)",
-        widget=forms.NumberInput(
-            attrs={'class': 'form-control blue-text gray-back me-4'}
+            },
         )
     )
     
@@ -295,4 +247,3 @@ class ReservaMensalForm(forms.ModelForm, forms.Form):
     class Meta:
         model = ReservaDiaUnico
         fields = ['descricao', 'diaHoraInicio', 'diaHoraFim', 'local', 'matSolicitante']
-   
