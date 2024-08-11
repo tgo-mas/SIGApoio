@@ -19,3 +19,4 @@ urlpatterns = [
     path('reserva/cadastro/mensal', cadastroReservaMensal, name = "cad_reserva_mensal"),
     path('reserva/cadastro/', tipoReserva, name = "cad_reserva"),
 ]
+
