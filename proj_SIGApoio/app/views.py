@@ -2,9 +2,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
-from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm
-from .models import TipoRecurso, Recurso, Local, ReservaSemanal, ReservaDiaUnico, Usuario, Horario, TipoLocal, Chamado, Emprestimo
-from .bo.horarios import converter_horarios, converter_horarios_dia
+from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm, EmprestimoForm
+from .models import TipoRecurso, Recurso, Local, ReservaSemanal, ReservaDiaUnico, Usuario, Horario, TipoLocal, Chamado, Emprestimo 
+from .bo.horarios import converter_horarios, converter_horarios_dia, get_horario_at
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from datetime import datetime, timedelta
@@ -364,3 +364,66 @@ def get_locais_dia(request):
     context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)
 
+def cadastrar_emprestimo(request):
+    print("View cadastrar_emprestimo foi chamada")
+
+    if request.method == 'POST':
+        print("Método POST foi detectado")
+        form = EmprestimoForm(request.POST)
+        if form.is_valid():
+            print("Formulário válido")
+
+            try:
+                recurso_id = form.cleaned_data['idRecurso'].id_codigo  
+                idRecurso = Recurso.objects.get(id_codigo=recurso_id)
+                matBolsista = form.cleaned_data['matBolsista'].matricula
+                matUsuario = form.cleaned_data['matUsuario'].matricula
+
+                print(f"idRecurso: {idRecurso}, matBolsista: {matBolsista}, matUsuario: {matUsuario}")
+
+                # Como `horaEntrada` já é um datetime, não é necessário convertê-lo
+                data_hora = form.cleaned_data['horaEntrada']
+                
+                print(f"Data e Hora recebidas: {data_hora}")
+
+                # Determinação do dia da semana (1 = segunda-feira, 7 = domingo)
+                dia_semana = data_hora.weekday() + 1
+
+                print(f"Dia da semana: {dia_semana}")
+
+                # Verificação de horários compatíveis
+                hora_obj = data_hora.time()
+                horario = Horario.objects.filter(
+                    dia=dia_semana, 
+                    horaInicio__lte=hora_obj, 
+                    horaFim__gte=hora_obj
+                ).first()
+
+                print(f"Horário selecionado: {horario}")
+
+                if horario:
+                    # Criação do objeto Empréstimo
+                    emprestimo = Emprestimo(
+                        idRecurso=idRecurso,  
+                        matBolsista=Usuario.objects.get(matricula=matBolsista),
+                        matUsuario=Usuario.objects.get(matricula=matUsuario),
+                        horaEntrada=datetime.combine(data_hora.date(), horario.horaInicio),
+                    )
+                    emprestimo.save()
+
+                    print("Empréstimo salvo com sucesso!")
+
+                    return redirect('cadastrar_emprestimo')
+                else:
+                    form.add_error(None, "Nenhum horário disponível para o período selecionado.")
+                    print("Nenhum horário compatível encontrado.")
+            except Exception as e:
+                form.add_error(None, f"Erro ao cadastrar o empréstimo: {e}")
+                print(f"Erro ao tentar cadastrar o empréstimo: {e}")
+        else:
+            form.add_error(None, "Formulário inválido. Verifique os campos.")
+            print("Formulário inválido.")
+    else:
+        form = EmprestimoForm()
+
+    return render(request, 'recurso/reserva_recurso.html', {'reserva_form': form})

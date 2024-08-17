@@ -1,6 +1,7 @@
 from django import forms
 from django.db import connection
-from .models import Recurso, TipoRecurso, Local, TipoLocal, Usuario, ReservaSemanal, ReservaDiaUnico, Chamado
+from .models import Recurso, TipoRecurso, Local, TipoLocal, Usuario, ReservaSemanal, ReservaDiaUnico, Chamado, Emprestimo, Horario
+from django.forms.widgets import DateTimeInput
 
 color = 'color: black'
 class_style_1 = 'form-select gray-back blue-text me-4'
@@ -250,3 +251,12 @@ class ReservaDiaForm(forms.ModelForm, forms.Form):
     class Meta:
         model = ReservaDiaUnico
         fields = ['descricao', 'diaHoraInicio', 'diaHoraFim', 'local', 'matSolicitante']
+
+class EmprestimoForm(forms.ModelForm):
+    horaEntrada = forms.DateTimeField(
+        widget=DateTimeInput(attrs={'type': 'datetime-local', 'format': '%Y-%m-%dT%H:%M'})
+    )
+
+    class Meta:
+        model = Emprestimo
+        fields = ['horaEntrada', 'idRecurso', 'matBolsista', 'matUsuario']
