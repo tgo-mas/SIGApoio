@@ -86,21 +86,21 @@ def reserva_recurso(request):
 
 # @require_GET
 def listar_emprestimos(request):
-    status = request.GET.get('status')
-    usuario = request.GET.get('usuario')
-    solicitante = request.GET.get('solicitante')
+    status = request.GET.get('status', '')
+    usuario = request.GET.get('usuario', '')
+    solicitante = request.GET.get('solicitante', '')
 
+    # Filtragem baseada no status
     emprestimos = Emprestimo.objects.all()
 
-    if status:
-        if status == 'ativos':
-            emprestimos = emprestimos.filter(horaEntrada__isnull=True)
-        elif status == 'devolvidos':
-            emprestimos = emprestimos.filter(horaEntrada__isnull=False)
+    if status == 'ativos':
+        emprestimos = emprestimos.filter(devolvido=False)
+    elif status == 'devolvidos':
+        emprestimos = emprestimos.filter(devolvido=True)
 
+    # Filtragem por nome de usuário e solicitante
     if usuario:
         emprestimos = emprestimos.filter(matBolsista__nome__icontains=usuario)
-
     if solicitante:
         emprestimos = emprestimos.filter(matUsuario__nome__icontains=solicitante)
 
@@ -110,7 +110,6 @@ def listar_emprestimos(request):
         'usuario': usuario,
         'solicitante': solicitante,
     }
-
     return render(request, 'emprestimos/lista_emprestimos.html', context)
 
 # @require_GET
