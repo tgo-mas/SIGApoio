@@ -466,9 +466,8 @@ def excluir_emprestimo(request, emprestimo_id):
     if request.method == 'POST':
         emprestimo.delete()
         messages.success(request, 'Empréstimo excluído com sucesso.')
-        return redirect('emprestimos/lista_emprestimos')  # Redirecionar para a lista de empréstimos
+        return redirect('listar_emprestimos')  # Ajuste o nome da URL para corresponder ao definido em urls.py
     return render(request, 'emprestimos/confirmar_exclusao.html', {'emprestimo': emprestimo})
-
 
 
 def editar_emprestimo(request, emprestimo_id):

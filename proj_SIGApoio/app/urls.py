@@ -27,6 +27,6 @@ urlpatterns = [
     path('reservar-recurso/', cadastrar_reserva_recurso, name='cadastrar_reserva_recurso'),
     path('emprestimo/<int:emprestimo_id>/editar/', editar_emprestimo, name='editar_emprestimo'),
     path('emprestimo/<int:emprestimo_id>/registrar_devolucao/', registrar_devolucao, name='registrar_devolucao'),
-    path('emprestimo/<int:emprestimo_id>/excluir/', excluir_emprestimo, name='excluir_emprestimo')
+    path('emprestimos/<int:emprestimo_id>/excluir/', excluir_emprestimo, name='excluir_emprestimo')
 
     ]
