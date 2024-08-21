@@ -1,14 +1,16 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST, require_GET, require_safe, require_http_methods
-from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm, EmprestimoForm
-from .models import TipoRecurso, Recurso, Local, ReservaSemanal, ReservaDiaUnico, Usuario, Horario, TipoLocal, Chamado, Emprestimo 
+from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, ChamadoForm, ReservaDiaForm, EmprestimoForm, ReservaRecursoForm
+from .models import TipoRecurso, Recurso, Local, ReservaSemanal, ReservaDiaUnico, Usuario, Horario, TipoLocal, Chamado, Emprestimo, ReservaRecurso
 from .bo.horarios import converter_horarios, converter_horarios_dia, get_horario_at
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from django.contrib import messages
+from django.utils import timezone
 import json
 
 # @require_GET
@@ -427,3 +429,66 @@ def cadastrar_emprestimo(request):
         form = EmprestimoForm()
 
     return render(request, 'recurso/reserva_recurso.html', {'reserva_form': form})
+
+
+from django.contrib import messages
+
+def cadastrar_reserva_recurso(request):
+    if request.method == 'POST':
+        form = ReservaRecursoForm(request.POST)
+        if form.is_valid():
+            idRecurso = form.cleaned_data['idRecurso']
+            docente = form.cleaned_data['docente']
+            dia = form.cleaned_data['dia']
+            horaInicio = form.cleaned_data['horaInicio']
+            horaFim = form.cleaned_data['horaFim']
+
+            # Verifica se já existe uma reserva com os mesmos parâmetros
+            reserva_existente = ReservaRecurso.objects.filter(
+                idRecurso=idRecurso,
+                dia=dia,
+                horaInicio=horaInicio,
+                horaFim=horaFim
+            ).exists()
+
+            if reserva_existente:
+                messages.error(request, "Recurso já reservado para este horário")
+            else:
+                form.save()
+                messages.success(request, "Reserva cadastrada com sucesso!")
+                return redirect('cadastrar_reserva_recurso') 
+    else:
+        form = ReservaRecursoForm()
+    
+    return render(request, 'recurso/cadastro_reserva_recurso.html', {'reserva_form': form})
+
+def excluir_emprestimo(request, emprestimo_id):
+    emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
+    if request.method == 'POST':
+        emprestimo.delete()
+        messages.success(request, 'Empréstimo excluído com sucesso.')
+        return redirect('emprestimos/lista_emprestimos')  # Redirecionar para a lista de empréstimos
+    return render(request, 'emprestimos/confirmar_exclusao.html', {'emprestimo': emprestimo})
+
+
+
+def editar_emprestimo(request, emprestimo_id):
+    emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
+    if request.method == 'POST':
+        form = EmprestimoForm(request.POST, instance=emprestimo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Empréstimo editado com sucesso!')
+            return redirect('listar_emprestimos')  # Redirecionar para a lista de empréstimos
+    else:
+        form = EmprestimoForm(instance=emprestimo)
+    return render(request, 'emprestimos/editar_emprestimo.html', {'form': form})
+
+
+def registrar_devolucao(request, emprestimo_id):
+    emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
+    if not emprestimo.devolvido:  # Verifica se o empréstimo ainda não foi devolvido
+        emprestimo.devolvido = True
+        emprestimo.horaEntrada = timezone.now()  # Define a hora da devolução
+        emprestimo.save()
+    return redirect('listar_emprestimos')  # Redireciona para a página de listagem de empréstimos

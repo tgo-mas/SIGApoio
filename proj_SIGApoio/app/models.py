@@ -14,7 +14,7 @@ class Usuario(models.Model):
     tipo = models.OneToOneField(TipoUsuario, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.tipo.tipo
+        return f'{self.matricula} - {self.nome}'   # Mudei para retornar o número da matrícula
 
 class TipoRecurso(models.Model):
     tipo = models.CharField(max_length=100)
@@ -42,7 +42,8 @@ class Emprestimo(models.Model):
     idRecurso = models.ForeignKey(Recurso, on_delete=models.DO_NOTHING)
     matBolsista = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
     matUsuario = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
-    
+    devolvido = models.BooleanField(default=False)
+
     def __str__(self):
         return self.idRecurso.tipo.tipo + str(self.idRecurso.codigo)
 
@@ -53,7 +54,7 @@ class Horario(models.Model):
     dia = models.IntegerField(choices=SEMANA, default=True)
     horaInicio = models.TimeField(null=True, blank=True)
     horaFim = models.TimeField(null=True, blank=True)
-    
+        
 class TipoLocal(models.Model):
     tipo = models.CharField(max_length=50, unique=True, primary_key=True)
     
@@ -96,3 +97,13 @@ class Chamado(models.Model):
 
     def __str__(self):
         return self.reserva.local.nome + ' ' + self.reserva.matSolicitante.nome
+
+class ReservaRecurso(models.Model):
+    idRecurso = models.ForeignKey(Recurso, on_delete=models.CASCADE)
+    docente = models.ForeignKey(Usuario, limit_choices_to={'tipo__tipo': 'Docente'}, on_delete=models.CASCADE)
+    dia = models.DateField()
+    horaInicio = models.TimeField()
+    horaFim = models.TimeField()
+
+    def __str__(self):
+        return f'Reserva {self.idRecurso} para {self.docente} em {self.dia} das {self.horaInicio} às {self.horaFim}'

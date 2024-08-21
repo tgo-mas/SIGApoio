@@ -62,7 +62,7 @@
             margin-bottom: 1em;
         }
 
-        #reserve-btn {
+        #loan-btn {
             background-color: #0800B5;
             color: white;
             padding: 0.5em 1em;
@@ -73,39 +73,54 @@
         }
     </style>
 
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <title>Reservar Recurso</title>
 
     <div class="container">
         <div class="section">
             <!-- Cabeçalho com título e botão -->
             <div class="header-section">
-                <h2>Empréstimo de recurso</h2>
-                <a href="{% url 'cadastrar_reserva_recurso' %}" id="reserve-btn">Reservar Recurso</a>
+                <h2>Reserva de Recurso</h2>
+                <a href="{% url 'cadastrar_emprestimo' %}" id="loan-btn">Empréstimo de Recurso</a>
             </div>
             <div id='line1' class='line1'></div>
-            <form method="post" action="{% url 'cadastrar_emprestimo' %}">
+            <form method="post" action="{% url 'cadastrar_reserva_recurso' %}">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="horaEntrada">Horário de Entrada</label>
-                    {{ reserva_form.horaEntrada }}
-                </div>
                 <div class="form-group">
                     <label for="idRecurso">Recurso</label>
                     {{ reserva_form.idRecurso }}
                 </div>
                 <div class="form-group">
-                    <label for="matBolsista">Matrícula do Bolsista</label>
-                    {{ reserva_form.matBolsista }}
+                    <label for="docente">Matrícula do Docente</label>
+                    {{ reserva_form.docente }}
                 </div>
                 <div class="form-group">
-                    <label for="matUsuario">Matrícula do Usuário</label>
-                    {{ reserva_form.matUsuario }}
+                    <label for="dia">Dia</label>
+                    {{ reserva_form.dia }}
+                </div>
+                <div class="form-group">
+                    <label for="horaInicio">Hora de Início</label>
+                    {{ reserva_form.horaInicio }}
+                </div>
+                <div class="form-group">
+                    <label for="horaFim">Hora de Fim</label>
+                    {{ reserva_form.horaFim }}
                 </div>
                 <div class="btn-container">
-                    <button id="but" class="btn" type="submit">Confirmar Empréstimo</button>
+                    <button id="but" class="btn" type="submit">Confirmar Reserva</button>
                 </div>
             </form>
         </div>
     </div>
+
+
 
 {% endblock content %}

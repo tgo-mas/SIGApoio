@@ -30,6 +30,7 @@
                     <th>Solicitante</th>
                     <th>Data de Empréstimo</th>
                     <th>Status</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +41,17 @@
                         <td>{{ emprestimo.matBolsista.nome }}</td>
                         <td>{{ emprestimo.matUsuario.nome }}</td>
                         <td>{{ emprestimo.horaSaida }}</td>
-                        <td>{{ emprestimo.horaEntrada|yesno:"Devolvido,Ativo" }}</td>
+                        <td>{{ emprestimo.devolvido|yesno:"Devolvido,Ativo" }}</td>
+                        <td>
+                            <a href="{% url 'editar_emprestimo' emprestimo.id %}" class="btn btn-warning">Editar</a>
+                            <form action="{% url 'excluir_emprestimo' emprestimo.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Excluir</button>
+                            </form>
+                            {% if not emprestimo.devolvido %}
+                                <a href="{% url 'registrar_devolucao' emprestimo.id %}" class="btn btn-success">Registrar Devolução</a>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

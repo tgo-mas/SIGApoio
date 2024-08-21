@@ -1,4 +1,4 @@
-from .views import efetuar_chamado, home, get_locais, cadastro_recurso, cad_local, listar_local, success_page, cadastro_tipo_recurso, listar_recursos, cadastro_reserva_semanal, tipo_reserva, cadastro_reserva_dia, reserva_recurso, listar_reservas, reserva_details, filtrar_reservas, filtros_reserva, get_locais_dia, listar_emprestimos, cadastrar_emprestimo
+from .views import efetuar_chamado, home, get_locais, cadastro_recurso, cad_local, listar_local, success_page, cadastro_tipo_recurso, listar_recursos, cadastro_reserva_semanal, tipo_reserva, cadastro_reserva_dia, reserva_recurso, listar_reservas, reserva_details, filtrar_reservas, filtros_reserva, get_locais_dia, listar_emprestimos, cadastrar_emprestimo, cadastrar_reserva_recurso, excluir_emprestimo, editar_emprestimo, registrar_devolucao
 from django.urls import path
 
 urlpatterns = [
@@ -23,5 +23,10 @@ urlpatterns = [
     path('reserva/cadastro/', tipo_reserva, name = "cad_reserva"),
     path('get_locais/', get_locais, name = "getLocais"),
     path('get_locais_dia/', get_locais_dia, name = "getLocaisDia"),
-    path('cadastrar-emprestimo/', cadastrar_emprestimo, name='cadastrar_emprestimo') 
+    path('cadastrar-emprestimo/', cadastrar_emprestimo, name='cadastrar_emprestimo'),
+    path('reservar-recurso/', cadastrar_reserva_recurso, name='cadastrar_reserva_recurso'),
+    path('emprestimo/<int:emprestimo_id>/editar/', editar_emprestimo, name='editar_emprestimo'),
+    path('emprestimo/<int:emprestimo_id>/registrar_devolucao/', registrar_devolucao, name='registrar_devolucao'),
+    path('emprestimo/<int:emprestimo_id>/excluir/', excluir_emprestimo, name='excluir_emprestimo')
+
     ]
