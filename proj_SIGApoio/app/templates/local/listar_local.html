@@ -2,51 +2,69 @@
 
 {% block content %}
 
-    <title>Lista de Locais</title>
+<title>Lista de Locais</title>
 
-    <div class="container">
-        <h1>Locais Cadastrados</h1>
-        <form method="GET" class="form-inline">
-            <div class="form-group">
-                <label for="tipo">Tipo:</label>
-                <select id="tipo" name="tipo" class="form-control">
-                    <option value="">Todos</option>
-                    {% for tipo_local in tipos_locais %}
-                        <option value="{{ tipo_local.tipo }}" {% if tipo_local.tipo == tipo %}selected{% endif %}>{{ tipo_local.tipo }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="bloco">Bloco:</label>
-                <input type="text" id="bloco" name="bloco" class="form-control" value="{{ bloco|default_if_none:'' }}">
-            </div>
-            <div class="form-group">
-                <label for="capacidade">Capacidade:</label>
-                <input type="number" id="capacidade" name="capacidade" class="form-control" value="{{ capacidade|default_if_none:'' }}">
-            </div>
-            <button type="submit" class="btn btn-primary">Filtrar</button>
-        </form>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=nome">Nome</a></th>
-                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=bloco">Bloco</a></th>
-                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=capacidade">Capacidade</a></th>
-                    <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=tipo">Tipo</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for local in locais %}
-                <tr>
-                    <td>{{ local.nome }}</td>
-                    <td>{{ local.bloco }}</td>
-                    <td>{{ local.capacidade }}</td>
-                    <td>{{ local.tipo.tipo }}</td>
-                </tr>
+<div class="container">
+    <h1>Locais Cadastrados</h1>
+    <form method="GET" class="form-inline">
+        <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo" class="form-control">
+                <option value="">Todos</option>
+                {% for tipo_local in tipos_locais %}
+                    <option value="{{ tipo_local.tipo }}" {% if tipo_local.tipo == tipo %}selected{% endif %}>{{ tipo_local.tipo }}</option>
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="bloco">Bloco:</label>
+            <input type="text" id="bloco" name="bloco" class="form-control" value="{{ bloco|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="capacidade">Capacidade:</label>
+            <input type="number" id="capacidade" name="capacidade" class="form-control" value="{{ capacidade|default_if_none:'' }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
+
+    <hr>
+
+    <!-- Tabela de locais -->
+    <h2>Lista de Locais</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=nome">Nome</a></th>
+                <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=bloco">Bloco</a></th>
+                <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=capacidade">Capacidade</a></th>
+                <th><a href="?{% if tipo %}tipo={{ tipo }}&{% endif %}{% if bloco %}bloco={{ bloco }}&{% endif %}{% if capacidade %}capacidade={{ capacidade }}&{% endif %}sort=tipo">Tipo</a></th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for local in locais %}
+            <tr>
+                <td>{{ local.nome }}</td>
+                <td>{{ local.bloco }}</td>
+                <td>{{ local.capacidade }}</td>
+                <td>{{ local.tipo.tipo }}</td>
+                <td>
+                    {% if local.reservado %}
+                        <button class="btn btn-secondary" disabled><i class="bi bi-calendar"></i> Reservado</button>
+                    {% else %}
+                        <!-- Botão para editar -->
+                        <a href="{% url 'editar_local' local.pk %}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                        
+                        <!-- Botão para remover -->
+                        <form method="POST" action="{% url 'remover_local' local.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja remover este local?');"><i class="bi bi-trash"></i></button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}        
+    </table>
+</div>
 
 {% endblock content %}

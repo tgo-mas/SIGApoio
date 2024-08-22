@@ -85,15 +85,12 @@ class ChamadoForm(forms.Form, forms.ModelForm):
         fields = ['chamado', 'reserva']
 
 class LocalForm(forms.ModelForm):
-    tipo = forms.ModelChoiceField(
-        queryset=TipoLocal.objects.all(),
-        label='Tipo de Local',
-        widget=forms.Select(attrs={'class': 'form-control', 'style': color})
-    )
+    local_id = forms.CharField(widget=forms.HiddenInput(), required=False)  # Campo oculto para o ID
 
     class Meta:
-        model= Local
-        fields= "__all__"
+        model = Local
+        fields = ['nome', 'bloco', 'capacidade', 'tipo']
+
         
 class ReservaForm(forms.ModelForm, forms.Form):
     descricao = forms.CharField(

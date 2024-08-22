@@ -19,6 +19,8 @@ from dateutil.relativedelta import relativedelta
 from rolepermissions.roles import assign_role
 import json
 from django.contrib import messages
+from django.utils import timezone
+
 
 # @require_GET
 def home(request):
@@ -89,13 +91,25 @@ def cad_local(request):
     if autenticar_permissao(request,'cadastrar_local') is not True:
         return autenticar_permissao(request,'cadastrar_local')
     if request.method == 'POST':
+        form = LocalForm()
+    else:
         form = LocalForm(request.POST)
+
+        # Verificar se o local já existe
+        nome_local = form.data.get('nome')  # Assumindo que 'nome' é o campo que identifica o local
+        if Local.objects.filter(nome=nome_local).exists():
+            context = {'erro': 'Esse local já existe!', 'form': form}
+            return render(request, 'local/cad_local.html', context)
+
+        # Se o formulário é válido, salvar o novo local
         if form.is_valid():
             form.save()
-            return redirect('success_page') 
-    else:
-        form = LocalForm()
-    return render(request, 'local/cad_local.html', {'form': form})
+            messages.success(request, 'Local foi cadastrado com sucesso!')
+            return HttpResponseRedirect(reverse('cad_local'))
+
+    context = {'form': form}
+    return render(request, 'local/cad_local.html', context)
+
 
 
 # @require_GET
@@ -203,7 +217,7 @@ def listar_local(request):
     tipo = request.GET.get('tipo')
     bloco = request.GET.get('bloco')
     capacidade = request.GET.get('capacidade')
-    sort = request.GET.get('sort', 'nome')  # Default sort field is 'nome'
+    sort = request.GET.get('sort', 'nome')
 
     if tipo:
         locais = locais.filter(tipo__tipo=tipo)
@@ -220,9 +234,55 @@ def listar_local(request):
         'bloco': bloco,
         'capacidade': capacidade,
         'tipos_locais': TipoLocal.objects.all(),
-        'sort': sort
+        'sort': sort,
     }
+
     return render(request, 'local/listar_local.html', context)
+
+
+def verificar_reservas(local):
+    """ Verifica se um local está reservado por alguma reserva. """
+    return ReservaSemanal.objects.filter(local=local).exists() or ReservaDiaUnico.objects.filter(local=local).exists()
+
+@login_required(login_url='/usuarios/login/')
+def editar_local(request, pk):
+    local = get_object_or_404(Local, pk=pk)
+    
+    # Verifica se o local está reservado antes de permitir a edição
+    if verificar_reservas(local):
+        return HttpResponseForbidden("Não é possível editar este local porque está sendo reservado.")
+
+    if request.method == 'POST':
+        form = LocalForm(request.POST, instance=local)
+        if form.is_valid():
+            novo_nome = form.cleaned_data.get('nome')
+
+            # Verificar se o nome do local já existe
+            if Local.objects.filter(nome=novo_nome).exclude(pk=local.pk).exists():
+                context = {'erro': 'Já existe um local com esse nome!', 'form': form, 'local': local}
+                return render(request, 'local/editar_local.html', context)
+
+            form.save()
+            return redirect('listar_local')
+    else:
+        form = LocalForm(instance=local)
+
+    context = {
+        'form': form,
+        'local': local,
+    }
+    return render(request, 'local/editar_local.html', context)
+
+@login_required(login_url='/usuarios/login/')
+def remover_local(request, pk):
+    local = get_object_or_404(Local, pk=pk)
+    
+    # Verifica se o local pode ser removido
+    if verificar_reservas(local):
+        return HttpResponseForbidden("Não é possível remover este local porque está sendo reservado.")
+
+    local.delete()
+    return redirect('listar_local')
 
 # @require_GET
 
