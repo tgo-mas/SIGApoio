@@ -86,10 +86,6 @@
             <form method="post" action="{% url 'cadastrar_emprestimo' %}">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="horaEntrada">Horário de Entrada</label>
-                    {{ reserva_form.horaEntrada }}
-                </div>
-                <div class="form-group">
                     <label for="idRecurso">Recurso</label>
                     {{ reserva_form.idRecurso }}
                 </div>

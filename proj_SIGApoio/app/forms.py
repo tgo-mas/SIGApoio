@@ -253,13 +253,9 @@ class ReservaDiaForm(forms.ModelForm, forms.Form):
         fields = ['descricao', 'diaHoraInicio', 'diaHoraFim', 'local', 'matSolicitante']
 
 class EmprestimoForm(forms.ModelForm):
-    horaEntrada = forms.DateTimeField(
-        widget=DateTimeInput(attrs={'type': 'datetime-local', 'format': '%Y-%m-%dT%H:%M'})
-    )
-
     class Meta:
         model = Emprestimo
-        fields = ['horaEntrada', 'idRecurso', 'matBolsista', 'matUsuario']
+        fields = ['idRecurso', 'matBolsista', 'matUsuario'] 
 
 class ReservaRecursoForm(forms.ModelForm):
     class Meta:

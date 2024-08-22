@@ -366,68 +366,20 @@ def get_locais_dia(request):
     return render(request, 'reserva/local_option.html', context)
 
 def cadastrar_emprestimo(request):
-    print("View cadastrar_emprestimo foi chamada")
-
     if request.method == 'POST':
-        print("Método POST foi detectado")
-        form = EmprestimoForm(request.POST)
-        if form.is_valid():
-            print("Formulário válido")
-
-            try:
-                recurso_id = form.cleaned_data['idRecurso'].id_codigo  
-                idRecurso = Recurso.objects.get(id_codigo=recurso_id)
-                matBolsista = form.cleaned_data['matBolsista'].matricula
-                matUsuario = form.cleaned_data['matUsuario'].matricula
-
-                print(f"idRecurso: {idRecurso}, matBolsista: {matBolsista}, matUsuario: {matUsuario}")
-
-                # Como `horaEntrada` já é um datetime, não é necessário convertê-lo
-                data_hora = form.cleaned_data['horaEntrada']
-                
-                print(f"Data e Hora recebidas: {data_hora}")
-
-                # Determinação do dia da semana (1 = segunda-feira, 7 = domingo)
-                dia_semana = data_hora.weekday() + 1
-
-                print(f"Dia da semana: {dia_semana}")
-
-                # Verificação de horários compatíveis
-                hora_obj = data_hora.time()
-                horario = Horario.objects.filter(
-                    dia=dia_semana, 
-                    horaInicio__lte=hora_obj, 
-                    horaFim__gte=hora_obj
-                ).first()
-
-                print(f"Horário selecionado: {horario}")
-
-                if horario:
-                    # Criação do objeto Empréstimo
-                    emprestimo = Emprestimo(
-                        idRecurso=idRecurso,  
-                        matBolsista=Usuario.objects.get(matricula=matBolsista),
-                        matUsuario=Usuario.objects.get(matricula=matUsuario),
-                        horaEntrada=datetime.combine(data_hora.date(), horario.horaInicio),
-                    )
-                    emprestimo.save()
-
-                    print("Empréstimo salvo com sucesso!")
-
-                    return redirect('cadastrar_emprestimo')
-                else:
-                    form.add_error(None, "Nenhum horário disponível para o período selecionado.")
-                    print("Nenhum horário compatível encontrado.")
-            except Exception as e:
-                form.add_error(None, f"Erro ao cadastrar o empréstimo: {e}")
-                print(f"Erro ao tentar cadastrar o empréstimo: {e}")
+        emprestimo_form = EmprestimoForm(request.POST)
+        if emprestimo_form.is_valid():
+            # Criar o empréstimo sem tentar definir 'horaEntrada'
+            novo_emprestimo = emprestimo_form.save(commit=False)
+            novo_emprestimo.horaSaida = timezone.now()  # Definir a hora de saída como o horário atual
+            novo_emprestimo.save()
+            return redirect('listar_emprestimos')
         else:
-            form.add_error(None, "Formulário inválido. Verifique os campos.")
-            print("Formulário inválido.")
+            print("Formulário inválido")
     else:
-        form = EmprestimoForm()
+        emprestimo_form = EmprestimoForm()
 
-    return render(request, 'recurso/reserva_recurso.html', {'reserva_form': form})
+    return render(request, 'recurso/reserva_recurso.html', {'reserva_form': emprestimo_form})
 
 
 from django.contrib import messages
@@ -486,7 +438,5 @@ def editar_emprestimo(request, emprestimo_id):
 def registrar_devolucao(request, emprestimo_id):
     emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
     if not emprestimo.devolvido:  # Verifica se o empréstimo ainda não foi devolvido
-        emprestimo.devolvido = True
-        emprestimo.horaEntrada = timezone.now()  # Define a hora da devolução
-        emprestimo.save()
+        emprestimo.registrar_devolucao()  # Chama o método que atualiza horaEntrada e devolvido
     return redirect('listar_emprestimos')  # Redireciona para a página de listagem de empréstimos

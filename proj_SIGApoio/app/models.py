@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import date
+from django.utils import timezone
+
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, unique=True, primary_key=True)
     
@@ -37,15 +39,20 @@ class Recurso(models.Model):
         return self.tipo.tipo + ' ' + str(self.codigo)
 
 class Emprestimo(models.Model):
-    horaSaida = models.DateTimeField(auto_now=True)
-    horaEntrada = models.DateTimeField(null=True, blank=True)
+    horaSaida = models.DateTimeField(default=timezone.now)  # Define a horaSaida como o momento atual quando o empréstimo é criado
+    horaEntrada = models.DateTimeField(null=True, blank=True)  # Será preenchido ao registrar a devolução
     idRecurso = models.ForeignKey(Recurso, on_delete=models.DO_NOTHING)
-    matBolsista = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
+    matBolsista = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
     matUsuario = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
     devolvido = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.idRecurso.tipo.tipo + str(self.idRecurso.codigo)
+        return f"{self.idRecurso.tipo.tipo} {self.idRecurso.codigo}"
+
+    def registrar_devolucao(self):
+        self.horaEntrada = timezone.now()  # Define a horaEntrada como o momento atual ao registrar a devolução
+        self.devolvido = True
+        self.save()
 
 class Horario(models.Model): 
     SEMANA = ((0, 'Domingo'), (1, 'Segunda'), (2,'Terça'), (3, 'Quarta'), (4, 'Quinta'), (5, 'Sexta'), (6, 'Sábado'))
