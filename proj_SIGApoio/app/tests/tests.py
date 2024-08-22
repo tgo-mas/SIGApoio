@@ -213,3 +213,14 @@ class TestFront(TestCase):
             })
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
+    def test_recurso_delete_get(self):
+        res = self.client.post(reverse('listar-recurso'), data={'id':1})
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+    
+    def test_recurso_edit_get(self):
+        res = self.client.get(reverse('listar-recurso'))
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+    
+    def test_recurso_edit_post(self):
+        res = self.client.post(reverse('listar-recurso'), data={'id':1})
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
