@@ -29,6 +29,15 @@
         <div id='line1' class='line1'></div></br>
 
         <div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
             <div class="radios" id="radios">
                 <h4>Filtrar por:</h4>
                 <div class="form-check">
@@ -61,12 +70,33 @@
                     <th scope="col">Tipo</th>
                     <th scope="col">Status</th>
                     <th scope="col">Funcionando</th>
+                    <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody id="tbody">
                 
             </tbody>
         </table>
+
+
+        <!-- Modal de Exclusão do Recurso -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Você tem certeza que deseja excluir o recurso <span id="recursoInfo"></span>?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <a id="confirmDelete" href="#" class="btn btn-danger">Excluir</a>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <div id='line1' class='line1'></div></br>
 
@@ -109,6 +139,11 @@
                         <td>{{ recurso.tipo }}</td>
                         <td>{% if recurso.funcionando %}Disponível{% else %}Indisponível{% endif %}</td>
                         <td>{% if recurso.funcionando %}Sim{% else %}Não{% endif %}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{% url 'rec_edit' recurso.pk %}"><i class="bi bi-pencil-square"></i></a> 
+                            &nbsp 
+                            <button class="btn btn-danger" onclick="openDeleteModal('{{ recurso.tipo }} - {{ recurso.codigo }}', '{% url 'rec_delete' recurso.pk %}')"><i class="bi bi-trash"></i></button>
+                        </td>
                     </tr>
                 {% endfor %}
             `
@@ -136,6 +171,11 @@
                                 <td>{{ recurso.tipo }}</td>
                                 <td>Disponível</td>
                                 <td>{% if recurso.funcionando %}Sim{% else %}Não{% endif %}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'rec_edit' recurso.pk %}"><i class="bi bi-pencil-square"></i></a> 
+                                    &nbsp 
+                                    <button class="btn btn-danger" onclick="openDeleteModal('{{ recurso.tipo }} - {{ recurso.codigo }}', '{% url 'rec_delete' recurso.pk %}')"><i class="bi bi-trash"></i></button>
+                                </td>
                             </tr>
                         {% endfor %}
                     `
@@ -148,6 +188,11 @@
                                 <td>{{ recurso.tipo }}</td>
                                 <td>Indisponível</td>
                                 <td>{% if recurso.funcionando %}Sim{% else %}Não{% endif %}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'rec_edit' recurso.pk %}"><i class="bi bi-pencil-square"></i></a> 
+                                    &nbsp 
+                                    <button class="btn btn-danger" onclick="openDeleteModal('{{ recurso.tipo }} - {{ recurso.codigo }}', '{% url 'rec_delete' recurso.pk %}')"><i class="bi bi-trash"></i></button>
+                                </td>
                             </tr>
                         {% endfor %}
                     `
@@ -176,7 +221,12 @@
                                 <td>{{ recurso.codigo }}</td>
                                 <td>{{ recurso.tipo }}</td>
                                 <td>{% if recurso.status %}Disponível{% else %}Indisponível{% endif %}</td>
-                                <td>Sim</td>
+                                <td>{% if recurso.funcionando %}Sim{% else %}Não{% endif %}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'rec_edit' recurso.pk %}"><i class="bi bi-pencil-square"></i></a> 
+                                    &nbsp 
+                                    <button class="btn btn-danger" onclick="openDeleteModal('{{ recurso.tipo }} - {{ recurso.codigo }}', '{% url 'rec_delete' recurso.pk %}')"><i class="bi bi-trash"></i></button>
+                                </td>
                             </tr>
                         {% endfor %}
                     `
@@ -188,12 +238,25 @@
                                 <td>{{ recurso.codigo }}</td>
                                 <td>{{ recurso.tipo }}</td>
                                 <td>{% if recurso.status %}Disponível{% else %}Indisponível{% endif %}</td>
-                                <td>Não</td>
+                                <td>{% if recurso.funcionando %}Sim{% else %}Não{% endif %}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'rec_edit' recurso.pk %}"><i class="bi bi-pencil-square"></i></a> 
+                                    &nbsp 
+                                    <button class="btn btn-danger" onclick="openDeleteModal('{{ recurso.tipo }} - {{ recurso.codigo }}', '{% url 'rec_delete' recurso.pk %}')"><i class="bi bi-trash"></i></button>
+                                </td>
                             </tr>
                         {% endfor %}
                     `
                 }
             });
+        }
+
+
+        function openDeleteModal(recursoInfo, deleteUrl) {
+            document.getElementById('recursoInfo').innerText = recursoInfo;
+            document.getElementById('confirmDelete').href = deleteUrl;
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
         }
 
     </script>

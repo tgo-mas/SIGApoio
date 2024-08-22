@@ -1,6 +1,9 @@
 from django.db import models
 from datetime import date
 from django.utils import timezone
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import User, PermissionsMixin
+from django.utils.translation import gettext_lazy as _
 
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, unique=True, primary_key=True)
@@ -15,8 +18,24 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=200)
     tipo = models.OneToOneField(TipoUsuario, on_delete=models.CASCADE)
     
+class User(AbstractBaseUser):
+    email = models.EmailField(_('email address'), unique=True)
+    first_name = models.CharField(_('first name'), max_length=150, blank=True)
+    last_name = models.CharField(_('last name'), max_length=150, blank=True)
+    is_active = models.BooleanField(_('active'), default=True)
+    is_admin = models.BooleanField(
+        _('admin status'),
+        default=False,
+        help_text=_(
+            'Designates whether the user can log into this admin site.'),
+    )
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+   
+    
     def __str__(self):
-        return f'{self.matricula} - {self.nome}'   # Mudei para retornar o número da matrícula
+        return f'{self.matricula} - {self.nome}' 
 
 class TipoRecurso(models.Model):
     tipo = models.CharField(max_length=100)
@@ -63,16 +82,27 @@ class Horario(models.Model):
     horaFim = models.TimeField(null=True, blank=True)
         
 class TipoLocal(models.Model):
-    tipo = models.CharField(max_length=50, unique=True, primary_key=True)
-    
+    SALA = 'SALA'
+    LABORATORIO = 'LAB'
+    AUDITORIO = 'AUD'
+    TIPOS = [
+        (SALA, 'Sala'),
+        (LABORATORIO, 'Laboratório'),
+        (AUDITORIO, 'Auditório'),
+    ]
+
+    tipo = models.CharField(max_length=50, choices=TIPOS, unique=True, primary_key=True)
+
     def __str__(self):
-        return self.tipo
+        return self.get_tipo_display()
+
 
 class Local(models.Model):   
-    nome = models.CharField(max_length=50, unique=True)
+    nome = models.CharField(max_length=50)
     bloco = models.CharField(max_length=10)
     capacidade = models.IntegerField()
     tipo = models.ForeignKey(TipoLocal, on_delete=models.DO_NOTHING)
+    reservado = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nome

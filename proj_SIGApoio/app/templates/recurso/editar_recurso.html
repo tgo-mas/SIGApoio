@@ -28,11 +28,11 @@
 
     </style>
 
-    <title>Cadastro de Local</title>
+    <title>Recurso | Editar</title>
 
     <div class="container">
-        <form action="{% url 'cad_local' %}" method="post" class="container-fluid" style="max-width: 40em;">
-            <h1>Cadastro de Local</h1>
+        <form method="post" class="container-fluid" style="max-width: 40em;">
+            <h1>Editar Recurso</h1>
             <div id='line1' class='line1'></div> </br>
             {% csrf_token %}
             {{ form.as_p }}
@@ -45,7 +45,7 @@
             {% endif %}
 
             <div id='line1' class='line1'></div></br>
-            <button id="but" name="submit" class="btn">Cadastrar</button>
+            <button id="but" name="submit" class="btn">Editar</button>
         </form>
     </div>
     

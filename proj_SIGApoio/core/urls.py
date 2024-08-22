@@ -7,5 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
     path('get_locais/', views.get_locais, name = "getLocais"),
-    path('success_page/', views.success_page, name = "success_page")
+    path('success_page/', views.success_page, name = "success_page"),
 ]

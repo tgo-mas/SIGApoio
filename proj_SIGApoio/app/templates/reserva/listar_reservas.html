@@ -84,14 +84,23 @@
             
         </div>
 
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Código</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Local</th>
                     <th scope="col">Responsável</th>
+                    <th scope="col" class="col-2">Ações</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -103,13 +112,46 @@
 
     </div>
 
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Você tem certeza que deseja excluir a reserva <span id="reservaInfo"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="confirmDelete" onClick="deleteReserva(event)" data-bs-dismiss="modal" class="btn btn-danger">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script type="text/javascript">
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
 
         $('.radios').change(()=>{
             var radio = $('input[name="flexRadioDefault"]:checked').val();
-            console.log(radio)
 
 
                 $.ajax({
@@ -150,7 +192,31 @@
         });
 
 
+        const deleteReserva = (event) => {
 
+            $.ajax({
+                type: 'DELETE',
+                url: event.target.href,
+                headers: {'X-CSRFToken': csrftoken},
+                success: (res) => {
+                    $('#flexRadioTodos1').change();
+                }
+            });
+        };
+
+        function openDeleteModal(event) {
+            const idReserva = event.target.id.split('_')[2];
+            const tipoReserva = event.target.id.split('_')[1] == 'S' ? 'Semanal' : 'Personalizada';
+            const url = $(`#${event.target.id}`).attr('delete_url')
+
+
+            $('#reservaInfo').html(`${tipoReserva} ${idReserva}`);
+            document.getElementById('confirmDelete').href = url;
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        }
+
+        $('#flexRadioTodos1').change();        
 
     </script>
     

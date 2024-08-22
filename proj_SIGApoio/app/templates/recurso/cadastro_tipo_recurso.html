@@ -33,6 +33,16 @@
     <div class="container">
         <form action="{% url 'cadastro-tipo-recurso' %}" method="post" class="container-fluid" style="max-width: 40em;">
             <h1>Cadastro de Tipo Recurso</h1>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
             <div id='line1' class='line1'></div> </br>
             {% csrf_token %}
             {{ form.as_p }}

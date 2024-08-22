@@ -1,6 +1,6 @@
 from django import forms
 from django.db import connection
-from .models import Recurso, TipoRecurso, Local, TipoLocal, Usuario, ReservaSemanal, ReservaDiaUnico, Chamado, Emprestimo, Horario, ReservaRecurso
+from .models import User, Recurso, TipoRecurso, Local, TipoLocal, Usuario, ReservaSemanal, ReservaDiaUnico, Chamado, Emprestimo, Horario, ReservaRecurso
 from django.forms.widgets import DateTimeInput
 
 color = 'color: black'
@@ -9,17 +9,19 @@ class_style_2 = 'form-control blue-text gray-back me-4'
 
 BLOCOS_CHOICES = [('A', 'Bloco A'), ('B', 'Bloco B'), ('C', 'Bloco C'), ('D', 'Bloco D'), ('Aud', 'Auditórios'), ('Lab', 'Laboratórios')]
 
+
+
+
 def get_usuario_choices():
     try:
         if 'app_usuario' in connection.introspection.table_names():
-            print('achou usuário')
             return [(usuario.matricula, usuario.nome) for usuario in Usuario.objects.all()]
         else:
+            print(f'Sem usuários cadastrados.')
             return []
-            print('nao achou usuário')
         
     except Exception as e:
-        print('deu erro')
+        print(f'Erro: {e.message} (app/forms.py 20)')
         return []
     
 class TipoRecursoForm(forms.Form, forms.ModelForm):
@@ -44,11 +46,6 @@ class RecursoForm(forms.Form, forms.ModelForm):
         widget=forms.Select(attrs={'class':'form-control', 'style':color})
     )
 
-    status = forms.ChoiceField(
-        choices=Recurso.STATUS_CHOICE,
-        widget=forms.Select(attrs={'class':'form-control', 'style':color})
-    )
-
     funcionando = forms.ChoiceField(
         choices=Recurso.FUNCIONANDO_CHOICE,
         widget=forms.Select(attrs={'class':'form-control', 'style':color})
@@ -56,7 +53,16 @@ class RecursoForm(forms.Form, forms.ModelForm):
 
     class Meta:
         model = Recurso
-        fields = ['codigo','tipo', 'status', 'funcionando']  
+        fields = ['codigo','tipo', 'funcionando']  
+    
+    def disable_fields_except_funcionando(self):
+        self.fields['codigo'].disabled = True
+        self.fields['tipo'].disabled = True
+
+        self.fields['codigo'].required = False
+        self.fields['tipo'].required = False
+
+        self.fields['funcionando'].disabled = False
 
 class ChamadoForm(forms.Form, forms.ModelForm):
     chamado = forms.CharField(
@@ -79,15 +85,12 @@ class ChamadoForm(forms.Form, forms.ModelForm):
         fields = ['chamado', 'reserva']
 
 class LocalForm(forms.ModelForm):
-    tipo = forms.ModelChoiceField(
-        queryset=TipoLocal.objects.all(),
-        label='Tipo de Local',
-        widget=forms.Select(attrs={'class': 'form-control', 'style': color})
-    )
+    local_id = forms.CharField(widget=forms.HiddenInput(), required=False)  # Campo oculto para o ID
 
     class Meta:
-        model= Local
-        fields= "__all__"
+        model = Local
+        fields = ['nome', 'bloco', 'capacidade', 'tipo']
+
         
 class ReservaForm(forms.ModelForm, forms.Form):
     descricao = forms.CharField(
@@ -106,7 +109,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
         ],
         widget=forms.SelectMultiple(
             attrs={
-                'class': 'class_style_1'
+                'class': class_style_1
             }
         )
     )
@@ -122,7 +125,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
         ],
         widget=forms.SelectMultiple(
             attrs={
-                'class': 'class_style_1'
+                'class': class_style_1
             }
         )
     )
@@ -141,7 +144,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
         choices=BLOCOS_CHOICES,
         widget=forms.Select(
             attrs={
-                'class': 'class_style_1'
+                'class': class_style_1
             }
         )
     )
@@ -151,7 +154,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
         choices=get_usuario_choices(),
         widget=forms.Select(
             attrs={
-                'class': 'class_style_1'
+                'class': class_style_1
             }
         )
     )    
@@ -160,7 +163,7 @@ class ReservaForm(forms.ModelForm, forms.Form):
         label="Local",
         widget=forms.Select(
             attrs={
-                'class': 'class_style_1'
+                'class': class_style_1
             }
         )
     )
@@ -177,9 +180,8 @@ class ReservaForm(forms.ModelForm, forms.Form):
             try:
                 self.fields['local'].queryset = \
                     Local.objects.all().order_by('nome')
-                print(self.fields['local'].queryset)
             except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty Horarios queryset
+                pass 
         elif self.instance.pk:
             self.fields['local'].queryset = Local.objects.none()
 
@@ -216,7 +218,7 @@ class ReservaDiaForm(forms.ModelForm, forms.Form):
         choices=[('unico', 'Única'), ('semana', 'Semanal'), ('mes', 'Mensal')],
         widget=forms.Select(
             attrs={
-                'class': 'class_style_1'
+                'class': class_style_1
             },
         )
     )
@@ -235,7 +237,7 @@ class ReservaDiaForm(forms.ModelForm, forms.Form):
         choices=BLOCOS_CHOICES,
         widget=forms.Select(
             attrs={
-                'class': 'class_style_1'
+                'class': class_style_1
             }
         )
     )

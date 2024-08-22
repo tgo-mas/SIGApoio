@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<body> 
+  <form action="{% url 'cadastro_usuario'%}" method="post"> 
+    {% csrf_token %}
+    <input type="text" placeholder="Digite seu usuário" name="username">
+    <br>
+    <input type="email" placeholder="Digite seu Email" name="email">
+    <input type="email" placeholder="Confirme seu Email" name="confirm_email">
+    <br>
+    <input type="password" placeholder="Digite sua Senha" name="password">
+    <input type="password" placeholder="Confirme sua senha" name="confirm_password">
+    <br>
+    <label for="tipo_usuario">Escolha o tipo de usuário: </label>
+    <select name="tipo_usuario" id="tipo_usuario">
+      <option value="bolsista">Bolsista</option>
+      <option value="servidor">Servidor</option>
+    </select>
+    </label>
+    <br>
+    <input type="submit" value="Cadastrar">
+    <li><a href="{% url 'login' %}"> Efetue o login</a></li>
+
+
+
+
+  </form>
+
+
+{% endblock content %}
+</body>
+
