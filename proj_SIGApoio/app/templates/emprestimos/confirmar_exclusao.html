@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Confirmar Exclusão</h1>
+        <p>Tem certeza de que deseja excluir o empréstimo de {{ emprestimo.idRecurso.tipo.tipo }} {{ emprestimo.idRecurso.codigo }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Excluir</button>
+            <a href="{% url 'listar_emprestimos' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,8 +1,10 @@
 from django.db import models
 from datetime import date
+from django.utils import timezone
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import User, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
+
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, unique=True, primary_key=True)
     
@@ -30,12 +32,10 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    
-    
-    
+   
     
     def __str__(self):
-        return self.nome
+        return f'{self.matricula} - {self.nome}' 
 
 class TipoRecurso(models.Model):
     tipo = models.CharField(max_length=100)
@@ -58,14 +58,20 @@ class Recurso(models.Model):
         return self.tipo.tipo + ' ' + str(self.codigo)
 
 class Emprestimo(models.Model):
-    horaSaida = models.DateTimeField(auto_now=True)
-    horaEntrada = models.DateTimeField(null=True, blank=True)
+    horaSaida = models.DateTimeField(default=timezone.now)  # Define a horaSaida como o momento atual quando o empréstimo é criado
+    horaEntrada = models.DateTimeField(null=True, blank=True)  # Será preenchido ao registrar a devolução
     idRecurso = models.ForeignKey(Recurso, on_delete=models.DO_NOTHING)
-    matBolsista = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING) 
+    matBolsista = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
     matUsuario = models.ForeignKey(Usuario, related_name='%(class)s_usuario', on_delete=models.DO_NOTHING, default='')
-    
+    devolvido = models.BooleanField(default=False)
+
     def __str__(self):
-        return self.idRecurso.tipo.tipo + str(self.idRecurso.codigo)
+        return f"{self.idRecurso.tipo.tipo} {self.idRecurso.codigo}"
+
+    def registrar_devolucao(self):
+        self.horaEntrada = timezone.now()  # Define a horaEntrada como o momento atual ao registrar a devolução
+        self.devolvido = True
+        self.save()
 
 class Horario(models.Model): 
     SEMANA = ((0, 'Domingo'), (1, 'Segunda'), (2,'Terça'), (3, 'Quarta'), (4, 'Quinta'), (5, 'Sexta'), (6, 'Sábado'))
@@ -74,7 +80,7 @@ class Horario(models.Model):
     dia = models.IntegerField(choices=SEMANA, default=True)
     horaInicio = models.TimeField(null=True, blank=True)
     horaFim = models.TimeField(null=True, blank=True)
-    
+        
 class TipoLocal(models.Model):
     SALA = 'SALA'
     LABORATORIO = 'LAB'
@@ -128,3 +134,13 @@ class Chamado(models.Model):
 
     def __str__(self):
         return self.reserva.local.nome + ' ' + self.reserva.matSolicitante.nome
+
+class ReservaRecurso(models.Model):
+    idRecurso = models.ForeignKey(Recurso, on_delete=models.CASCADE)
+    docente = models.ForeignKey(Usuario, limit_choices_to={'tipo__tipo': 'Docente'}, on_delete=models.CASCADE)
+    dia = models.DateField()
+    horaInicio = models.TimeField()
+    horaFim = models.TimeField()
+
+    def __str__(self):
+        return f'Reserva {self.idRecurso} para {self.docente} em {self.dia} das {self.horaInicio} às {self.horaFim}'
