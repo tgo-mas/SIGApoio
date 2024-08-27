@@ -1,5 +1,4 @@
-
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
@@ -14,6 +13,10 @@ from .forms import LocalForm, RecursoForm, TipoRecursoForm, ReservaForm, Chamado
 from .models import TipoRecurso, Recurso, Local, ReservaSemanal, ReservaDiaUnico, Usuario, Horario, TipoLocal, Chamado, Emprestimo, ReservaRecurso
 from .bo.horarios import converter_horarios, converter_horarios_dia, get_horario_at, converter_horarios_back
 
+from django.contrib.auth.views import (
+    PasswordResetCompleteView,
+    PasswordResetConfirmView
+)
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from datetime import datetime, timedelta
@@ -24,33 +27,24 @@ from rolepermissions.roles import assign_role
 import json
 
 
-# @require_GET
+@require_GET
 def home(request):
     return render(request,'index.html')  
 
-
-from django.contrib.auth.views import (
-    PasswordResetCompleteView,
-    PasswordResetConfirmView
-)
-from django.shortcuts import redirect, render
-
-
-
-
+@require_http_methods(["GET", "POST"])
 def cadastro_usuario(request):
     if autenticar_permissao(request,'cadastrar_usuario') is not True:
         return autenticar_permissao(request,'cadastrar_usuario')
     if request.method == "GET":
         return render(request, 'registration/registration_form.html')
-    else:
+    elif request.method== "POST":
         username= request.POST.get ('username')
         email_cad= request.POST.get ('email')
         confirma_email= request.POST.get('confirm_email')
         senha = request.POST.get ('password')
         confirma_senha = request.POST.get ('confirm_password') 
         tipo_usuario = request.POST.get ('tipo_usuario')
-        print(tipo_usuario)
+        #print(tipo_usuario)
         
         user = User.objects.filter(username=username).first()
         email = User.objects.filter(email=email_cad).first()
@@ -64,37 +58,41 @@ def cadastro_usuario(request):
         if confirma_email != email_cad:
             return HttpResponse("E-mails diferentes")
         else:
-            user = User.objects.create_user(username= username, email=email_cad, password=senha)
+            user = User.objects.create_user(username=username, email=email_cad, password=senha)
             user.save()
             assign_role(user,tipo_usuario)
             return HttpResponseRedirect(reverse('home'))
-            
+
+@require_http_methods(["GET","POST"])
 def login(request):
     if request.method== "GET":
         return render(request, 'login.html')
-    else:
+    elif request.method== "POST":
         username = request.POST.get('username')
         senha =  request.POST.get('password')
-        user = User.objects.filter(username=username).first()
-        user= authenticate(username= username, password= senha)
+        user=User.objects.filter(username=username).exists()
         if user:
-            login_django(request, user)
-            return HttpResponse('autenticado')
+            user= authenticate(username= username, password= senha)
+            if user:
+                login_django(request, user)
+                return HttpResponse('autenticado')
+            else:
+                #print("n achou")
+                return HttpResponse('Não tá autenticado')
         else:
-            print("n achou")
-            return HttpResponse('Não tá autenticado')
+            return HttpResponse('Não existe')
 
                 
 
 
 
-# @require_POST
+@require_http_methods(["GET", "POST"])
 def cad_local(request):
     if autenticar_permissao(request,'cadastrar_local') is not True:
         return autenticar_permissao(request,'cadastrar_local')
-    if request.method == 'POST':
+    if request.method == 'GET':
         form = LocalForm()
-    else:
+    elif request.method== "POST":
         form = LocalForm(request.POST)
 
         # Verificar se o local já existe
@@ -114,17 +112,17 @@ def cad_local(request):
 
 
 
-# @require_GET
+@require_GET
 def success_page(request):
     return render(request, 'local/success_page.html')
 
-# @require_POST
+@require_http_methods(["GET", "POST"])
 def cadastro_recurso(request):
     if autenticar_permissao(request,'cadastrar_recurso') is not True:
         return autenticar_permissao(request,'cadastrar_recurso')
-    if request.method != 'POST':
+    if request.method == 'GET':
         form = RecursoForm()
-    else:
+    elif request.method == "POST":
         form = RecursoForm(request.POST)
 
         for i in Recurso.objects.all():
@@ -140,14 +138,13 @@ def cadastro_recurso(request):
     context = {'form': form}
     return render(request, 'recurso/cadastro_recurso.html', context)
 
-# @require_POST
-
+@require_http_methods(["GET", "POST"])
 def cadastro_tipo_recurso(request):
     if autenticar_permissao(request,'cadastrar_tipo_recurso') is not True:
         return autenticar_permissao(request,'cadastrar_tipo_recurso')
-    if request.method != 'POST':
+    if request.method == 'GET':
         form = TipoRecursoForm()
-    else:
+    elif request.method == "POST":
         form = TipoRecursoForm(request.POST)
         for i in TipoRecurso.objects.all():
             if str(i).lower() == form.data['tipo'].lower():
@@ -162,9 +159,7 @@ def cadastro_tipo_recurso(request):
     context = {'form':form}
     return render(request, 'recurso/cadastro_tipo_recurso.html', context)
 
-# @require_POST
-
-
+@require_http_methods(["GET","POST"])
 def reserva_recurso(request):
     if autenticar_permissao(request,'reservar_recurso') is not True:
         return autenticar_permissao(request,'reservar_recurso')
@@ -175,12 +170,12 @@ def reserva_recurso(request):
         if reserva_form.is_valid():
             reserva_form.save()
             return redirect('success_page') 
-    else:
+    elif request.method == "GET":
         reserva_form = ReservaForm()
 
     return render(request, 'recurso/reserva_recurso.html', {'reserva_form': reserva_form, 'tipos_recursos': tipos_recursos})
 
-# @require_GET
+@require_GET
 def listar_emprestimos(request):
 
     if autenticar_permissao(request,'listar_emprestimos') is not True:
@@ -212,7 +207,7 @@ def listar_emprestimos(request):
     }
     return render(request, 'emprestimos/lista_emprestimos.html', context)
 
-# @require_GET
+@require_GET
 def listar_local(request):
     if autenticar_permissao(request,'listar_local') is not True:
         return autenticar_permissao(request,'listar_local')
@@ -247,13 +242,15 @@ def verificar_reservas(local):
     """ Verifica se um local está reservado por alguma reserva. """
     return ReservaSemanal.objects.filter(local=local).exists() or ReservaDiaUnico.objects.filter(local=local).exists()
 
+@require_http_methods(["GET","POST"])
 @login_required(login_url='/usuarios/login/')
 def editar_local(request, pk):
     local = get_object_or_404(Local, pk=pk)
     
     # Verifica se o local está reservado antes de permitir a edição
-    if verificar_reservas(local):
-        return HttpResponseForbidden("Não é possível editar este local porque está sendo reservado.")
+    if isinstance(local, Local):
+        if verificar_reservas(local):
+            return HttpResponseForbidden("Não é possível editar este local porque está sendo reservado.")
 
     if request.method == 'POST':
         form = LocalForm(request.POST, instance=local)
@@ -287,8 +284,7 @@ def remover_local(request, pk):
     local.delete()
     return redirect('listar_local')
 
-# @require_GET
-
+@require_GET
 def listar_recursos(request):
     if autenticar_permissao(request,'listar_recursos') is not True:
         return autenticar_permissao(request,'listar_recursos')
@@ -301,19 +297,19 @@ def listar_recursos(request):
     context = {'recursos':recursos, 'tipos':tipos, 'recursosDisponiveis':recursos_disponiveis, 'recursosIndisponiveis':recursos_indisponiveis, 'recursosNaoFunciona':recursos_nao_funciona, 'recursosFunciona':recursos_funciona}
     return render(request, 'recurso/listar_recurso.html', context)
 
-# @require_GET
+@require_GET
 def tipo_reserva(request):
     return render(request, 'reserva/tipoReserva.html')
 
-# @require_POST
+@require_http_methods(["GET","POST"])
 def cadastro_reserva_semanal(request):
     if autenticar_permissao(request,'cadastro_reserva_semanal') is not True:
         return autenticar_permissao(request,'cadastro_reserva_semanal')
-    if request.method != 'POST':
+    if request.method == 'GET':
         form = ReservaForm()
         context = {'form': form}
         return render(request, 'reserva/cadastroReserva.html', context)
-    else:
+    elif request.method == "POST":
         req = request.POST
         form = ReservaForm()
         context = {'form': form, 'message': 'Reserva cadastrada com sucesso!'}
@@ -333,16 +329,15 @@ def cadastro_reserva_semanal(request):
             context = {'form': form, 'message': 'Erro no cadastro da reserva', 'error': True}
             return render(request, 'reserva/cadastroReserva.html', context)
     
-# @require_POST
-
+@require_http_methods(["GET","POST"])
 def cadastro_reserva_dia(request):
     if autenticar_permissao(request,'cadastro_reserva_dia') is not True:
         return autenticar_permissao(request,'cadastro_reserva_dia')
-    if request.method != 'POST':
+    if request.method == 'GET':
         form = ReservaDiaForm()
         context = {'form': form }
         return render(request, 'reserva/cadastroReservaDia.html', context)
-    else:
+    elif request.method== "POST":
         req = request.POST
         form = ReservaDiaForm()
         context = {'form': form, 'message': "Reserva cadastrada com sucesso!"}
@@ -389,21 +384,22 @@ def cadastro_reserva_dia(request):
             return render(request, 'reserva/cadastroReservaDia.html', context)
         except Exception as error:
             context = {'form': form, 'message': 'Erro no cadastro da reserva', 'error': True}
-            print(error)
+            #print(error)
             return render(request, 'reserva/cadastroReservaDia.html', context)
     
-# @require_http_methods(['DELETE'])    
+@require_http_methods(['DELETE'])    
 def delete_reserva_semanal(request, id):
     reserva = ReservaSemanal.objects.get(pk=id)
     reserva.delete()
     return HttpResponseRedirect(reverse('listar-reservas'))
       
-# @require_http_methods(['DELETE'])    
+@require_http_methods(['DELETE'])    
 def delete_reserva_dia(request, id):
     reserva = ReservaDiaUnico.objects.get(pk=id)
     reserva.delete()
     return HttpResponseRedirect(reverse('listar-reservas'))
 
+@require_http_methods(["GET","POST"])
 def editar_reserva_semanal(request, id):
     reserva = ReservaSemanal.objects.get(pk=id)
     
@@ -429,6 +425,7 @@ def editar_reserva_semanal(request, id):
         }
         return render(request, 'reserva/editarReservaSemanal.html', context=context)
 
+@require_http_methods(["GET","POST"])
 def editar_reserva_dia(request, id):
     reserva = ReservaDiaUnico.objects.get(pk=id)
     
@@ -451,8 +448,8 @@ def editar_reserva_dia(request, id):
         }
         return render(request, 'reserva/editarReservaDia.html', context=context)
 
-# @require_POST
-@csrf_exempt
+#@require_POST
+#@csrf_exempt
 def get_locais(request):
     data = json.loads(request.body)
     horarios = data['horarios']
@@ -471,11 +468,11 @@ def get_locais(request):
         capacidade__gte=pessoas,
         bloco=bloco
     )
-    print(locais_final)
+    #print(locais_final)
     context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)
 
-# @require_POST
+@require_http_methods(["GET","POST"])
 def efetuar_chamado(request):
     if autenticar_permissao(request,'efetuar_chamados') is not True:
         return autenticar_permissao(request,'efetuar_chamados')
@@ -491,7 +488,7 @@ def efetuar_chamado(request):
     context = {'form': form}
     return render(request, 'reserva/efetuar_chamado.html', context)
 
-# @require_GET
+@require_GET
 def listar_reservas(request):
     if autenticar_permissao(request,'listar_reservas') is not True:
         return autenticar_permissao(request,'listar_reservas')
@@ -506,15 +503,14 @@ def listar_reservas(request):
 
     return render(request, "reserva/listar_reservas.html", context)
 
-# @require_GET
+@require_GET
 def filtros_reserva(request):
     filtro = request.GET.get('filtro')
     context = {'filtro': filtro}
 
     return render(request, "reserva/filtros_reserva.html", context)
 
-# @require_GET
-
+@require_GET
 def filtrar_reservas(request):
     filtro_tipo = request.GET.get('filtro_tipo')
     filtro_local = request.GET.get('filtro_local')
@@ -535,8 +531,8 @@ def filtrar_reservas(request):
 
     return render(request, "reserva/lista_filtrada.html", context)
 
-# @require_GET
-@csrf_exempt
+@require_GET
+#@csrf_exempt
 def reserva_details(request):
     reserva_detail = None
     
@@ -552,15 +548,14 @@ def reserva_details(request):
     return render(request, 'reserva/reserva_details.html', context)
     
 
-# @require_POST
-@csrf_exempt
+@require_http_methods(["GET","POST"])
+#@csrf_exempt
 def get_locais_dia(request):
     data = json.loads(request.body)
     dia = data['diaInicio']
     diaFim = data['diaFim']
     bloco = data['bloco']
     pessoas = data['pessoas']
-    print(dia, diaFim)
     horarios_final = converter_horarios_dia(dia, diaFim)
     
     if horarios_final is None:      ## se horarios_final for None, pule a verificação com os horarios da semana
@@ -586,6 +581,7 @@ def get_locais_dia(request):
     context = {'locais':locais_final}
     return render(request, 'reserva/local_option.html', context)
 
+@require_http_methods(["GET","POST"])
 def cadastrar_emprestimo(request):
     if request.method == 'POST':
         emprestimo_form = EmprestimoForm(request.POST)
@@ -596,15 +592,13 @@ def cadastrar_emprestimo(request):
             novo_emprestimo.save()
             return redirect('listar_emprestimos')
         else:
-            print("Formulário inválido")
+            messages.error(request, "Formulário inválido")
     else:
         emprestimo_form = EmprestimoForm()
 
     return render(request, 'recurso/reserva_recurso.html', {'reserva_form': emprestimo_form})
 
-
-from django.contrib import messages
-
+@require_http_methods(["GET","POST"])
 def cadastrar_reserva_recurso(request):
     if request.method == 'POST':
         form = ReservaRecursoForm(request.POST)
@@ -634,6 +628,7 @@ def cadastrar_reserva_recurso(request):
     
     return render(request, 'recurso/cadastro_reserva_recurso.html', {'reserva_form': form})
 
+@require_http_methods(["GET","POST"])
 def excluir_emprestimo(request, emprestimo_id):
     emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
     if request.method == 'POST':
@@ -642,7 +637,7 @@ def excluir_emprestimo(request, emprestimo_id):
         return redirect('listar_emprestimos')  # Ajuste o nome da URL para corresponder ao definido em urls.py
     return render(request, 'emprestimos/confirmar_exclusao.html', {'emprestimo': emprestimo})
 
-
+@require_http_methods(["GET","POST"])
 def editar_emprestimo(request, emprestimo_id):
     emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
     if request.method == 'POST':
@@ -655,19 +650,21 @@ def editar_emprestimo(request, emprestimo_id):
         form = EmprestimoForm(instance=emprestimo)
     return render(request, 'emprestimos/editar_emprestimo.html', {'form': form})
 
-
+@require_POST
 def registrar_devolucao(request, emprestimo_id):
     emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
     if not emprestimo.devolvido:  # Verifica se o empréstimo ainda não foi devolvido
         emprestimo.registrar_devolucao()  # Chama o método que atualiza horaEntrada e devolvido
     return redirect('listar_emprestimos')  # Redireciona para a página de listagem de empréstimos
 
+@require_http_methods(["GET","POST"])
 def recurso_delete(request, id):
     recurso = Recurso.objects.get(pk=id)
     recurso.delete()
     messages.success(request, 'Recurso excluído com sucesso!')
     return redirect('listar-recurso')
 
+@require_http_methods(["GET","POST"])
 def recurso_edit(request, id):
     recurso = Recurso.objects.get(pk=id)
     if request.method == 'POST':
@@ -682,6 +679,7 @@ def recurso_edit(request, id):
         form.disable_fields_except_funcionando()
     return render(request, 'recurso/editar_recurso.html', {'form': form})
 
+@require_http_methods(["GET","POST"])
 def autenticar_permissao(request, permissao):
     if request.user.is_authenticated is not True:
         return HttpResponse("Você precisa estar logado para acessar esta página.")

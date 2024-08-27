@@ -1,0 +1,6 @@
+[run]
+source = .
+
+omit=
+    ./.venv/*, ./env/*, */migrations/*, manage.py, */tests/*, ajustar_caminho_coverage.py , */templatetags/*
+

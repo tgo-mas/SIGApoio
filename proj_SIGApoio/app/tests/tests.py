@@ -1,17 +1,19 @@
 from django.test import TestCase
-
-from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 from django.contrib.auth.models import User
 from json import dumps
 from populate_horarios import criar_horarios
+from rolepermissions.roles import assign_role
+from django.contrib.messages import get_messages 
+
 
 class TestFront(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = User.objects.create_user(username='usuario_de_teste', password='pass')
+        assign_role(self.user, 'servidor')
         self.client.login(username='usuario_de_teste', password='pass')
         
                
@@ -147,7 +149,8 @@ class TestFront(TestCase):
 
     def test_cadastro_tipo_recurso_post(self):
         res = self.client.post(reverse('cadastro-tipo-recurso'), data={'tipo':'HDMI'})
-        self.assertEqual(res.status_code, status.HTTP_302_FOUND)
+        messages = list(get_messages(res.wsgi_request))
+        self.assertTrue(any(msg.message == 'Tipo de recurso cadastrado com sucesso!' for msg in messages))
 
     def test_get_locais_post(self):
         res = self.client.post(reverse('getLocais'), 
@@ -211,16 +214,4 @@ class TestFront(TestCase):
                 'local': 'B1',
                 'matSolicitante':'202401'
             })
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-
-    def test_recurso_delete_get(self):
-        res = self.client.post(reverse('listar-recurso'), data={'id':1})
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-    
-    def test_recurso_edit_get(self):
-        res = self.client.get(reverse('listar-recurso'))
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-    
-    def test_recurso_edit_post(self):
-        res = self.client.post(reverse('listar-recurso'), data={'id':1})
         self.assertEqual(res.status_code, status.HTTP_200_OK)
