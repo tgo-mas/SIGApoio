@@ -5,10 +5,9 @@ from rest_framework.test import APIClient
 from django.contrib.auth.models import User
 from rolepermissions.roles import assign_role
 from json import dumps
-from populate_horarios import criar_horarios
 from django.contrib.messages import get_messages 
-from app.models import Usuario, TipoUsuario, TipoLocal, Local
-from app.forms import LocalForm
+from app.models import Usuario, TipoUsuario, TipoLocal, Local, ReservaSemanal, Horario
+from app.forms import LocalForm, ReservaForm
 
 
 class TestEmprestimo(TestCase):
@@ -57,10 +56,6 @@ class TestEmprestimo(TestCase):
         res = self.client.get(reverse('editar_local', kwargs={'pk': 1}))
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
 
-    #def test_editar_local_get(self):
-    #    res = self.client.get(reverse('editar_local', kwargs={'pk': self.local1.pk}))
-    #    self.assertEqual(res.status_code, status.HTTP_200_OK)
-
     def test_editar_local_post(self):
         self.local1 = Local.objects.create(
             nome='Local 1',
@@ -78,8 +73,28 @@ class TestEmprestimo(TestCase):
         self.local1.refresh_from_db()
         self.assertEqual(self.local1.nome, 'Local 2')
 
+    
+    def test_cadastro_reserva_semanal_get(self):
+        # Testando o carregamento da página de cadastro com uma requisição GET
+        response = self.client.get(reverse('cad_reserva_semanal'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.context['form'], ReservaForm)
 
-#    'listar_local'),
-#    'editar_local'),
-#    'remover_local'),
-#    'cad_local'),
+    def test_cadastro_reserva_semanal_post_sucesso(self):
+        self.local1 = Local.objects.create(nome='local teste 1', bloco='A', capacidade=50, tipo=self.tipo_local)
+        self.horario = Horario.objects.create(id='3M1', dia=2)
+        data = {
+            'descricao': 'Reserva Teste',
+            'matSolicitante': self.usuario2.matricula,
+            'local': self.local1.pk,
+            'dias': ['2'],
+            'horarios': [self.horario.id],
+        }
+        res = self.client.post(reverse('cad_reserva_semanal'), data)
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, 'Reserva cadastrada com sucesso!')
+        
+        reserva = ReservaSemanal.objects.get(descricao='Reserva Teste')
+        self.assertEqual(reserva.matSolicitante, self.usuario2)
+        self.assertEqual(reserva.local, self.local1)
+
