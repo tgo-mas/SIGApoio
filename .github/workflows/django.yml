@@ -47,6 +47,10 @@ jobs:
         pip install -r requirements.txt 
     - name: Run Tests with coverage
       run: |
+        python manage.py test
+    
+    - name: Run coverage
+      run: |
         coverage run manage.py test
         coverage xml
         python ajustar_caminho_coverage.py
