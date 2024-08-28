@@ -553,10 +553,10 @@ def reserva_details(request):
 def get_locais_dia(request):
     data = json.loads(request.body)
     dia = data['diaInicio']
-    diaFim = data['diaFim']
+    dia_fim = data['diaFim']
     bloco = data['bloco']
     pessoas = data['pessoas']
-    horarios_final = converter_horarios_dia(dia, diaFim)
+    horarios_final = converter_horarios_dia(dia, dia_fim)
     
     if horarios_final is None:      ## se horarios_final for None, pule a verificação com os horarios da semana
         lista_reservas = []
@@ -567,7 +567,7 @@ def get_locais_dia(request):
         lista_reservas = list(reservas_filt)
     
     lista_reservas += list(ReservaDiaUnico.objects.filter(
-                          diaHoraInicio__range=[dia, diaFim]
+                          diaHoraInicio__range=[dia, dia_fim]
                       ))
     
     locais_ocupados = map(lambda reserva: reserva.local, lista_reservas)
@@ -603,18 +603,17 @@ def cadastrar_reserva_recurso(request):
     if request.method == 'POST':
         form = ReservaRecursoForm(request.POST)
         if form.is_valid():
-            idRecurso = form.cleaned_data['idRecurso']
-            docente = form.cleaned_data['docente']
+            id_recurso = form.cleaned_data['idRecurso']
             dia = form.cleaned_data['dia']
-            horaInicio = form.cleaned_data['horaInicio']
-            horaFim = form.cleaned_data['horaFim']
+            hora_inicio = form.cleaned_data['horaInicio']
+            hora_fim = form.cleaned_data['horaFim']
 
             # Verifica se já existe uma reserva com os mesmos parâmetros
             reserva_existente = ReservaRecurso.objects.filter(
-                idRecurso=idRecurso,
+                idRecurso=id_recurso,
                 dia=dia,
-                horaInicio=horaInicio,
-                horaFim=horaFim
+                horaInicio=hora_inicio,
+                horaFim=hora_fim
             ).exists()
 
             if reserva_existente:

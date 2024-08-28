@@ -7,6 +7,7 @@ from json import dumps
 from populate_horarios import criar_horarios
 from rolepermissions.roles import assign_role
 from django.contrib.messages import get_messages 
+from app.bo.horarios import converter_horarios_back, get_str_horarios
 
 
 class TestFront(TestCase):
@@ -215,3 +216,45 @@ class TestFront(TestCase):
                 'matSolicitante':'202401'
             })
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+class TestBO(TestCase):
+    def test_converter_horarios_back(self):
+        horarios = ['2A', '2B', '3A', '3C', '5B']
+        resultado = converter_horarios_back(horarios)
+        
+        self.assertEqual(resultado['dias'], ['2', '3', '5'])
+        
+        self.assertEqual(resultado['horarios'], ['A', 'B', 'C'])
+        
+        horarios_repetidos = ['2A', '2A', '3B', '3B', '5C']
+        resultado_repetidos = converter_horarios_back(horarios_repetidos)
+        
+        self.assertEqual(resultado_repetidos['dias'], ['2', '3', '5'])
+        
+        self.assertEqual(resultado_repetidos['horarios'], ['A', 'B', 'C'])
+
+    def test_get_str_horarios(self):
+        horarios = ['2A', '2B', '3A', '3C', '5B']
+        resultado = get_str_horarios(horarios)
+        
+        self.assertEqual(resultado, '235ABC')
+        
+        horarios_repetidos = ['2A', '2A', '3B', '3B', '5C']
+        resultado_repetidos = get_str_horarios(horarios_repetidos)
+        
+        self.assertEqual(resultado_repetidos, '235ABC')
+
+        horarios_unico = ['2A']
+        resultado_unico = get_str_horarios(horarios_unico)
+        
+        self.assertEqual(resultado_unico, '2A')
+        
+        horarios_consecutivos = ['2A', '3A', '4A']
+        resultado_consecutivos = get_str_horarios(horarios_consecutivos)
+        
+        self.assertEqual(resultado_consecutivos, '234A')
+
+        horarios_dias_iguais = ['2A', '2B', '2C']
+        resultado_dias_iguais = get_str_horarios(horarios_dias_iguais)
+        
+        self.assertEqual(resultado_dias_iguais, '2ABC')

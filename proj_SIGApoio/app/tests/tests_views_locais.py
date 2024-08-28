@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 from rolepermissions.roles import assign_role
 from json import dumps
 from django.contrib.messages import get_messages 
-from app.models import Usuario, TipoUsuario, TipoLocal, Local, ReservaSemanal, Horario
-from app.forms import LocalForm, ReservaForm
+from app.models import Usuario, TipoUsuario, TipoLocal, Local, ReservaSemanal, Horario, ReservaDiaUnico
+from app.forms import LocalForm, ReservaForm, ReservaDiaForm
 
 
 class TestEmprestimo(TestCase):
@@ -75,9 +75,8 @@ class TestEmprestimo(TestCase):
 
     
     def test_cadastro_reserva_semanal_get(self):
-        # Testando o carregamento da página de cadastro com uma requisição GET
         response = self.client.get(reverse('cad_reserva_semanal'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.context['form'], ReservaForm)
 
     def test_cadastro_reserva_semanal_post_sucesso(self):
@@ -91,10 +90,56 @@ class TestEmprestimo(TestCase):
             'horarios': [self.horario.id],
         }
         res = self.client.post(reverse('cad_reserva_semanal'), data)
-        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertContains(res, 'Reserva cadastrada com sucesso!')
         
         reserva = ReservaSemanal.objects.get(descricao='Reserva Teste')
         self.assertEqual(reserva.matSolicitante, self.usuario2)
         self.assertEqual(reserva.local, self.local1)
 
+    def test_cadastro_reserva_dia_unico_get(self):
+        response = self.client.get(reverse('cad_reserva_dia'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.context['form'], ReservaDiaForm)
+
+    def test_cadastro_reserva_dia_unico_post(self):
+        self.local1 = Local.objects.create(nome='local teste 1', bloco='A', capacidade=50, tipo=self.tipo_local)
+        data = {
+            'descricao': 'Reserva Única',
+            'matSolicitante': self.usuario2.matricula,
+            'local': self.local1.pk,
+            'diaHoraInicio': '2024-08-30T14:00',
+            'diaHoraFim': '2024-08-30T16:00',
+            'repeticao': 'unico'
+        }
+        response = self.client.post(reverse('cad_reserva_dia'), data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(ReservaDiaUnico.objects.filter(descricao='Reserva Única').exists())
+
+    def test_cadastro_reserva_dia_unico_semana_post(self):
+        self.local1 = Local.objects.create(nome='local teste 1', bloco='A', capacidade=50, tipo=self.tipo_local)
+        data = {
+            'descricao': 'Reserva Única',
+            'matSolicitante': self.usuario2.matricula,
+            'local': self.local1.pk,
+            'diaHoraInicio': '2024-08-30T14:00',
+            'diaHoraFim': '2024-08-30T16:00',
+            'repeticao': 'semana'
+        }
+        response = self.client.post(reverse('cad_reserva_dia'), data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(ReservaDiaUnico.objects.filter(descricao='Reserva Única').exists())
+
+    def test_cadastro_reserva_dia_unico_mes_post(self):
+        self.local1 = Local.objects.create(nome='local teste 1', bloco='A', capacidade=50, tipo=self.tipo_local)
+        data = {
+            'descricao': 'Reserva Única',
+            'matSolicitante': self.usuario2.matricula,
+            'local': self.local1.pk,
+            'diaHoraInicio': '2024-08-30T14:00',
+            'diaHoraFim': '2024-08-30T16:00',
+            'repeticao': 'mes'
+        }
+        response = self.client.post(reverse('cad_reserva_dia'), data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(ReservaDiaUnico.objects.filter(descricao='Reserva Única').exists())
